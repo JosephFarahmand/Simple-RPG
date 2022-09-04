@@ -49,7 +49,7 @@ public class Interactable : MonoBehaviour
 
     private void OnValidate()
     {
-        if(interactionTransform == null)
+        if (interactionTransform == null)
         {
             interactionTransform = transform;
         }
