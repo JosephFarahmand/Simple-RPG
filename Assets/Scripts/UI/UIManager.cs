@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public InventoryDialog inventoryDialog;
+    public InventoryPage inventoryDialog;
 
     private void Update()
     {
