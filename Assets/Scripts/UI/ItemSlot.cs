@@ -4,12 +4,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public abstract class ItemSlot : MonoBehaviour
 {
-    [SerializeField] private Image itemIcon;
+    [SerializeField] protected Image itemIcon;
     [SerializeField] private Image itemBackground;
     [SerializeField] private Image itemFrame;
     [SerializeField] private Button slotButton;
 
     public Item slotItem { get; protected set; }
+    public bool HasItem { get; private set; }
 
     public virtual void SetValue(Item item, bool enableButton = true)
     {
@@ -33,4 +34,10 @@ public abstract class ItemSlot : MonoBehaviour
     }
 
     protected abstract void OnButtonClicked();
+
+    public void SetActive(bool value)
+    {
+        itemIcon.enabled = value;
+        HasItem = value;
+    }
 }

@@ -46,7 +46,7 @@ public class EquipmentManager : MonoBehaviour
         // An item has been equipped so we trigger the callback
         onEquipmentChanged?.Invoke(newItem, oldItem);
 
-        SetEquipmentBlendShapes(newItem, 100);
+        //SetEquipmentBlendShapes(newItem, 100);
 
         // Insert the item into the slot
         currentEquipment[slotIndex] = newItem;
@@ -72,7 +72,7 @@ public class EquipmentManager : MonoBehaviour
 
             // Add the item to the inventory
             var oldItem = currentEquipment[slotIndex];
-            SetEquipmentBlendShapes(oldItem, 0);
+            //SetEquipmentBlendShapes(oldItem, 0);
             inventory.Add(oldItem);
 
             // Remove the item from equipment array
@@ -96,13 +96,13 @@ public class EquipmentManager : MonoBehaviour
         EquipDefaultItems();
     }
 
-    private void SetEquipmentBlendShapes(Equipment item,int weight)
-    {
-        foreach(var blendShapes in item.coveredMeshRegions)
-        {
-            targetMesh.SetBlendShapeWeight((int)blendShapes, weight);
-        }
-    }
+    //private void SetEquipmentBlendShapes(Equipment item,int weight)
+    //{
+    //    foreach(var blendShapes in item.coveredMeshRegions)
+    //    {
+    //        targetMesh.SetBlendShapeWeight((int)blendShapes, weight);
+    //    }
+    //}
 
     private void EquipDefaultItems()
     {

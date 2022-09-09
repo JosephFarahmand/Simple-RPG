@@ -44,7 +44,7 @@ public class CraftingPage : PageBase
             var itemInInventory = items.Find(x=>x.Id == requerdItem.Id);
             if (itemInInventory.isDefaultItem) continue;
             if (itemInInventory.isCrafted) continue;
-            if (itemInInventory.amount > 0) continue;
+            if (itemInInventory.count > 0) continue;
             return false;
         }
         return true;

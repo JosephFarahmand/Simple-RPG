@@ -10,11 +10,13 @@ public class Item : ScriptableObject
     public ItemType type;
     public Sprite icon = null;
     public bool isDefaultItem = false;
-    public int amount = 0;
+    public int count = 0;
 
     [Header("Crafting")]
     public bool isCrafted = false;
     public List<Item> requerdItems;
+
+    public ItemStoredData StoredData => new ItemStoredData(this);
 
 
     public virtual void Use()
@@ -25,6 +27,11 @@ public class Item : ScriptableObject
     public void RemoveFromInventory()
     {
         Inventory.Instance.Remove(this);
+    }
+
+    private void OnValidate()
+    {
+        if (isDefaultItem) isCrafted = true;
     }
 }
 
