@@ -6,149 +6,270 @@ using TMPro;
 
 public class InventoryPage : PageBase
 {
+    Inventory inventory;
+
+    [Header("Slot")]
+    [SerializeField] private InventorySlot inventorySlotPrefab;
+
+    [SerializeField] private Transform itemsParent;
+    [SerializeField] private ToggleGroup itemsToggleGroup;
+    InventorySlot[] slots;
+
     [Header("Bottons")]
     [SerializeField] private Button selectButton;
     [SerializeField] private Button deleteButton;
 
     [Header("Text")]
     [SerializeField] private TMP_Text inventorySpaceText;
-    private int activeSlotCount = 0;
 
-    [Header("Slot")]
-    [SerializeField] private InventoryItemCard itemCardPrefab;
-    [SerializeField] private Transform itemsParent;
 
-    Inventory inventory;
+    [Header("State")]
+    [SerializeField] private StateElement hp;
+    [SerializeField] private StateElement attack;
+    [SerializeField] private StateElement damage;
+    [SerializeField] private StateElement defence;
 
-    //public Transform itemsParent;
-    //List<InventorySlot> _slots;
-    List<InventoryItemCard> slots;
+    Item selectedItem;
+
+    public ToggleGroup ItemsToggleGroup => itemsToggleGroup;
 
     public override void SetValues()
     {
-        SetValueCards();
+        UpdateUI();
     }
 
     public override void SetValuesOnSceneLoad()
     {
-        //inventory = Inventory.Instance;
-        //inventory.onItemChangedCallback += UpdateUI;
-
-        //slots = itemsParent.GetComponentsInChildren<InventorySlot>();
-        //slots = new List<InventoryItemCard>();
-        //for (int i = 0; i < inventory.space; i++)
-        //{
-        //    InstantiateSlot();
-        //}
+        inventory = Inventory.Instance;
+        inventory.onItemChangedCallback += UpdateUI;
 
         SetInventorySpaceText();
+
+        slots = new InventorySlot[inventory.space];
+        for (int i = 0; i < slots.Length; i++)
+        {
+            //in
+            slots[i] = Instantiate(inventorySlotPrefab, itemsParent);
+            slots[i].SetActive(false);
+        }
+
+        selectButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(() =>
+        {
+            if (selectedItem == null) return;
+
+            selectedItem.Use();
+
+            //if is equipment item, display in slot!!
+        });
+
+        deleteButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(() =>
+        {
+            if (selectedItem == null) return;
+
+            Inventory.Instance.Remove(selectedItem);
+
+            //drop item also!!
+        });
+    }
+
+    private void UpdateUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (i < inventory.items.Count)
+            {
+                slots[i].AddItem(inventory.items[i]);
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+        }
+
+        SetInventorySpaceText();
+    }
+
+    public void SetActiveItem(Item item)
+    {
+        Debug.Log("Change selected item");
+        selectedItem = item;
     }
 
     private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{activeSlotCount} / {inventory.space}";
+        inventorySpaceText.text = $"{inventory.items.Count} / {inventory.space}";
     }
 
-    //private InventoryItemCard GetDisableSlot()
+
+    private void UpdatePlayerState(Item item)
+    {
+        if (item is Equipment equipment)
+        {
+            hp.SetNewValue(equipment.itemModifier.HP);
+            attack.SetNewValue(equipment.itemModifier.Attack);
+            damage.SetNewValue(equipment.itemModifier.Damage);
+            defence.SetNewValue(equipment.itemModifier.Armor);
+        }
+    }
+
+    [System.Serializable]
+    public struct StateElement
+    {
+        [SerializeField] private Slider currentValue;
+        [SerializeField] private Slider newValue;
+
+        public void SetCurrentValue(float value)
+        {
+            currentValue.value = value;
+        }
+
+        public void SetNewValue(float changedValue)
+        {
+            newValue.value += changedValue;
+        }
+
+        public Slider CurrentValue { get => currentValue; set => currentValue = value; }
+        public Slider NewValue { get => newValue; set => newValue = value; }
+    }
+
+    //[Header("Text")]
+    //[SerializeField] private TMP_Text inventorySpaceText;
+    //private int activeSlotCount = 0;
+
+    //[Header("Slot")]
+    //[SerializeField] private InventoryItemCard itemCardPrefab;
+    //[SerializeField] private Transform itemsParent;
+
+    //Inventory inventory;
+
+    ////public Transform itemsParent;
+    ////List<InventorySlot> _slots;
+    //List<InventoryItemCard> slots;
+
+    //public override void SetValues()
     //{
-    //    return slots.Find(x => x.HasItem == false);
+    //    SetValueCards();
     //}
 
-    //private void UpdateUI()
+    //public override void SetValuesOnSceneLoad()
     //{
-    //    foreach (var item in inventory.items)
-    //    {
-    //        bool found = false;
-    //        foreach (var slot in slots)
-    //        {
-    //            if (slot == null) continue;
-    //            if (slot.slotItem.Id == item.Id)
-    //            {
-    //                slot.SetActive(true);
-    //                slot.SetValue(item);
-    //                found = true;
-    //                break;
-    //            }
-    //        }
-    //        if (found) continue;
-    //        AddNewItem(item);
-    //    }
+    //    //inventory = Inventory.Instance;
+    //    //inventory.onItemChangedCallback += UpdateUI;
 
-    //    activeSlotCount = slots.FindAll(x => x.HasItem == true).Count;
-    //    SetInventorySpaceText();
-
-    //    foreach (var slot in slots)
-    //    {
-    //        if (inventory.items.Contains(slot.slotItem))
-    //        {
-
-    //        }
-    //    }
-
-    //    //for (int i = 0; i < _slots.Count; i++)
+    //    //slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+    //    //slots = new List<InventoryItemCard>();
+    //    //for (int i = 0; i < inventory.space; i++)
     //    //{
-    //    //    if (i < inventory.items.Count)
-    //    //    {
-    //    //        _slots[i].AddItem(inventory.items[i]);
-    //    //    }
-    //    //    else
-    //    //    {
-    //    //        _slots[i].ClearSlot();
-    //    //    }
+    //    //    InstantiateSlot();
     //    //}
+
+    //    SetInventorySpaceText();
     //}
 
-    //private void AddNewItem(Item item)
+
+
+    ////private InventoryItemCard GetDisableSlot()
+    ////{
+    ////    return slots.Find(x => x.HasItem == false);
+    ////}
+
+    ////private void UpdateUI()
+    ////{
+    ////    foreach (var item in inventory.items)
+    ////    {
+    ////        bool found = false;
+    ////        foreach (var slot in slots)
+    ////        {
+    ////            if (slot == null) continue;
+    ////            if (slot.slotItem.Id == item.Id)
+    ////            {
+    ////                slot.SetActive(true);
+    ////                slot.SetValue(item);
+    ////                found = true;
+    ////                break;
+    ////            }
+    ////        }
+    ////        if (found) continue;
+    ////        AddNewItem(item);
+    ////    }
+
+    ////    activeSlotCount = slots.FindAll(x => x.HasItem == true).Count;
+    ////    SetInventorySpaceText();
+
+    ////    foreach (var slot in slots)
+    ////    {
+    ////        if (inventory.items.Contains(slot.slotItem))
+    ////        {
+
+    ////        }
+    ////    }
+
+    ////    //for (int i = 0; i < _slots.Count; i++)
+    ////    //{
+    ////    //    if (i < inventory.items.Count)
+    ////    //    {
+    ////    //        _slots[i].AddItem(inventory.items[i]);
+    ////    //    }
+    ////    //    else
+    ////    //    {
+    ////    //        _slots[i].ClearSlot();
+    ////    //    }
+    ////    //}
+    ////}
+
+    ////private void AddNewItem(Item item)
+    ////{
+    ////    var slot = GetDisableSlot();
+    ////    if (slot == null)
+    ////    {
+    ////        slot = InstantiateSlot();
+    ////    }
+    ////    slot.SetActive(true);
+    ////    slot.SetValue(item);
+    ////}
+
+    ////private InventoryItemCard InstantiateSlot()
+    ////{
+    ////    var newSlot = Instantiate(itemCardPrefab, itemsParent);
+    ////    slots.Add(newSlot);
+    ////    newSlot.SetActive(false);
+    ////    return newSlot;
+    ////}
+
+
+    //private void InstantiateSlots(int value)
     //{
-    //    var slot = GetDisableSlot();
-    //    if (slot == null)
+    //    for (int i = 0; i < value; i++)
     //    {
-    //        slot = InstantiateSlot();
+    //        var newSlot = Instantiate(itemCardPrefab, itemsParent);
+    //        slots.Add(newSlot);
     //    }
-    //    slot.SetActive(true);
-    //    slot.SetValue(item);
     //}
 
-    //private InventoryItemCard InstantiateSlot()
+    //private void SetValueCards()
     //{
-    //    var newSlot = Instantiate(itemCardPrefab, itemsParent);
-    //    slots.Add(newSlot);
-    //    newSlot.SetActive(false);
-    //    return newSlot;
+    //    var playerItems = SaveOrLoadManager.instance.Player.Inventory.Items;
+
+    //    if (playerItems.Count > slots.Count)
+    //        InstantiateSlots(playerItems.Count - slots.Count);
+
+    //    activeSlotCount = 0;
+    //    for (int i = 0; i < playerItems.Count; i++)
+    //    {
+    //        slots[i].SetActive(true);
+    //        slots[i].SetValue(GameData.GetItem(playerItems[i].Id));
+    //        activeSlotCount++;
+    //    }
+    //    SetInventorySpaceText();
     //}
 
-
-    private void InstantiateSlots(int value)
-    {
-        for (int i = 0; i < value; i++)
-        {
-            var newSlot = Instantiate(itemCardPrefab, itemsParent);
-            slots.Add(newSlot);
-        }
-    }
-
-    private void SetValueCards()
-    {
-        var playerItems = SaveOrLoadManager.instance.Player.Inventory.Items;
-
-        if (playerItems.Count > slots.Count)
-            InstantiateSlots(playerItems.Count - slots.Count);
-
-        activeSlotCount = 0;
-        for (int i = 0; i < playerItems.Count; i++)
-        {
-            slots[i].SetActive(true);
-            slots[i].SetValue(GameData.GetItem(playerItems[i].Id));
-            activeSlotCount++;
-        }
-        SetInventorySpaceText();
-    }
-
-    private void OnDisable()
-    {
-        if (slots.Count <= 0)
-            return;
-        foreach (var item in slots)
-            item.SetActive(false);
-    }
+    //private void OnDisable()
+    //{
+    //    if (slots.Count <= 0)
+    //        return;
+    //    foreach (var item in slots)
+    //        item.SetActive(false);
+    //}
 }

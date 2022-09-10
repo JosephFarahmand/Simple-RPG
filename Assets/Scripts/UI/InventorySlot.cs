@@ -7,35 +7,75 @@ public class InventorySlot : MonoBehaviour
 {
     Item item;
 
-    public Image icon;
-    public Button removeButton;
-    public Button slotButton;
+    InventoryPage inventoryPage;
+
+    //public Image icon;
+    //public Button removeButton;
+    //public Button slotButton;
+
+    [SerializeField] protected Image itemIcon;
+    [SerializeField] private Image itemBackground;
+    [SerializeField] private Image itemFrame;
+    [SerializeField] private Toggle slotToggle;
+    //[SerializeField] private Button slotButton;
+
+    [Header("Customize")]
+    [SerializeField] private Sprite selectedSprite;
+    [SerializeField] private Sprite notSelectedSprite;
 
     private void Start()
     {
-        removeButton.onClick.AddListener(OnRemoveButton);
+        //removeButton.onClick.AddListener(OnRemoveButton);
 
-        slotButton.onClick.AddListener(UseItem);
+        //slotButton.onClick.AddListener(UseItem);
+
+        inventoryPage = GetComponentInParent<InventoryPage>();
+
+        notSelectedSprite = itemFrame.sprite;
+
+        slotToggle.group = inventoryPage.ItemsToggleGroup;
+        slotToggle.onValueChanged.AddListener((value) =>
+        {
+            if (value)
+            {
+                if (item == null) return;
+                inventoryPage.SetActiveItem(item);
+                itemFrame.sprite = selectedSprite;
+            }
+            else
+            {
+                itemFrame.sprite = notSelectedSprite;
+            }
+        });
     }
 
     public void AddItem(Item newItem)
     {
         item = newItem;
 
-        icon.sprite = newItem.icon;
-        icon.enabled = true;
+        SetActive(true);
 
-        removeButton.interactable = true;
+        itemIcon.sprite = newItem.icon;
+
+        var details = GameData.GetCardBackground(item.type);
+        itemBackground.color = details.BackgroundColor;
+        itemFrame.sprite = details.FrameSprite;
+        notSelectedSprite = details.FrameSprite;
+        //itemIcon.enabled = true;
+
+        //removeButton.interactable = true;
     }
 
     public void ClearSlot()
     {
         item = null;
 
-        icon.sprite = null;
-        icon.enabled = false;
+        itemIcon.sprite = null;
+        //itemIcon.enabled = false;
 
-        removeButton.interactable = false;
+        SetActive(false);
+
+        //removeButton.interactable = false;
     }
 
     private void OnRemoveButton()
@@ -48,5 +88,10 @@ public class InventorySlot : MonoBehaviour
         if (item == null) return;
 
         item.Use();
+    }
+
+    public void SetActive(bool value)
+    {
+        itemIcon.enabled = value;
     }
 }

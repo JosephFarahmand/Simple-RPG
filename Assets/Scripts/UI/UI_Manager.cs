@@ -30,6 +30,11 @@ public class UI_Manager : MonoBehaviour
 
         #endregion
 
+        
+    }
+
+    private void Start()
+    {
         #region Load all of the pages and dialogs
 
         foreach (var item in allPages)
@@ -59,10 +64,6 @@ public class UI_Manager : MonoBehaviour
         }
 
         #endregion
-    }
-
-    private void Start()
-    {
         OpenPage(GetPageOfType<EntryPage>());
     }
 

@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour
 
     public int space = 20;
 
-    //public List<Item> items = new List<Item>();
+    public List<Item> items = new List<Item>();
 
     private void Awake()
     {
@@ -21,13 +21,12 @@ public class Inventory : MonoBehaviour
     {
         if (newItem.isDefaultItem) return false;
 
-        if (SaveOrLoadManager.instance.Player.Inventory.Items.Count >= space)
+        if (items.Count >= space)
         {
             Debug.Log("Not enough room!!", gameObject);
             return false;
         }
-
-        SaveOrLoadManager.instance.Player.Inventory.Items.Add(newItem.StoredData);
+        items.Add(newItem);
 
         onItemChangedCallback?.Invoke();
         return true;
@@ -35,7 +34,7 @@ public class Inventory : MonoBehaviour
 
     public void Remove(Item item)
     {
-        SaveOrLoadManager.instance.Player.Inventory.Items.Remove(item.StoredData);
+        items.Remove(item);
         onItemChangedCallback?.Invoke();
     }
 }
