@@ -33,7 +33,7 @@ public class InventorySlot : MonoBehaviour
 
         notSelectedSprite = itemFrame.sprite;
 
-        slotToggle.group = inventoryPage.ItemsToggleGroup;
+        slotToggle.group = GetComponentInParent<ToggleGroup>();
         slotToggle.onValueChanged.AddListener((value) =>
         {
             if (value)
@@ -55,9 +55,9 @@ public class InventorySlot : MonoBehaviour
 
         SetActive(true);
 
-        itemIcon.sprite = newItem.icon;
+        itemIcon.sprite = newItem.Icon;
 
-        var details = GameData.GetCardBackground(item.type);
+        var details = GameData.GetCardBackground(item.Type);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
         notSelectedSprite = details.FrameSprite;

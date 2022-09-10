@@ -1,8 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item
 {
+    public ItemStoredData StoredData => new ItemStoredData(this);
+
+    [Header("Crafting")]
+    public bool isCrafted = false;
+    public List<Item> requerdItems;
+
     [Header("Equipment")]
     public EquipmentSlot equipSlot;  // Slot to store equipment in
     public SkinnedMeshRenderer mesh;

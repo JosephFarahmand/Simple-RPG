@@ -36,17 +36,17 @@ public class CraftingPage : PageBase
 
     public bool HasRequeredItem(Item item)
     {
-        if (item.isCrafted)
-            return false;
+        //if (item.isCrafted)
+        //    return false;
 
-        foreach (var requerdItem in item.requerdItems)
-        {
-            var itemInInventory = items.Find(x=>x.Id == requerdItem.Id);
-            if (itemInInventory.isDefaultItem) continue;
-            if (itemInInventory.isCrafted) continue;
-            if (itemInInventory.count > 0) continue;
-            return false;
-        }
+        //foreach (var requerdItem in item.requerdItems)
+        //{
+        //    var itemInInventory = items.Find(x=>x.Id == requerdItem.Id);
+        //    if (itemInInventory.isDefaultItem) continue;
+        //    if (itemInInventory.isCrafted) continue;
+        //    if (itemInInventory.count > 0) continue;
+        //    return false;
+        //}
         return true;
     }
 
@@ -57,34 +57,34 @@ public class CraftingPage : PageBase
         // show preview
         previewSlot.SetValue(item, false);
 
-        if (item.isCrafted)
-        {
-            slotParent.gameObject.SetActive(false);
-        }
-        else
-        {
-            // show required item
-            slotParent.gameObject.SetActive(true);
-            SetSlotData(item);
+        //if (item.isCrafted)
+        //{
+        //    slotParent.gameObject.SetActive(false);
+        //}
+        //else
+        //{
+        //    // show required item
+        //    slotParent.gameObject.SetActive(true);
+        //    SetSlotData(item);
 
-            // show craft button
-            Craft(item);
-        }
+        //    // show craft button
+        //    Craft(item);
+        //}
     }
 
     private void SetSlotData(Item item)
     {
         int count = 3;
 
-        if (item.requerdItems.Count < count)
-        {
-            count = item.requerdItems.Count;
-        }
+        //if (item.requerdItems.Count < count)
+        //{
+        //    count = item.requerdItems.Count;
+        //}
 
-        for (int i = 0; i < count; i++)
-        {
-            craftingSlot[i].SetValue(item.requerdItems[i], false);
-        }
+        //for (int i = 0; i < count; i++)
+        //{
+        //    craftingSlot[i].SetValue(item.requerdItems[i], false);
+        //}
     }
 
     private void Craft(Item item)
@@ -93,10 +93,10 @@ public class CraftingPage : PageBase
         inventory.Add(item);
 
         // remove requerd items from inventory
-        for (int i = 0; i < item.requerdItems.Count; i++)
-        {
-            inventory.Remove(item);
-        }
+        //for (int i = 0; i < item.requerdItems.Count; i++)
+        //{
+        //    inventory.Remove(item);
+        //}
     }
 
 }

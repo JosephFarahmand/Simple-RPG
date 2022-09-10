@@ -16,9 +16,9 @@ public abstract class ItemSlot : MonoBehaviour
     {
         slotItem = item;
 
-        itemIcon.sprite = item.icon;
+        itemIcon.sprite = item.Icon;
 
-        var details = GameData.GetCardBackground(item.type);
+        var details = GameData.GetCardBackground(item.Type);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
 

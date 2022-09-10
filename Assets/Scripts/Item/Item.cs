@@ -1,43 +1,34 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+//[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+public abstract class Item : ScriptableObject
 {
-    public string Id = "";
-    new public string name = "New Item";
-    public ItemType type;
-    public Sprite icon = null;
-    public bool isDefaultItem = false;
-    public int count = 0;
+    [SerializeField] private string id = "";
+    [SerializeField] private new string name = "New Item";
+    [SerializeField] private ItemType type;
+    [SerializeField] private Sprite icon = null;
+    [SerializeField] private bool isDefaultItem = false;
 
-    [Header("Crafting")]
-    public bool isCrafted = false;
-    public List<Item> requerdItems;
-
-    public ItemStoredData StoredData => new ItemStoredData(this);
-
+    public string Id => id;
+    public string Name => name;
+    public ItemType Type => type;
+    public Sprite Icon => icon;
+    public bool IsDefaultItem => isDefaultItem;
 
     public virtual void Use()
     {
-        Debug.Log("Using " + name);
+        Debug.Log("Using " + Name);
     }
 
     public void RemoveFromInventory()
     {
         Inventory.Instance.Remove(this);
     }
-
-    private void OnValidate()
-    {
-        if (isDefaultItem) isCrafted = true;
-    }
 }
-
 
 public enum ItemType
 {
+    None,
     Common,
     Rare,
     Legendary

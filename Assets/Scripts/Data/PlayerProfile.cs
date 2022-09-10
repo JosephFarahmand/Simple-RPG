@@ -191,7 +191,7 @@ public class ItemStoredData
         RequiredItem = requiredItem;
     }
 
-    public ItemStoredData(Item item) : this(item.Id, item.name, item.isDefaultItem, item.isCrafted, item.requerdItems.Select(x => x.Id).ToList())
+    public ItemStoredData(Equipment item) : this(item.Id, item.Name, item.IsDefaultItem, item.isCrafted, item.requerdItems.Select(x => x.Id).ToList())
     {
 
     }

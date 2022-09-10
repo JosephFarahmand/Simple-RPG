@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
 
     public bool Add(Item newItem)
     {
-        if (newItem.isDefaultItem) return false;
+        if (newItem.IsDefaultItem) return false;
 
         if (items.Count >= space)
         {
