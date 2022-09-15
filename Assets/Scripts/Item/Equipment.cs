@@ -29,7 +29,7 @@ public class Equipment : Item
     {
         base.Use();
 
-        EquipmentManager.instance.Equip(this);      // Equip it
+        EquipmentManager.Equip(this);    // Equip it
         RemoveFromInventory();                      // Remove it from inventory
     }
 }

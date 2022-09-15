@@ -19,7 +19,7 @@ MonoBehaviour:
   isDefaultItem: 0
   isCrafted: 0
   requerdItems: []
-  equipSlot: 2
+  equipSlot: 5
   mesh: {fileID: 3837495504664090745, guid: bf9e9b70331e1bf4a856f19fd842ba58, type: 3}
   itemModifier:
     hp: 0
