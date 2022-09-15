@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class ChestSlot : MonoBehaviour
 {
     Item item;
 
-    InventoryPage inventoryPage;
+    public enum ItemType
+    {
+        ChestItem,
+        InventoryItem
+    }
+
+    private ItemType type = ItemType.InventoryItem;
+
+    ChestPage chestPage;
 
     [SerializeField] protected Image itemIcon;
     [SerializeField] private Image itemBackground;
@@ -20,7 +26,7 @@ public class InventorySlot : MonoBehaviour
 
     private void Start()
     {
-        inventoryPage = GetComponentInParent<InventoryPage>();
+        chestPage = GetComponentInParent<ChestPage>();
 
         notSelectedSprite = itemFrame.sprite;
 
@@ -30,15 +36,26 @@ public class InventorySlot : MonoBehaviour
             if (value)
             {
                 if (item == null) return;
-                inventoryPage.SetActiveItem(item);
+                if (type == ItemType.ChestItem)
+                {
+                    chestPage.SetActiveChestItem(item);
+                }
+                else
+                {
+                    chestPage.SetActiveInventoryItem(item);
+                }
                 itemFrame.sprite = selectedSprite;
             }
             else
             {
-                inventoryPage.SetActiveItem(null);
                 itemFrame.sprite = notSelectedSprite;
             }
         });
+    }
+
+    public void SetType(ItemType type)
+    {
+        this.type = type;
     }
 
     public void AddItem(Item newItem)
@@ -70,17 +87,17 @@ public class InventorySlot : MonoBehaviour
         //removeButton.interactable = false;
     }
 
-    //private void OnRemoveButton()
-    //{
-    //    Inventory.Instance.Remove(item);
-    //}
+    private void OnRemoveButton()
+    {
+        Inventory.Instance.Remove(item);
+    }
 
-    //private void UseItem()
-    //{
-    //    if (item == null) return;
+    private void UseItem()
+    {
+        if (item == null) return;
 
-    //    item.Use();
-    //}
+        item.Use();
+    }
 
     public void SetActive(bool value)
     {

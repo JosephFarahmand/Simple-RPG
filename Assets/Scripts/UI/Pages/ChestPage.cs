@@ -9,19 +9,29 @@ public class ChestPage : PageBase
     Inventory inventory;
 
     [Header("Slot")]
-    [SerializeField] private InventorySlot inventorySlotPrefab;
+    [SerializeField] private ChestSlot chestSlotPrefab;
     ////////////////////////////// Inventory
     [Header("Inventory")]
     [SerializeField] private Transform inventoryItemsParent;
     [SerializeField] private ToggleGroup inventoryItemsToggleGroup;
-    InventorySlot[] slots;
+    List<ChestSlot> inventorySlots;
+    /// <summary>
+    /// item that select from inventory
+    /// </summary>
+    Item dropItem;
+    [SerializeField] private Button dropButton;
     ////////////////////////////// Chest Item
     [Header("Chest")]
     [SerializeField] private Transform chestItemsParent;
     [SerializeField] private ToggleGroup chestItemsToggleGroup;
-    InventorySlot[] chestSlots;
+    List<ChestSlot> chestSlots;
+    /// <summary>
+    /// item that select from chest
+    /// </summary>
+    Item selectedItem;
+    [SerializeField] private Button selectButton;
     //////////////////////////////
-    
+
     [Header("Text")]
     [SerializeField] private TMP_Text inventorySpaceText;
 
@@ -34,37 +44,86 @@ public class ChestPage : PageBase
     {
         inventory = Inventory.Instance;
 
-        slots = new InventorySlot[inventory.space];
-        for (int i = 0; i < slots.Length; i++)
+        inventorySlots = new List<ChestSlot>();
+        for (int i = 0; i < inventory.space; i++)
         {
-            slots[i] = Instantiate(inventorySlotPrefab, inventoryItemsParent);
-            slots[i].SetActive(false);
+            var newSlot = Instantiate(chestSlotPrefab, inventoryItemsParent);
+            newSlot.SetType(ChestSlot.ItemType.InventoryItem);
+            newSlot.SetActive(false);
+            inventorySlots.Add(newSlot);
         }
+
+        selectButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(() =>
+        {
+            if (selectedItem == null) return;
+
+            // add item to inventory
+            inventory.Add(selectedItem);
+
+            // update ui --> add to inventory part
+            UpdateUI();
+        });
+
+        dropButton.onClick.RemoveAllListeners();
+        dropButton.onClick.AddListener(() =>
+        {
+            if (dropItem == null) return;
+
+            // add item to inventory
+            inventory.Remove(dropItem);
+
+            // update ui --> add to chest part
+            
+        });
     }
 
     public void SetChestItems(List<Item> items)
     {
-        chestSlots = new InventorySlot[items.Count];
-        for (int i = 0; i < chestSlots.Length; i++)
+        chestSlots = new List<ChestSlot>();
+        for (int i = 0; i < items.Count; i++)
         {
-            chestSlots[i] = Instantiate(inventorySlotPrefab, chestItemsParent);
-            chestSlots[i].AddItem(items[i]);
+            var newSlot = Instantiate(chestSlotPrefab, chestItemsParent);
+            newSlot.SetType(ChestSlot.ItemType.ChestItem);
+            newSlot.AddItem(items[i]);
+            chestSlots.Add(newSlot);
         }
     }
 
     private void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < inventorySlots.Count; i++)
         {
             if (i < inventory.items.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
+                inventorySlots[i].AddItem(inventory.items[i]);
             }
             else
             {
-                slots[i].ClearSlot();
+                inventorySlots[i].ClearSlot();
             }
         }
     }
     
+    public void SetActiveChestItem(Item item)
+    {
+        if (item == null)
+        {
+            selectButton.interactable = false;
+            return;
+        }
+        selectButton.interactable = true;
+        selectedItem = item;
+    }
+
+    public void SetActiveInventoryItem(Item item)
+    {
+        if (item == null)
+        {
+            dropButton.interactable = false;
+            return;
+        }
+        dropButton.interactable = true;
+        dropItem = item;
+    }
 }

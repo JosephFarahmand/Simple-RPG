@@ -63,8 +63,9 @@ public class InventoryPage : PageBase
             //if is equipment item, display in slot!!
         });
 
+
         deleteButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(() =>
+        deleteButton.onClick.AddListener(() =>
         {
             if (selectedItem == null) return;
 
@@ -72,6 +73,14 @@ public class InventoryPage : PageBase
 
             //drop item also!!
         });
+
+        SetActiveButtons(false);
+    }
+
+    private void SetActiveButtons(bool value)
+    {
+        selectButton.interactable = value;
+        deleteButton.interactable = value;
     }
 
     private void UpdateUI()
@@ -93,7 +102,12 @@ public class InventoryPage : PageBase
 
     public void SetActiveItem(Item item)
     {
-        Debug.Log("Change selected item");
+        if (item == null)
+        {
+            SetActiveButtons(false);
+            return;
+        }
+        SetActiveButtons(true);
         selectedItem = item;
     }
 
