@@ -9,10 +9,13 @@ public class CharacterStats : MonoBehaviour
     /// Character's current health
     /// </summary>
     public float Health { get; private set; }
+    public Stats Damage { get => damage;  }
+    public Stats AttackSpeed { get => attackSpeed;  }
 
     [Header("Stats")]
     [SerializeField] protected Stats damage;
     [SerializeField] protected Stats armor;
+    [SerializeField] protected Stats attackSpeed;
 
     private void Awake()
     {

@@ -10,13 +10,13 @@
         if (newItem != null)
         {
             armor.AddModifier(newItem.Modifier.Armor);
-            damage.AddModifier(newItem.Modifier.Damage);
+            Damage.AddModifier(newItem.Modifier.Damage);
         }
 
         if (oldItem != null)
         {
             armor.RemoveModifier(oldItem.Modifier.Armor);
-            damage.RemoveModifier(oldItem.Modifier.Damage);
+            Damage.RemoveModifier(oldItem.Modifier.Damage);
         }
     }
 }

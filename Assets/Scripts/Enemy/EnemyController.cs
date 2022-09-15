@@ -7,11 +7,13 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyStats))]
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float lookRadius = 10;
+    
+    [SerializeField] private float lookRadius = 10; // Detetion range for player
+    [SerializeField]private float rotationSpeed = 5f;
 
     NavMeshAgent agent;
     Transform target;
-    [SerializeField]private float rotationSpeed = 5f;
+    CharacterCombat combat;
 
     private void Awake()
     {
@@ -25,20 +27,27 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        // Distance to the target
         var distance = Vector3.Distance(transform.position, target.position);
 
+        // If inside the look radius
         if (distance < lookRadius)
         {
+            // Move toward the target
             agent.SetDestination(target.position);
 
+            // If within attacking distance
             if (distance < agent.stoppingDistance)
             {
                 agent.isStopped = true;
 
-                // Attack the target
+                CharacterStats stats = target.GetComponent<CharacterStats>();
+                if (stats != null)
+                {
+                    combat.Attack(stats);
+                }
 
-                // Face the target
-                FaceTarget();
+                FaceTarget(); // Mack sure to face toward the target
             }
         }
     }

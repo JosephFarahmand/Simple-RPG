@@ -6422,12 +6422,6 @@ MonoBehaviour:
   selectButton: {fileID: 1699513124433137383}
   deleteButton: {fileID: 1699513125136020460}
   inventorySpaceText: {fileID: 1699513124780422553}
-  hp:
-    currentValue: {fileID: 0}
-    newValue: {fileID: 1699513125447055415}
-  attack:
-    currentValue: {fileID: 0}
-    newValue: {fileID: 1699513125863252369}
   damage:
     currentValue: {fileID: 0}
     newValue: {fileID: 1699513125840413504}
