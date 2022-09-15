@@ -21,4 +21,9 @@ public class PlayerManager : MonoBehaviour
     {
         equipController.Initialization();
     }
+
+    public static PlayerManager GetPlayer()
+    {
+        return instance;
+    }
 }
