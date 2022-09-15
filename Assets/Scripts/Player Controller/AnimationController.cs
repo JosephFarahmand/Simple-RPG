@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,8 +10,8 @@ public class AnimationController : MonoBehaviour
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponentInChildren<Animator>();
+        agent = transform.root.GetComponent<NavMeshAgent>();
+        animator = transform.root.GetComponentInChildren<Animator>();
     }
 
     private void Update()

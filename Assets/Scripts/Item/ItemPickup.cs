@@ -12,7 +12,7 @@ public class ItemPickup : Interactable
     private void PickUp()
     {
         //add item to inventory
-        var wasPickedUp = Inventory.Instance.Add(item);
+        var wasPickedUp = PlayerManager.InventoryController.Add(item);
 
         if (wasPickedUp)
             Destroy(gameObject);

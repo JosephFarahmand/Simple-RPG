@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
             currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
         }
 
-        var input = Input.GetAxis("Horizontal") * yawSpeed * Time.deltaTime;
+        var input = -Input.GetAxis("Horizontal") * yawSpeed * Time.deltaTime;
 
         if (input != 0)
         {

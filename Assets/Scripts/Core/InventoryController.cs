@@ -1,21 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
-    public static Inventory Instance;
-
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
     public int space = 20;
 
     public List<Item> items = new List<Item>();
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     public bool Add(Item newItem)
     {

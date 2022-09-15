@@ -22,7 +22,7 @@ public abstract class Item : ScriptableObject
 
     public void RemoveFromInventory()
     {
-        Inventory.Instance.Remove(this);
+        PlayerManager.InventoryController.Remove(this);
     }
 }
 

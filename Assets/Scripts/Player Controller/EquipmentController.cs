@@ -15,14 +15,14 @@ public class EquipmentController : MonoBehaviour
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
 
-    Inventory inventory;
+    InventoryController inventory;
 
-    private void Awake()
+    public void Initialization()
     {
-        inventory = Inventory.Instance;
+        inventory = PlayerManager.InventoryController;
 
         equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = GetComponentsInChildren<EquipmentHandler>(true);
+        var handlers = transform.root.GetComponentsInChildren<EquipmentHandler>(true);
         foreach (var handler in handlers)
         {
             if (handler.Item == null) continue;

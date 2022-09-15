@@ -89,7 +89,7 @@ public class ChestSlot : MonoBehaviour
 
     private void OnRemoveButton()
     {
-        Inventory.Instance.Remove(item);
+        PlayerManager.InventoryController.Remove(item);
     }
 
     private void UseItem()

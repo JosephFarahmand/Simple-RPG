@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChestPage : PageBase
 {
-    Inventory inventory;
+    InventoryController inventory;
 
     [Header("Slot")]
     [SerializeField] private ChestSlot chestSlotPrefab;
@@ -42,7 +42,7 @@ public class ChestPage : PageBase
 
     public override void SetValuesOnSceneLoad()
     {
-        inventory = Inventory.Instance;
+        inventory = PlayerManager.InventoryController;
 
         inventorySlots = new List<ChestSlot>();
         for (int i = 0; i < inventory.space; i++)

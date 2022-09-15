@@ -7,7 +7,7 @@ using System;
 
 public class InventoryPage : PageBase
 {
-    Inventory inventory;
+    InventoryController inventory;
 
     [Header("Slot")]
     [SerializeField] private InventorySlot inventorySlotPrefab;
@@ -44,7 +44,7 @@ public class InventoryPage : PageBase
 
     public override void SetValuesOnSceneLoad()
     {
-        inventory = Inventory.Instance;
+        inventory = PlayerManager.InventoryController;
         inventory.onItemChangedCallback += UpdateUI;
 
         PlayerManager.EquipController.onEquipmentChanged += onEquip;
