@@ -6,7 +6,19 @@ public class Chest : Item
 {
     [SerializeField] private List<Item> items;
 
-    public List<Item> Items => items;
+    public const int maxChestSpace = 24;
+
+    public List<Item> Items
+    {
+        get
+        {
+            if (items.Count > maxChestSpace)
+            {
+                items.RemoveRange(maxChestSpace, items.Count - maxChestSpace);
+            }
+            return items;
+        }
+    }
 
     public override void Use()
     {

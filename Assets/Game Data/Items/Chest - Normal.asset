@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Chest - Normal
   m_EditorClassIdentifier: 
   id: 
-  name: Normal Chest
   type: 0
   icon: {fileID: 21300000, guid: 30bdd32f12b9a4aa2a30001178f0679c, type: 3}
   isDefaultItem: 0
   items:
-  - {fileID: 11400000, guid: a92a89cf8322e4e4f8bb4032e397e04d, type: 2}
-  - {fileID: 11400000, guid: a92a89cf8322e4e4f8bb4032e397e04d, type: 2}
+  - {fileID: 11400000, guid: 3775c714286d3de42943d7af042ea2f3, type: 2}
+  - {fileID: 11400000, guid: 8f51cf223e818a94e9080a2a26608ef0, type: 2}

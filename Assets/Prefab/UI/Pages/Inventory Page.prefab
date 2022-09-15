@@ -6422,12 +6422,6 @@ MonoBehaviour:
   selectButton: {fileID: 1699513124433137383}
   deleteButton: {fileID: 1699513125136020460}
   inventorySpaceText: {fileID: 1699513124780422553}
-  damage:
-    currentValue: {fileID: 0}
-    newValue: {fileID: 1699513125840413504}
-  defence:
-    currentValue: {fileID: 0}
-    newValue: {fileID: 1699513124632538460}
 --- !u!1 &1699513125384639350
 GameObject:
   m_ObjectHideFlags: 0

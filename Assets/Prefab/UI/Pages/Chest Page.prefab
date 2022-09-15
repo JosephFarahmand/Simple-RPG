@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 941201580973362711}
   - component: {fileID: 762012427766205502}
   m_Layer: 5
-  m_Name: Button_AutoSelect
+  m_Name: Button_Equip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +585,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Select
+  m_text: Unequip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
@@ -1587,7 +1587,7 @@ GameObject:
   - component: {fileID: 1699513124433137381}
   - component: {fileID: 1699513124433137383}
   m_Layer: 5
-  m_Name: Button_AutoSelect
+  m_Name: Button_Unequip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2621,7 +2621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699513125136020459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2932,14 +2932,16 @@ MonoBehaviour:
   onOpen:
     m_PersistentCalls:
       m_Calls: []
-  chestSlotPrefab: {fileID: 1445016243666181553, guid: f81c7f09a43d688499fb93b80c202fec, type: 3}
-  inventoryItemsParent: {fileID: 1699513125592911949}
-  inventoryItemsToggleGroup: {fileID: 422317047920637817}
-  dropButton: {fileID: 1699513124433137383}
-  chestItemsParent: {fileID: 9207209735201266817}
-  chestItemsToggleGroup: {fileID: 6832242901484836118}
-  selectButton: {fileID: 762012427766205502}
-  inventorySpaceText: {fileID: 1699513124780422553}
+  inventoryPanel:
+    slotPrefab: {fileID: 1445016243666181553, guid: f81c7f09a43d688499fb93b80c202fec, type: 3}
+    itemsParent: {fileID: 1699513125592911949}
+    button: {fileID: 1699513124433137383}
+    spaceText: {fileID: 1699513124780422553}
+  chestPanel:
+    slotPrefab: {fileID: 1445016243666181553, guid: f81c7f09a43d688499fb93b80c202fec, type: 3}
+    itemsParent: {fileID: 9207209735201266817}
+    button: {fileID: 762012427766205502}
+    spaceText: {fileID: 243370898477300608}
 --- !u!1 &1699513125384639350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3243,7 +3245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10592.3955}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1699513125592911948
@@ -3905,7 +3907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 10592.3955}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5740453723939640095
@@ -4224,7 +4226,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inventory
+  m_text: Chest
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
@@ -5375,7 +5377,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Equip All
+  m_text: Equip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}

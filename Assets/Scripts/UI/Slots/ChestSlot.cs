@@ -3,15 +3,7 @@ using UnityEngine.UI;
 
 public class ChestSlot : MonoBehaviour
 {
-    Item item;
-
-    public enum ItemType
-    {
-        ChestItem,
-        InventoryItem
-    }
-
-    private ItemType type = ItemType.InventoryItem;
+    (Item, ChestPage.PanelType) item;
 
     ChestPage chestPage;
 
@@ -21,82 +13,52 @@ public class ChestSlot : MonoBehaviour
     [SerializeField] private Toggle slotToggle;
 
     [Header("Customize")]
-    [SerializeField] private Sprite selectedSprite;
-    [SerializeField] private Sprite notSelectedSprite;
+    [SerializeField] private Sprite selectedFrame;
+    [SerializeField] private Sprite defaultFrame;
+    [SerializeField] private Color defaultBackgroundColor;
 
     private void Start()
     {
         chestPage = GetComponentInParent<ChestPage>();
-
-        notSelectedSprite = itemFrame.sprite;
 
         slotToggle.group = GetComponentInParent<ToggleGroup>();
         slotToggle.onValueChanged.AddListener((value) =>
         {
             if (value)
             {
-                if (item == null) return;
-                if (type == ItemType.ChestItem)
-                {
-                    chestPage.SetActiveChestItem(item);
-                }
-                else
-                {
-                    chestPage.SetActiveInventoryItem(item);
-                }
-                itemFrame.sprite = selectedSprite;
+                if (item.Item1 == null) return;
+                chestPage.SetSelectedItem(item.Item1, item.Item2);
+                itemFrame.sprite = selectedFrame;
             }
             else
             {
-                itemFrame.sprite = notSelectedSprite;
+                itemFrame.sprite = defaultFrame;
             }
         });
     }
 
-    public void SetType(ItemType type)
+    public void AddItem(Item newItem, ChestPage.PanelType type)
     {
-        this.type = type;
-    }
-
-    public void AddItem(Item newItem)
-    {
-        item = newItem;
+        item = (newItem, type);
 
         SetActive(true);
 
         itemIcon.sprite = newItem.Icon;
 
-        var details = GameData.GetCardBackground(item.Type);
+        var details = GameData.GetCardBackground(item.Item1.Type);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
-        notSelectedSprite = details.FrameSprite;
-        //itemIcon.enabled = true;
-
-        //removeButton.interactable = true;
     }
 
     public void ClearSlot()
     {
-        item = null;
+        item = (null, ChestPage.PanelType.Nothing);
 
         itemIcon.sprite = null;
-        //itemIcon.enabled = false;
+        itemBackground.color = defaultBackgroundColor;
+        itemFrame.sprite = defaultFrame;
 
         SetActive(false);
-
-        //removeButton.interactable = false;
-    }
-
-    private void OnRemoveButton()
-    {
-        PlayerManager.InventoryController.Remove(item);
-    }
-
-    private void UseItem()
-    {
-        if (item == null) return;
-
-        item.Use();
     }
 
     public void SetActive(bool value)

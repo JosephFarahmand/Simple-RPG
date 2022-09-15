@@ -9,6 +9,6 @@
 
         var chestPage = UI_Manager.instance.GetPageOfType<ChestPage>();
         UI_Manager.instance.OpenPage(chestPage);
-        chestPage.SetChestItems(chest.Items);
+        chestPage.SetChest(chest);
     }
 }

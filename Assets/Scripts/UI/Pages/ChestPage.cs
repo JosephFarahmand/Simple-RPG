@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,123 +6,160 @@ using UnityEngine.UI;
 public class ChestPage : PageBase
 {
     InventoryController inventory;
+    List<Item> chestItems;
 
-    [Header("Slot")]
-    [SerializeField] private ChestSlot chestSlotPrefab;
-    ////////////////////////////// Inventory
-    [Header("Inventory")]
-    [SerializeField] private Transform inventoryItemsParent;
-    [SerializeField] private ToggleGroup inventoryItemsToggleGroup;
-    List<ChestSlot> inventorySlots;
-    /// <summary>
-    /// item that select from inventory
-    /// </summary>
-    Item dropItem;
-    [SerializeField] private Button dropButton;
-    ////////////////////////////// Chest Item
-    [Header("Chest")]
-    [SerializeField] private Transform chestItemsParent;
-    [SerializeField] private ToggleGroup chestItemsToggleGroup;
-    List<ChestSlot> chestSlots;
-    /// <summary>
-    /// item that select from chest
-    /// </summary>
-    Item selectedItem;
-    [SerializeField] private Button selectButton;
-    //////////////////////////////
+    [SerializeField] private Panel inventoryPanel;
+    [SerializeField] private Panel chestPanel;
 
-    [Header("Text")]
-    [SerializeField] private TMP_Text inventorySpaceText;
+    (Item, PanelType) selected;
 
     public override void SetValues()
     {
-        UpdateUI();
+        inventoryPanel.UpdateSlots(inventory.items, PanelType.InventoryPanel);
+
+        inventoryPanel.SetInteractable(false);
+        chestPanel.SetInteractable(false);
     }
 
     public override void SetValuesOnSceneLoad()
     {
         inventory = PlayerManager.InventoryController;
 
-        inventorySlots = new List<ChestSlot>();
-        for (int i = 0; i < inventory.space; i++)
+        inventoryPanel.CreateItem(inventory.space);
+        inventoryPanel.AddButtonCallback(() =>
         {
-            var newSlot = Instantiate(chestSlotPrefab, inventoryItemsParent);
-            newSlot.SetType(ChestSlot.ItemType.InventoryItem);
-            newSlot.SetActive(false);
-            inventorySlots.Add(newSlot);
-        }
+            // Drop item
+            if (selected.Item2 == PanelType.InventoryPanel)
+            {
+                var selectedItem = selected.Item1;
 
-        selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(() =>
-        {
-            if (selectedItem == null) return;
+                // Remove selected item from inventory
+                inventory.Remove(selectedItem);
 
-            // add item to inventory
-            inventory.Add(selectedItem);
+                // Add selected item to chest panel
+                chestItems.Add(selectedItem);
 
-            // update ui --> add to inventory part
-            UpdateUI();
-        });
-
-        dropButton.onClick.RemoveAllListeners();
-        dropButton.onClick.AddListener(() =>
-        {
-            if (dropItem == null) return;
-
-            // add item to inventory
-            inventory.Remove(dropItem);
-
-            // update ui --> add to chest part
-            
+                UpdateUI();
+            }
         });
     }
 
-    public void SetChestItems(List<Item> items)
+    public void SetChest(Chest chest)
     {
-        chestSlots = new List<ChestSlot>();
-        for (int i = 0; i < items.Count; i++)
+        chestItems = new List<Item>(chest.Items);
+
+        chestPanel.CreateItem(Chest.maxChestSpace);
+        chestPanel.UpdateSlots(chestItems, PanelType.ChestPanel);
+        chestPanel.AddButtonCallback(() =>
         {
-            var newSlot = Instantiate(chestSlotPrefab, chestItemsParent);
-            newSlot.SetType(ChestSlot.ItemType.ChestItem);
-            newSlot.AddItem(items[i]);
-            chestSlots.Add(newSlot);
-        }
+            if (selected.Item2 == PanelType.ChestPanel)
+            {
+                var selectedItem = selected.Item1;
+
+                // Add selected item to inventory
+                inventory.Add(selectedItem);
+
+                // Remove item from chest panel
+                chestItems.Remove(selectedItem);
+
+                UpdateUI();
+            }
+        });
     }
 
     private void UpdateUI()
     {
-        for (int i = 0; i < inventorySlots.Count; i++)
-        {
-            if (i < inventory.items.Count)
-            {
-                inventorySlots[i].AddItem(inventory.items[i]);
-            }
-            else
-            {
-                inventorySlots[i].ClearSlot();
-            }
-        }
-    }
-    
-    public void SetActiveChestItem(Item item)
-    {
-        if (item == null)
-        {
-            selectButton.interactable = false;
-            return;
-        }
-        selectButton.interactable = true;
-        selectedItem = item;
+        inventoryPanel.UpdateSlots(inventory.items, PanelType.InventoryPanel);
+        chestPanel.UpdateSlots(chestItems, PanelType.ChestPanel);
+
+        inventoryPanel.SetInteractable(false);
+        chestPanel.SetInteractable(false);
     }
 
-    public void SetActiveInventoryItem(Item item)
+    public void SetSelectedItem(Item item, PanelType panelType = PanelType.Nothing)
     {
+        inventoryPanel.SetInteractable(false);
+        chestPanel.SetInteractable(false);
+
         if (item == null)
         {
-            dropButton.interactable = false;
             return;
         }
-        dropButton.interactable = true;
-        dropItem = item;
+
+        switch (panelType)
+        {
+            case PanelType.ChestPanel:
+                chestPanel.SetInteractable(true);
+                break;
+            case PanelType.InventoryPanel:
+                inventoryPanel.SetInteractable(true);
+                break;
+        }
+
+        selected = (item, panelType);
+    }
+
+    public enum PanelType
+    {
+        Nothing,
+        ChestPanel,
+        InventoryPanel
+    }
+
+    [System.Serializable]
+    public struct Panel
+    {
+        [SerializeField] private ChestSlot slotPrefab;
+        [SerializeField] private Transform itemsParent;
+        [SerializeField] private Button button;
+        [SerializeField] private TMP_Text spaceText;
+
+        public List<ChestSlot> slots { get; private set; }
+
+        public void CreateItem(float count)
+        {
+            slots = new List<ChestSlot>();
+            for (int i = 0; i < count; i++)
+            {
+                var newSlot = Instantiate(slotPrefab, itemsParent);
+                newSlot.SetActive(false);
+                slots.Add(newSlot);
+            }
+        }
+
+        public void UpdateSlots(List<Item> items, PanelType type)
+        {
+            var counter = 0;
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (i < items.Count)
+                {
+                    counter++;
+                    slots[i].AddItem(items[i], type);
+                }
+                else
+                {
+                    slots[i].ClearSlot();
+                }
+            }
+            SetSpaceText(counter);
+        }
+
+        public void AddButtonCallback(System.Action callback)
+        {
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => callback?.Invoke());
+
+        }
+
+        public void SetInteractable(bool value)
+        {
+            button.interactable = value;
+        }
+
+        public void SetSpaceText(int currentValue)
+        {
+            spaceText.text = $"{currentValue} / {slots.Count}";
+        }
     }
 }
