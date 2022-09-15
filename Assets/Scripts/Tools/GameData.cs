@@ -7,7 +7,7 @@ public class GameData : MonoBehaviour
 {
     private static GameData instance;
 
-    [SerializeField] private List<Item> items = new List<Item>();
+    [SerializeField] private List<Equipment> equipment = new List<Equipment>();
 
     private void Awake()
     {
@@ -23,19 +23,14 @@ public class GameData : MonoBehaviour
         }
     }
 
-    public static void AddItem(Item item)
+    public static Equipment GetEquipmentItem(string id)
     {
-        instance.items.Add(item);
+        return instance.equipment.Find(x => x.Id == id);
     }
 
-    public static Item GetItem(string id)
+    public static List<Equipment> GetEquipmentItems()
     {
-        return instance.items.Find(x => x.Id == id);
-    }
-
-    public static List<Item> GetItems()
-    {
-        return instance.items;
+        return instance.equipment;
     }
 
     [SerializeField] private List<CardBackground> cardBackgrounds;

@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Item : ScriptableObject
 {
     [SerializeField] private string id = "";
-    [SerializeField] private new string name = "New Item";
+    //[SerializeField] private new string name = "New Item";
     [SerializeField] private ItemType type;
     [SerializeField] private Sprite icon = null;
     [SerializeField] private bool isDefaultItem = false;

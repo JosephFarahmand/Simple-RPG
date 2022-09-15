@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class InventoryPage : PageBase
 {
@@ -14,6 +15,9 @@ public class InventoryPage : PageBase
     [SerializeField] private Transform itemsParent;
     [SerializeField] private ToggleGroup itemsToggleGroup;
     InventorySlot[] slots;
+
+    [Header("Equipment Display")]
+    private List<InventoryEquipSlot> equipSlots;
 
     [Header("Bottons")]
     [SerializeField] private Button selectButton;
@@ -43,6 +47,8 @@ public class InventoryPage : PageBase
         inventory = Inventory.Instance;
         inventory.onItemChangedCallback += UpdateUI;
 
+        PlayerManager.EquipController.onEquipmentChanged += onEquip;
+
         SetInventorySpaceText();
 
         slots = new InventorySlot[inventory.space];
@@ -61,6 +67,8 @@ public class InventoryPage : PageBase
             selectedItem.Use();
 
             //if is equipment item, display in slot!!
+
+            SetActiveButtons(false);
         });
 
 
@@ -69,12 +77,37 @@ public class InventoryPage : PageBase
         {
             if (selectedItem == null) return;
 
-            Inventory.Instance.Remove(selectedItem);
+            inventory.Remove(selectedItem);
 
             //drop item also!!
+
+            SetActiveButtons(false);
         });
 
         SetActiveButtons(false);
+
+        this.equipSlots = new List<InventoryEquipSlot>();
+        var equipSlots = GetComponentsInChildren<InventoryEquipSlot>();
+        foreach (var slot in equipSlots)
+        {
+            slot.SetIcon(null);
+            this.equipSlots.Add(slot);
+        }
+    }
+
+    private void onEquip(Equipment newItem, Equipment oldItem)
+    {
+        InventoryEquipSlot equipSlot;
+        if (newItem == null)
+        {
+            equipSlot = equipSlots.Find(x => x.Slot == oldItem.equipSlot);
+            equipSlot.SetIcon(oldItem.Icon);
+        }
+        else
+        {
+            equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
+            equipSlot.SetIcon(newItem.Icon);
+        }
     }
 
     private void SetActiveButtons(bool value)

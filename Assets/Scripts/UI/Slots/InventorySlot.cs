@@ -15,14 +15,13 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Toggle slotToggle;
 
     [Header("Customize")]
-    [SerializeField] private Sprite selectedSprite;
-    [SerializeField] private Sprite notSelectedSprite;
+    [SerializeField] private Sprite selectedFrame;
+    [SerializeField] private Sprite defaultFrame;
+    [SerializeField] private Color defaultBackgroundColor;
 
     private void Start()
     {
         inventoryPage = GetComponentInParent<InventoryPage>();
-
-        notSelectedSprite = itemFrame.sprite;
 
         slotToggle.group = GetComponentInParent<ToggleGroup>();
         slotToggle.onValueChanged.AddListener((value) =>
@@ -31,12 +30,12 @@ public class InventorySlot : MonoBehaviour
             {
                 if (item == null) return;
                 inventoryPage.SetActiveItem(item);
-                itemFrame.sprite = selectedSprite;
+                itemFrame.sprite = selectedFrame;
             }
             else
             {
                 inventoryPage.SetActiveItem(null);
-                itemFrame.sprite = notSelectedSprite;
+                itemFrame.sprite = defaultFrame;
             }
         });
     }
@@ -52,7 +51,6 @@ public class InventorySlot : MonoBehaviour
         var details = GameData.GetCardBackground(item.Type);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
-        notSelectedSprite = details.FrameSprite;
         //itemIcon.enabled = true;
 
         //removeButton.interactable = true;
@@ -63,6 +61,8 @@ public class InventorySlot : MonoBehaviour
         item = null;
 
         itemIcon.sprite = null;
+        itemBackground.color = defaultBackgroundColor;
+        itemFrame.sprite = defaultFrame;
         //itemIcon.enabled = false;
 
         SetActive(false);
