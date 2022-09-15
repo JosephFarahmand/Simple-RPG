@@ -28,8 +28,6 @@ public class InventoryPage : PageBase
 
 
     [Header("State")]
-    [SerializeField] private StateElement hp;
-    [SerializeField] private StateElement attack;
     [SerializeField] private StateElement damage;
     [SerializeField] private StateElement defence;
 
@@ -154,10 +152,8 @@ public class InventoryPage : PageBase
     {
         if (item is Equipment equipment)
         {
-            hp.SetNewValue(equipment.itemModifier.HP);
-            attack.SetNewValue(equipment.itemModifier.Attack);
-            damage.SetNewValue(equipment.itemModifier.Damage);
-            defence.SetNewValue(equipment.itemModifier.Armor);
+            damage.SetNewValue(equipment.Modifier.Damage);
+            defence.SetNewValue(equipment.Modifier.Armor);
         }
     }
 

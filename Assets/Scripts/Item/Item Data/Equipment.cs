@@ -6,6 +6,8 @@ public class Equipment : Item
 {
     public ItemStoredData StoredData => new ItemStoredData(this);
 
+    public ItemModifier Modifier { get => modifier; }
+
     [Header("Crafting")]
     public bool isCrafted = false;
     public List<Item> requerdItems;
@@ -16,13 +18,8 @@ public class Equipment : Item
     //public EquipmentMeshRegion[] coveredMeshRegions;
 
     [Header("Modifier")]
-    //public int hpModifier;           // Increase/decrease in HP
-    //public int attackModifier;       // Increase/decrease in attack
-    //public int damageModifier;       // Increase/decrease in damage
-    //public int armorModifier;        // Increase/decrease in armor
-
     [Tooltip("Increase/decrease in each one")]
-    public CharacterState itemModifier;
+    [SerializeField] private ItemModifier modifier;
 
     // When pressed in inventory
     public override void Use()
@@ -32,21 +29,19 @@ public class Equipment : Item
         PlayerManager.EquipController.Equip(this);  // Equip it
         RemoveFromInventory();                      // Remove it from inventory
     }
+
+
+    [System.Serializable]
+    public struct ItemModifier
+    {
+        [Min(0), SerializeField] private int damage;
+        [Min(0), SerializeField] private int armor;
+
+        public int Damage => damage;
+        public int Armor => armor;
+    }
 }
 
-[System.Serializable]
-public struct CharacterState
-{
-    [Min(0), SerializeField] private float hp;
-    [Min(0), SerializeField] private float attack;
-    [Min(0), SerializeField] private float damage;
-    [Min(0), SerializeField] private float armor;
-
-    public float HP => hp;
-    public float Attack => attack;
-    public float Damage => damage;
-    public float Armor => armor;
-}
 
 public enum EquipmentSlot
 {
