@@ -14,7 +14,9 @@ public class Equipment : Item
 
     [Header("Equipment")]
     public EquipmentSlot equipSlot;  // Slot to store equipment in
-    public SkinnedMeshRenderer mesh;
+
+    [Header("")]
+    public ItemPickup itemObject;
     //public EquipmentMeshRegion[] coveredMeshRegions;
 
     [Header("Modifier")]

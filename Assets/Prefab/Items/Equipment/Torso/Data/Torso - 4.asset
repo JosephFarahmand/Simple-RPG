@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Torso - 4
   m_EditorClassIdentifier: 
   id: 
-  name: Torso 4
   type: 1
   icon: {fileID: 21300000, guid: c23bb5c1541e4415bb82f430a308f7e3, type: 3}
   isDefaultItem: 0
@@ -21,8 +20,6 @@ MonoBehaviour:
   requerdItems: []
   equipSlot: 6
   mesh: {fileID: 9105301772055927593, guid: 1029fbcdbf5397346a66d1ad4fc2ce22, type: 3}
-  itemModifier:
-    hp: 1
-    attack: 0
+  modifier:
     damage: 0
-    armor: 3
+    armor: 5

@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Belt - 5
   m_EditorClassIdentifier: 
   id: 
-  name: Belt 2
   type: 3
   icon: {fileID: 0}
   isDefaultItem: 1
   isCrafted: 0
   requerdItems: []
   equipSlot: 7
-  mesh: {fileID: 1274737521962869192, guid: aaa9f1bf4ac7b8b48b8893b11a4e5f0d, type: 3}
-  itemModifier:
-    hp: 0
-    attack: 0
+  itemObject: {fileID: 7148657039829624650, guid: b7e0ce4bad5f92544910eeeea7d4ece4, type: 3}
+  modifier:
     damage: 0
     armor: 0

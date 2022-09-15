@@ -7,10 +7,20 @@ public class EquipmentHandler : MonoBehaviour
     [SerializeField] private Equipment item;
 
     public string ID => item.Id;
-    public Equipment Item { get => item; set => item = value; }
+    public Equipment Item => item;
 
     public void SetActive(bool value)
     {
         gameObject.SetActive(value);
+    }
+}
+
+public class EquipmentPositionHandler : MonoBehaviour
+{
+    [SerializeField] private EquipmentSlot slot;
+
+    public void AddItem()
+    {
+
     }
 }

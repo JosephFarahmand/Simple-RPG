@@ -10,7 +10,7 @@ public class EquipmentController : MonoBehaviour
 
     private List<EquipmentHandler> equipmentHandlers;
 
-    private Dictionary<EquipmentSlot, EquipmentHandler> activeEquipment;
+    private Dictionary<EquipmentSlot, Equipment> activeEquipment;
 
     public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
     public OnEquipmentChanged onEquipmentChanged;
@@ -30,7 +30,7 @@ public class EquipmentController : MonoBehaviour
             handler.gameObject.SetActive(false);
         }
 
-        activeEquipment = new Dictionary<EquipmentSlot, EquipmentHandler>();
+        activeEquipment = new Dictionary<EquipmentSlot, Equipment>();
         IList list = Enum.GetValues(typeof(EquipmentSlot));
         for (int i = 0; i < list.Count; i++)
         {
@@ -85,7 +85,7 @@ public class EquipmentController : MonoBehaviour
 
         // Insert the item into the slot
         handler.SetActive(true);
-        activeEquipment[slot] = handler;
+        activeEquipment[slot] = newItem;
 
         // An item has been equipped so we trigger the callback
         onEquipmentChanged?.Invoke(newItem, oldItem);
@@ -104,11 +104,12 @@ public class EquipmentController : MonoBehaviour
             if (activeEquipment[slot] != null)
             {
                 // Add the item to the inventory
-                var oldItem = activeEquipment[slot].Item;
+                var oldItem = activeEquipment[slot];
                 inventory.Add(oldItem);
 
                 // Diactive item
-                activeEquipment[slot].SetActive(false);
+                var handler = equipmentHandlers.Find(x => x.Item == oldItem);
+                handler.SetActive(false);
                 activeEquipment[slot] = null;
 
                 // Equipment has been removed, so we trigger the callback
