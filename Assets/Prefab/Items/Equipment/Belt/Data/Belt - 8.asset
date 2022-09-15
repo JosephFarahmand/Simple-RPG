@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65775abb8cb62e74eb1d7a875cd884b5, type: 3}
+  m_Name: Belt - 8
+  m_EditorClassIdentifier: 
+  id: 
+  name: Belt 2
+  type: 2
+  icon: {fileID: 0}
+  isDefaultItem: 1
+  isCrafted: 0
+  requerdItems: []
+  equipSlot: 7
+  mesh: {fileID: 43385798061628045, guid: 5f194f0a6a610ec40978f25552b81d3d, type: 3}
+  itemModifier:
+    hp: 0
+    attack: 0
+    damage: 0
+    armor: 0
