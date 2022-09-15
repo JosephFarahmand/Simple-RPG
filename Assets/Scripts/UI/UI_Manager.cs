@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UIShortcuts))]
 public class UI_Manager : MonoBehaviour
 {
     public static UI_Manager instance;
