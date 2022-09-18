@@ -10,7 +10,10 @@ public class EnemyStats : CharacterStats
 
         // Die Animation
 
+
         // Supply rewards
+        var chest = Instantiate(GameData.GetChest());
+        chest.transform.position = transform.position;
 
         Destroy(gameObject);
     }

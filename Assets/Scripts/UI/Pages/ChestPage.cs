@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ChestPage : PageBase
 {
     InventoryController inventory;
-    List<Item> chestItems;
+    //List<Item> chestItems;
+    InteractableChest chest;
 
     [SerializeField] private Panel inventoryPanel;
     [SerializeField] private Panel chestPanel;
@@ -37,19 +38,18 @@ public class ChestPage : PageBase
                 inventory.Remove(selectedItem);
 
                 // Add selected item to chest panel
-                chestItems.Add(selectedItem);
+                chest.SetItem(selectedItem);
 
                 UpdateUI();
             }
         });
     }
 
-    public void SetChest(Chest chest)
+    public void SetChest(InteractableChest chest)
     {
-        chestItems = new List<Item>(chest.Items);
-
+        this.chest = chest;
         chestPanel.CreateItem(Chest.maxChestSpace);
-        chestPanel.UpdateSlots(chestItems, PanelType.ChestPanel);
+        chestPanel.UpdateSlots(chest.GetItems(), PanelType.ChestPanel);
         chestPanel.AddButtonCallback(() =>
         {
             if (selected.Item2 == PanelType.ChestPanel)
@@ -60,7 +60,7 @@ public class ChestPage : PageBase
                 inventory.Add(selectedItem);
 
                 // Remove item from chest panel
-                chestItems.Remove(selectedItem);
+                chest.RemoveItem(selectedItem);
 
                 UpdateUI();
             }
@@ -70,7 +70,7 @@ public class ChestPage : PageBase
     private void UpdateUI()
     {
         inventoryPanel.UpdateSlots(inventory.items, PanelType.InventoryPanel);
-        chestPanel.UpdateSlots(chestItems, PanelType.ChestPanel);
+        chestPanel.UpdateSlots(chest.GetItems(), PanelType.ChestPanel);
 
         inventoryPanel.SetInteractable(false);
         chestPanel.SetInteractable(false);
@@ -118,7 +118,14 @@ public class ChestPage : PageBase
 
         public void CreateItem(float count)
         {
-            slots = new List<ChestSlot>();
+            if(slots == null)
+            {
+                slots = new List<ChestSlot>();
+            }
+            else if (slots.Count > 0)
+            {
+                count -= itemsParent.childCount;
+            }
             for (int i = 0; i < count; i++)
             {
                 var newSlot = Instantiate(slotPrefab, itemsParent);

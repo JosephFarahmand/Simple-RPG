@@ -8,6 +8,7 @@ public class GameData : MonoBehaviour
     private static GameData instance;
 
     [SerializeField] private List<Equipment> equipment = new List<Equipment>();
+    [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
 
     private void Awake()
     {
@@ -31,6 +32,11 @@ public class GameData : MonoBehaviour
     public static List<Equipment> GetEquipmentItems()
     {
         return instance.equipment;
+    }
+
+    public static InteractableChest GetChest()
+    {
+        return instance.chests[Random.Range(0, instance.chests.Count)];
     }
 
     [SerializeField] private List<CardBackground> cardBackgrounds;

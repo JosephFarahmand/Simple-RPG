@@ -5,7 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerController : MonoBehaviour
 {
-    public Interactable focus;
+    [HideInInspector]public Interactable focus;
 
     public LayerMask movementMask; // Filter out everything not walkable
 

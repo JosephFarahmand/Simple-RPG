@@ -17,6 +17,9 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] protected Stats armor;
     [SerializeField] protected Stats attackSpeed;
 
+    public event System.Action OnDie;
+
+
     private void Awake()
     {
         Health = maxHealth;
@@ -40,5 +43,6 @@ public class CharacterStats : MonoBehaviour
     {
         Debug.Log($"{transform.name} dead.");
 
+        OnDie?.Invoke();
     }
 }
