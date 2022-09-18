@@ -27,15 +27,20 @@ public class InventoryPage : PageBase
     [SerializeField] private TMP_Text inventorySpaceText;
 
 
-    //[Header("State")]
-    //[SerializeField] private StateElement damage;
-    //[SerializeField] private StateElement defence;
+    [Header("State")]
+    [SerializeField] private StateElement damage;
+    [SerializeField] private StateElement armor;
+    [SerializeField] private StateElement attackSpeed;
 
     Item selectedItem;
 
     public override void SetValues()
     {
         UpdateUI();
+
+        damage.SetCurrentValue(PlayerManager.Stats.Damage.GetValue());
+        armor.SetCurrentValue(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.SetCurrentValue(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
     public override void SetValuesOnSceneLoad()
@@ -52,6 +57,8 @@ public class InventoryPage : PageBase
         {
             slots[i] = Instantiate(inventorySlotPrefab, itemsParent);
             slots[i].SetActive(false);
+
+            slots[i].OnToggleChange += InventoryPage_OnToggleChange;
         }
 
         selectButton.onClick.RemoveAllListeners();
@@ -90,6 +97,30 @@ public class InventoryPage : PageBase
         }
     }
 
+    private void InventoryPage_OnToggleChange(bool arg1, Item arg2)
+    {
+        if (arg1)
+        {
+            if (arg2 == null) return;
+            SetActiveItem(arg2);
+
+            if (arg2 is Equipment equipment)
+            {
+                UpdatePlayerState(equipment);
+            }
+        }
+        else
+        {
+            SetActiveItem(null);
+
+            if (arg2 is Equipment equipment)
+            {
+                var tempEquipment = new Equipment(new Equipment.ItemModifier(-equipment.Modifier.Damage, -equipment.Modifier.Armor, -equipment.Modifier.AttackSpeed));
+                UpdatePlayerState(tempEquipment);
+            }
+        }
+    }
+
     private void onEquip(Equipment newItem, Equipment oldItem)
     {
         InventoryEquipSlot equipSlot;
@@ -103,6 +134,10 @@ public class InventoryPage : PageBase
             equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
             equipSlot.SetIcon(newItem.Icon);
         }
+
+        damage.SetCurrentValue(PlayerManager.Stats.Damage.GetValue());
+        armor.SetCurrentValue(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.SetCurrentValue(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
     private void SetActiveButtons(bool value)
@@ -145,32 +180,31 @@ public class InventoryPage : PageBase
     }
 
 
-    //private void UpdatePlayerState(Item item)
-    //{
-    //    if (item is Equipment equipment)
-    //    {
-    //        damage.SetNewValue(equipment.Modifier.Damage);
-    //        defence.SetNewValue(equipment.Modifier.Armor);
-    //    }
-    //}
+    private void UpdatePlayerState(Equipment equipment)
+    {
+        damage.SetNewValue(equipment.Modifier.Damage);
+        armor.SetNewValue(equipment.Modifier.Armor);
+        attackSpeed.SetNewValue(equipment.Modifier.AttackSpeed);
+    }
 
-    //[System.Serializable]
-    //public struct StateElement
-    //{
-    //    [SerializeField] private Slider currentValue;
-    //    [SerializeField] private Slider newValue;
+    [System.Serializable]
+    public struct StateElement
+    {
+        [SerializeField] private Slider currentValue;
+        [SerializeField] private Slider newValue;
 
-    //    public void SetCurrentValue(float value)
-    //    {
-    //        currentValue.value = value;
-    //    }
+        public void SetCurrentValue(float value)
+        {
+            currentValue.value = value;
+            newValue.value = value;
+        }
 
-    //    public void SetNewValue(float changedValue)
-    //    {
-    //        newValue.value += changedValue;
-    //    }
+        public void SetNewValue(float changedValue)
+        {
+            newValue.value += changedValue;
+        }
 
-    //    public Slider CurrentValue { get => currentValue; set => currentValue = value; }
-    //    public Slider NewValue { get => newValue; set => newValue = value; }
-    //}
+        public Slider CurrentValue { get => currentValue; set => currentValue = value; }
+        public Slider NewValue { get => newValue; set => newValue = value; }
+    }
 }

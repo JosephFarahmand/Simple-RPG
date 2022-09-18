@@ -19,6 +19,8 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Sprite defaultFrame;
     [SerializeField] private Color defaultBackgroundColor;
 
+    public event System.Action<bool,Item> OnToggleChange;
+
     private void Start()
     {
         inventoryPage = GetComponentInParent<InventoryPage>();
@@ -26,6 +28,7 @@ public class InventorySlot : MonoBehaviour
         slotToggle.group = GetComponentInParent<ToggleGroup>();
         slotToggle.onValueChanged.AddListener((value) =>
         {
+            OnToggleChange?.Invoke(value, item);
             if (value)
             {
                 if (item == null) return;
@@ -39,6 +42,8 @@ public class InventorySlot : MonoBehaviour
             }
         });
     }
+
+
 
     public void AddItem(Item newItem)
     {

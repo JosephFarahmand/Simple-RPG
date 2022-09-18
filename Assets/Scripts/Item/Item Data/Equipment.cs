@@ -23,6 +23,11 @@ public class Equipment : Item
     [Tooltip("Increase/decrease in each one")]
     [SerializeField] private ItemModifier modifier;
 
+    public Equipment(ItemModifier modifier)
+    {
+        this.modifier = modifier;
+    }
+
     // When pressed in inventory
     public override void Use()
     {
@@ -38,9 +43,18 @@ public class Equipment : Item
     {
         [Min(0), SerializeField] private int damage;
         [Min(0), SerializeField] private int armor;
+        [Min(0), SerializeField] private int attackSpeed;
+
+        public ItemModifier(int damage, int armor, int attackSpeed)
+        {
+            this.damage = damage;
+            this.armor = armor;
+            this.attackSpeed = attackSpeed;
+        }
 
         public int Damage => damage;
         public int Armor => armor;
+        public int AttackSpeed => attackSpeed;
     }
 }
 
