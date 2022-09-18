@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec2d1fa577b92428ad20d351a771eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk: 
-  attack: 
+  walk: SpeedPercent
+  attack: Attack
   die: 
 --- !u!1 &1125884435
 GameObject:
@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 8995232355157945961}
   - component: {fileID: 5467763918754336081}
   - component: {fileID: 1086813630685304093}
+  - component: {fileID: 3606070077942453314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -280,6 +281,7 @@ MonoBehaviour:
   inventoryController: {fileID: 1479827858957940807}
   combat: {fileID: 1086813630685304093}
   stats: {fileID: 5467763918754336081}
+  skinController: {fileID: 3606070077942453314}
 --- !u!114 &8995232355157945966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +342,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDelay: 0.6
+--- !u!114 &3606070077942453314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995232355157945967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc43927450229c940bca02283ee4b0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinMaterial: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}
 --- !u!1001 &8995232355161626554
 PrefabInstance:
   m_ObjectHideFlags: 0

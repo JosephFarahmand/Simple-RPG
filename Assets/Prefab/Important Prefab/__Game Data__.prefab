@@ -95,6 +95,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22a628af3cc1cd3448145536f409654e, type: 2}
   - {fileID: 11400000, guid: 6286292cd656c90478cf804c81ab7c20, type: 2}
   - {fileID: 11400000, guid: 2a015f7da80eb2e47ae6dc6ffbbfb5f6, type: 2}
+  - {fileID: 11400000, guid: 80c33c28ecb8412498f818821f6ac895, type: 2}
+  chests:
+  - {fileID: 2091834221, guid: 305ad522044ce6a4ca9db63436100954, type: 3}
   cardBackgrounds:
   - itemType: 0
     frameSprite: {fileID: 21300000, guid: 356c0b18fbd3e4e94a7e05ae60d72575, type: 3}
