@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ec2d1fa577b92428ad20d351a771eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walk: 
+  attack: 
 --- !u!1 &1125884435
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage:
-    baseValue: 0
+    baseValue: 1
   armor:
     baseValue: 5
   attackSpeed:
@@ -1203,6 +1205,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4702297580317136, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
   m_PrefabInstance: {fileID: 8995232355161626554}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8995538833914811256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1106949021828290, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
+  m_PrefabInstance: {fileID: 8995232355161626554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4476505827773289948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995538833914811256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57582d602c0a9274787bddfd50a6149f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []
 --- !u!1 &8995583974327149576 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1064180580168626, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
