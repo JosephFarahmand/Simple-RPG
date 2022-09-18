@@ -65,7 +65,7 @@ public class UI_Manager : MonoBehaviour
         }
 
         #endregion
-        OpenPage(GetPageOfType<GameHUDPage>());
+        OpenPage(GetPageOfType<EntryPage>());
     }
 
     #region Page's functions
