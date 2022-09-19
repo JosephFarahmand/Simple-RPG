@@ -52,7 +52,7 @@ public class InventoryPage : PageBase
 
         SetInventorySpaceText();
 
-        slots = new InventorySlot[inventory.space];
+        slots = new InventorySlot[StaticData.inventorySpace];
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = Instantiate(inventorySlotPrefab, itemsParent);
@@ -176,7 +176,7 @@ public class InventoryPage : PageBase
 
     private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{inventory.items.Count} / {inventory.space}";
+        inventorySpaceText.text = $"{inventory.items.Count} / {StaticData.inventorySpace}";
     }
 
 

@@ -6,6 +6,7 @@ public class CharacterPreview : MonoBehaviour
     private List<EquipmentHandler> equipmentHandlers;
     EquipmentController playerEquipment;
     InventoryPage inventoryPage;
+
     private void Start()
     {
         playerEquipment = PlayerManager.EquipController;
@@ -13,7 +14,7 @@ public class CharacterPreview : MonoBehaviour
         inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
 
         equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = transform.root.GetComponentsInChildren<EquipmentHandler>(true);
+        var handlers = GetComponentsInChildren<EquipmentHandler>(true);
         foreach (var handler in handlers)
         {
             if (handler.Item == null) continue;

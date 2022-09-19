@@ -13,7 +13,8 @@ public class UI_Manager : MonoBehaviour
 
     private Stack<PageBase> openPagesStack;
 
-    public PageBase activePage;
+
+    [SerializeField] private CharacterPreview previewObject;
 
     //[ExecuteInEditMode()]
     private void Awake()
@@ -31,7 +32,10 @@ public class UI_Manager : MonoBehaviour
 
         #endregion
 
-        
+        if (FindObjectOfType<CharacterPreview>() == null)
+        {
+            Instantiate(previewObject);
+        }
     }
 
     private void Start()

@@ -13,6 +13,8 @@ public class CharacterStats : MonoBehaviour
     public Stats Armor => armor;
     public Stats AttackSpeed => attackSpeed;
 
+    public event Action<float> OnChangeHealth;
+
     [Header("Stats")]
     [SerializeField] protected Stats damage;
     [SerializeField] protected Stats armor;
@@ -38,6 +40,8 @@ public class CharacterStats : MonoBehaviour
         {
             Die();
         }
+
+        OnChangeHealth?.Invoke(Health);
     }
 
     protected virtual void Die()

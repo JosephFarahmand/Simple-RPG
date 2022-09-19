@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80c132dabcf94b4aae05f085062dd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activePage: {fileID: 0}
+  previewObject: {fileID: 7245156582267442612, guid: 7dd266b60fc85534c8f2237ede9fab79, type: 3}
 --- !u!114 &7938596578760868321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,6 +1767,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1699513125342226400, guid: 66b2c0a91272ecf43abb343076949d67, type: 3}
+      propertyPath: elements.Array.data[0]
+      value: 
+      objectReference: {fileID: 7760140881576649155}
+    - target: {fileID: 1699513125342226400, guid: 66b2c0a91272ecf43abb343076949d67, type: 3}
+      propertyPath: elements.Array.data[1]
+      value: 
+      objectReference: {fileID: 7760140881356491021}
     - target: {fileID: 1699513125342226430, guid: 66b2c0a91272ecf43abb343076949d67, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

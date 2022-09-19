@@ -43,12 +43,20 @@ public class CameraController : MonoBehaviour
     //    transform.RotateAround(target.position, Vector3.up, currentYaw);
     //}
 
-    [SerializeField] GameObject freeLookCamera;
+    [SerializeField] private CinemachineFreeLook prefab;
+
     CinemachineFreeLook freeLookComponent;
 
     private void Awake()
     {
-        freeLookComponent = freeLookCamera.GetComponent<CinemachineFreeLook>();
+        freeLookComponent = FindObjectOfType<CinemachineFreeLook>();
+
+        if(freeLookComponent == null)
+        {
+            freeLookComponent = Instantiate(prefab);
+        }
+        freeLookComponent.LookAt = PlayerManager.GetPlayer().transform;
+        freeLookComponent.Follow = PlayerManager.GetPlayer().transform;
     }
 
     private void Update()

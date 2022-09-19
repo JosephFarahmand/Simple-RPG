@@ -26,7 +26,7 @@ public class ChestPage : PageBase
     {
         inventory = PlayerManager.InventoryController;
 
-        inventoryPanel.CreateItem(inventory.space);
+        inventoryPanel.CreateItem(StaticData.inventorySpace);
         inventoryPanel.AddButtonCallback(() =>
         {
             // Drop item
@@ -48,7 +48,7 @@ public class ChestPage : PageBase
     public void SetChest(InteractableChest chest)
     {
         this.chest = chest;
-        chestPanel.CreateItem(Chest.maxChestSpace);
+        chestPanel.CreateItem(StaticData.maxChestSpace);
         chestPanel.UpdateSlots(chest.GetItems(), PanelType.ChestPanel);
         chestPanel.AddButtonCallback(() =>
         {

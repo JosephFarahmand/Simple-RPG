@@ -6,15 +6,13 @@ public class InventoryController : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public int space = 20;
-
     public List<Item> items = new List<Item>();
 
     public bool Add(Item newItem)
     {
         if (newItem.IsDefaultItem) return false;
 
-        if (items.Count >= space)
+        if (items.Count >= StaticData.inventorySpace)
         {
             Debug.Log("Not enough room!!", gameObject);
             return false;

@@ -135,7 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5df53b7b59959a45be0c625749966ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  space: 20
   items: []
 --- !u!1 &8639739675880311917
 GameObject:
@@ -324,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage:
-    baseValue: 1
+    baseValue: 10
   armor:
     baseValue: 5
   attackSpeed:
