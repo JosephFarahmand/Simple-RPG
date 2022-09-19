@@ -61,7 +61,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   pauseButton: {fileID: 769706917029635644}
-  healthBar: {fileID: 2129467357907491838}
+  healthSlider: {fileID: 2129467357907491838}
 --- !u!1 &769706915928434883
 GameObject:
   m_ObjectHideFlags: 0

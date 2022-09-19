@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameHUDPage : PageBase
 {
     [SerializeField] private Button pauseButton;
-    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider healthSlider;
 
     public override void SetValues()
     {
@@ -15,8 +15,8 @@ public class GameHUDPage : PageBase
 
     public override void SetValuesOnSceneLoad()
     {
-        healthBar.maxValue = PlayerManager.Stats.maxHealth;
-        healthBar.value = PlayerManager.Stats.maxHealth;
+        healthSlider.maxValue = PlayerManager.Stats.maxHealth;
+        healthSlider.value = PlayerManager.Stats.maxHealth;
 
         PlayerManager.Stats.OnChangeHealth += Stats_OnChangeHealth;
 
@@ -24,8 +24,8 @@ public class GameHUDPage : PageBase
         pauseButton.onClick.AddListener(() => UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<PausePage>()));
     }
 
-    private void Stats_OnChangeHealth(float value)
+    private void Stats_OnChangeHealth(float maxHealth, float currentHealth)
     {
-        healthBar.value = value;
+        healthSlider.value = currentHealth;
     }
 }

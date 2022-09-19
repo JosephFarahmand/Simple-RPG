@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,15 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] private Slider healthSlider;
     EnemyStats stats;
 
+    Camera cam;
+
+    float visibleTime = 5;
+    private float laseMadeVisibleTime;
+
     private void Start()
     {
+        cam = Camera.main;
+
         stats = GetComponentInParent<EnemyStats>();
         stats.OnChangeHealth += Stats_OnChangeHealth;
 
@@ -19,12 +27,24 @@ public class EnemyHealthBar : MonoBehaviour
         healthSlider.gameObject.SetActive(false);
     }
 
-    private void Stats_OnChangeHealth(float value)
+    private void Stats_OnChangeHealth(float maxHealth, float currentHealth)
     {
-        if(value != stats.maxHealth)
+        if (currentHealth != maxHealth)
         {
             healthSlider.gameObject.SetActive(true);
+
         }
-        healthSlider.value = value;
+            laseMadeVisibleTime = Time.deltaTime;
+        healthSlider.value = currentHealth;
+    }
+
+    private void LateUpdate()
+    {
+        transform.forward = -cam.transform.forward;
+
+        if (Time.deltaTime - laseMadeVisibleTime > visibleTime)
+        {
+            healthSlider.gameObject.SetActive(false);
+        }
     }
 }
