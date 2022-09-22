@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +31,7 @@ public class EnemyHealthBar : MonoBehaviour
             healthSlider.gameObject.SetActive(true);
 
         }
-            laseMadeVisibleTime = Time.deltaTime;
+        laseMadeVisibleTime = Time.deltaTime;
         healthSlider.value = currentHealth;
     }
 
