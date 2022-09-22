@@ -16,12 +16,14 @@ public class CharacterAnimation : MonoBehaviour
     NavMeshAgent agent;
     protected Animator animator;
     protected CharacterCombat combat;
+    protected CharacterStats stats;
     protected AnimatorOverrideController overrideController;
 
     [Header("Parameter")]
     [SerializeField, AnimatorParam(nameof(animator),AnimatorControllerParameterType.Float)] private string speedPercent = "SpeedPercent";
     [SerializeField,AnimatorParam(nameof(animator),AnimatorControllerParameterType.Bool)] private string inCombat= "inCombat";
     [SerializeField, AnimatorParam(nameof(animator),AnimatorControllerParameterType.Trigger)] private string attack = "attack";
+    [SerializeField, AnimatorParam(nameof(animator),AnimatorControllerParameterType.Bool)] private string isAlive = "isAlive";
 
     private void Reset()
     {
@@ -30,16 +32,28 @@ public class CharacterAnimation : MonoBehaviour
 
     protected virtual void Start()
     {
-        agent = transform.root.GetComponentInChildren<NavMeshAgent>();
-        animator = transform.root.GetComponentInChildren<Animator>();
-        combat = transform.root.GetComponentInChildren<CharacterCombat>();
+        agent ??= transform.root.GetComponentInChildren<NavMeshAgent>();
+        animator ??= transform.root.GetComponentInChildren<Animator>();
+        combat ??= transform.root.GetComponentInChildren<CharacterCombat>();
+        stats ??= transform.root.GetComponentInChildren<CharacterStats>();
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = overrideController;
 
         currentAttackAnimSet = defaultAttackAnimSet;
 
+        animator.SetBool(isAlive, true);
+
         combat.OnAttack += OnAttack;
+        stats.OnChangeHealth += Stats_OnChangeHealth;
+    }
+
+    private void Stats_OnChangeHealth(float maxHealth, float currentHealth)
+    {
+        if (currentHealth < 0)
+        {
+            animator.SetBool(isAlive, false);
+        }
     }
 
     private void Update()

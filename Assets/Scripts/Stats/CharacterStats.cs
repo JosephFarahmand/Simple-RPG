@@ -13,6 +13,9 @@ public class CharacterStats : MonoBehaviour
     public Stats Armor => armor;
     public Stats AttackSpeed => attackSpeed;
 
+    /// <summary>
+    /// (max health, current health)
+    /// </summary>
     public event Action<float,float> OnChangeHealth;
 
     [Header("Stats")]

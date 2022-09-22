@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 608333639}
-  - component: {fileID: 608333640}
+  - component: {fileID: 415349784}
   m_Layer: 0
   m_Name: Animator Controller
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 8882650547007383142}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &608333640
+--- !u!114 &415349784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,12 +41,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 608333638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ec2d1fa577b92428ad20d351a771eb, type: 3}
+  m_Script: {fileID: 11500000, guid: d49e85338b3d0634893126c0c03134f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walk: SpeedPercent
+  replacableAttackAnim: {fileID: 7400000, guid: 16031dac43abb0b4ea5338628284881f, type: 2}
+  defaultAttackAnimSet:
+  - {fileID: 7400000, guid: 16031dac43abb0b4ea5338628284881f, type: 2}
+  speedPercent: SpeedPercent
+  inCombat: inCombat
   attack: Attack
-  die: 
+  weaponAnimations:
+  - equipment: {fileID: 11400000, guid: 80c33c28ecb8412498f818821f6ac895, type: 2}
+    clips:
+    - {fileID: 7400000, guid: 39cf12f5cba6d07489ec1e998c1c21fe, type: 2}
+    - {fileID: 7400000, guid: f7fee84b0742f1f4abd67766b5c56f3a, type: 2}
+    - {fileID: 7400000, guid: 7fe8c2b7657aafd408c62c16bea2dbe3, type: 2}
+    - {fileID: 7400000, guid: 927027fa3485d4245abb561a80b9b6fa, type: 2}
+    - {fileID: 7400000, guid: 265aa486c490f974193d86ea962792ce, type: 2}
+    - {fileID: 7400000, guid: 47b69dbc22cf8fb4caf96eddefeb00df, type: 2}
+    - {fileID: 7400000, guid: 5c858c4aa92dc98439d5c62ca4ff22d3, type: 2}
 --- !u!1 &1125884435
 GameObject:
   m_ObjectHideFlags: 0
