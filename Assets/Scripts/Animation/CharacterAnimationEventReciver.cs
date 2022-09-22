@@ -15,4 +15,14 @@ public class CharacterAnimationEventReciver : AnimationEventReciver
     {
         combat.AttackHit_AnimationEvent();
     }
+
+    public void FootL()
+    {
+
+    }
+
+    public void FootR()
+    {
+
+    }
 }
