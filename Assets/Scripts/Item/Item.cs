@@ -11,7 +11,7 @@ public abstract class Item : ScriptableObject
     [SerializeField] private bool isDefaultItem = false;
 
     [Header("Shop")]
-    [SerializeField] private List<Condition> conditions;
+    [SerializeField] private List<Requiement> conditions;
     [SerializeField, Min(0)] private int price = 100;
     [SerializeField, NaughtyAttributes.ReadOnly] private int count = 0;
 

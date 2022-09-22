@@ -20349,29 +20349,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4631637356966966, guid: 874dd0409e61c9c409e54dfa27e10ebe, type: 3}
   m_PrefabInstance: {fileID: 942600338}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &947565393 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 608333638, guid: 3eb9c7c2e8eaaa64cae85550eeea4a3a, type: 3}
-  m_PrefabInstance: {fileID: 1228974690}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &947565395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947565393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d49e85338b3d0634893126c0c03134f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  replacableAttackAnim: {fileID: 0}
-  defaultAttackAnimSet: []
-  speedPercent: SpeedPercent
-  inCombat: 
-  attack: 
-  weaponAnimations: []
 --- !u!1 &949187955
 GameObject:
   m_ObjectHideFlags: 0
@@ -27151,8 +27128,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 608333640, guid: 3eb9c7c2e8eaaa64cae85550eeea4a3a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3eb9c7c2e8eaaa64cae85550eeea4a3a, type: 3}
 --- !u!4 &1230719506 stripped
 Transform:
@@ -37701,7 +37677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7760140880430794162, guid: b6e92b37fbf96c948b97fedada0e5831, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1275.7122
       objectReference: {fileID: 0}
     - target: {fileID: 7760140880488417404, guid: b6e92b37fbf96c948b97fedada0e5831, type: 3}
       propertyPath: m_AnchorMax.y
@@ -37765,7 +37741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7760140881002967439, guid: b6e92b37fbf96c948b97fedada0e5831, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 939.71216
       objectReference: {fileID: 0}
     - target: {fileID: 7760140881106082899, guid: b6e92b37fbf96c948b97fedada0e5831, type: 3}
       propertyPath: m_AnchorMax.y

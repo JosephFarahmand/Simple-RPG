@@ -8,12 +8,16 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
 
-        // Die Animation
-
-
         // Supply rewards
         var chest = Instantiate(GameData.GetChest());
         chest.transform.position = transform.position;
+
+        StartCoroutine(DestriyDelay());
+    }
+
+    IEnumerator DestriyDelay()
+    {
+        yield return new WaitForSeconds(2);
 
         Destroy(gameObject);
     }

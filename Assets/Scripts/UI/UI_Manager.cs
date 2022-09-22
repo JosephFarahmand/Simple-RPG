@@ -32,10 +32,7 @@ public class UI_Manager : MonoBehaviour
 
         #endregion
 
-        if (FindObjectOfType<CharacterPreview>() == null)
-        {
-            Instantiate(previewObject);
-        }
+        
     }
 
     private void Start()
@@ -69,7 +66,13 @@ public class UI_Manager : MonoBehaviour
         }
 
         #endregion
+
         OpenPage(GetPageOfType<EntryPage>());
+
+        if (FindObjectOfType<CharacterPreview>() == null)
+        {
+            Instantiate(previewObject);
+        }
     }
 
     #region Page's functions

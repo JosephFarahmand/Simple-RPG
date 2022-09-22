@@ -1,8 +1,8 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Condition", menuName = "Condition")]
-public class Condition : ScriptableObject
+[CreateAssetMenu(fileName = "New Requiement", menuName = "Requiement")]
+public class Requiement : ScriptableObject
 {
     [SerializeField] private Type type;
     [SerializeField, Label("Operator"), ShowIf(nameof(isDefault))] private Operator @operator;

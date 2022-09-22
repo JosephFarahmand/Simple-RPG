@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5180015844018856925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Interaction
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,9 +38,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2514435505096035605}
     m_Modifications:
+    - target: {fileID: 1207210259954346, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207210259954346, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 1292886652626164, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
       propertyPath: m_Name
       value: Treasure Chest 01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1292886652626164, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1292886652626164, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     - target: {fileID: 4203986546083242, guid: f6594a0d51b96534a858e7d8a55ae4c9, type: 3}
       propertyPath: m_RootOrder
@@ -173,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 2
   interactionTransform: {fileID: 5180015844018856925}
-  chest: {fileID: 11400000, guid: 24ab8e5fc39976f4385710d8915006d8, type: 2}
+  rewards: []
 --- !u!4 &2514435505096035605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6519776219256746228, guid: 7a6287159da21934a99f336c2f5392d5, type: 3}

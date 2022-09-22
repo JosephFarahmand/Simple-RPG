@@ -6,12 +6,12 @@ public class CharacterPreview : MonoBehaviour
     private List<EquipmentHandler> equipmentHandlers;
     EquipmentController playerEquipment;
     InventoryPage inventoryPage;
+    [SerializeField] private Transform character;
 
-    private void Start()
+    private void Awake()
     {
         playerEquipment = PlayerManager.EquipController;
 
-        inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
 
         equipmentHandlers = new List<EquipmentHandler>();
         var handlers = GetComponentsInChildren<EquipmentHandler>(true);
@@ -23,6 +23,12 @@ public class CharacterPreview : MonoBehaviour
         }
 
         playerEquipment.onEquipmentChanged += onChangePreview;
+    }
+
+    private void Start()
+    {
+        inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
+
     }
 
     private void onChangePreview(Equipment newItem, Equipment oldItem)
@@ -42,7 +48,7 @@ public class CharacterPreview : MonoBehaviour
     {
         if (inventoryPage.gameObject.activeSelf)
         {
-            transform.Rotate(0.0f, -Input.GetAxis("Horizontal") * speed, 0.0f);
+            character.Rotate(0.0f, -Input.GetAxis("Horizontal") * speed, 0.0f);
         }
     }
 }
