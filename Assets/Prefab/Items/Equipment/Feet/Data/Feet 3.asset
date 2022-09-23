@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65775abb8cb62e74eb1d7a875cd884b5, type: 3}
   m_Name: Feet 3
   m_EditorClassIdentifier: 
-  id: 
-  name: Feet 1
+  id: Feet - 3
   type: 1
   icon: {fileID: 21300000, guid: 9fbdd0376ab914cc6a1b8835495610c8, type: 3}
   isDefaultItem: 0
+  conditions: []
+  price: 0
+  count: 0
   isCrafted: 0
   requerdItems: []
   equipSlot: 9
-  mesh: {fileID: 6761459912158986793, guid: b60f0216da87d1549b69898b1bf69219, type: 3}
-  itemModifier:
-    hp: 0
-    attack: 0
+  itemObject: {fileID: 0}
+  modifier:
     damage: 0
     armor: 0
+    attackSpeed: 0

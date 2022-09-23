@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65775abb8cb62e74eb1d7a875cd884b5, type: 3}
   m_Name: Belt - 8
   m_EditorClassIdentifier: 
-  id: 
+  id: Belt - 8
   type: 2
   icon: {fileID: 0}
   isDefaultItem: 0
+  conditions: []
+  price: 0
+  count: 0
   isCrafted: 0
   requerdItems: []
   equipSlot: 7
@@ -23,3 +26,4 @@ MonoBehaviour:
   modifier:
     damage: 0
     armor: 0
+    attackSpeed: 0

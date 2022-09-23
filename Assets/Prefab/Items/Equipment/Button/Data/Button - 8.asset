@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65775abb8cb62e74eb1d7a875cd884b5, type: 3}
   m_Name: Button - 8
   m_EditorClassIdentifier: 
-  id: 
-  name: b -2
+  id: Button - 8
   type: 3
   icon: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
   isDefaultItem: 1
+  conditions: []
+  price: 0
+  count: 0
   isCrafted: 0
   requerdItems: []
   equipSlot: 8
-  mesh: {fileID: 6938536788782627110, guid: 2bbf2687152b3634cb2f0cbc1c170cc7, type: 3}
-  itemModifier:
-    hp: 0
-    attack: 0
+  itemObject: {fileID: 0}
+  modifier:
     damage: 0
     armor: 0
+    attackSpeed: 0

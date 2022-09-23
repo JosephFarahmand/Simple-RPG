@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65775abb8cb62e74eb1d7a875cd884b5, type: 3}
   m_Name: Torso - 3
   m_EditorClassIdentifier: 
-  id: 
-  name: Torso 3
+  id: Torso - 3
   type: 1
   icon: {fileID: 21300000, guid: c23bb5c1541e4415bb82f430a308f7e3, type: 3}
   isDefaultItem: 0
+  conditions: []
+  price: 0
+  count: 0
   isCrafted: 0
   requerdItems: []
   equipSlot: 6
-  mesh: {fileID: 7677619770371956155, guid: 62a745688ade9ca4db39cd7e4f9f4e8a, type: 3}
-  itemModifier:
-    hp: 0
-    attack: 0
+  itemObject: {fileID: 4002765408627271705, guid: 5c01f4e741cf1824f92baedb9dd57163, type: 3}
+  modifier:
     damage: 0
-    armor: 1
+    armor: 0
+    attackSpeed: 0
