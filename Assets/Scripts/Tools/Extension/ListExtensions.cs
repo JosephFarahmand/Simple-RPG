@@ -32,6 +32,19 @@ public static class ListExtensions
     }
 
     /// <summary>
+    /// Return a random item from the IEnumerable.
+    /// Sampling with replacement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static T RandomItem<T>(this IEnumerable<T> list)
+    {
+        if (list.Count() == 0) throw new System.IndexOutOfRangeException("Cannot select a random item from an empty list");
+        return list.ElementAt(UnityEngine.Random.Range(0, list.Count()));
+    }
+
+    /// <summary>
     /// Removes a random item from the list, returning that item.
     /// Sampling without replacement.
     /// </summary>

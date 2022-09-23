@@ -7,13 +7,6 @@ public class SkinController : MonoBehaviour
 {
     [SerializeField] private Material skinMaterial;
 
-    public void SetMaterial(MeshRenderer meshRenderer)
-    {
-        meshRenderer.sharedMaterial = skinMaterial;
-    }
+    public Material SkinMaterial { get => skinMaterial; }
 
-    public void SetMaterial(SkinnedMeshRenderer skinnedMeshRenderer)
-    {
-        skinnedMeshRenderer.sharedMaterial = skinMaterial;
-    }
 }

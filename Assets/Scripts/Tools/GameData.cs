@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,45 @@ public class GameData : MonoBehaviour
     public static List<Equipment> GetEquipmentItems()
     {
         return instance.equipment;
+    }
+
+    public static CharacterEquipment GetCharacterEquipment()
+    {
+        var beltId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Belt).RandomItem().Id;
+        var bottonId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Legs).RandomItem().Id;
+        var feetId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Feet).RandomItem().Id;
+        var handId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Hands).RandomItem().Id;
+        var helmetId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Head).RandomItem().Id;
+        var torsoId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Chest).RandomItem().Id;
+        var weaponId = instance.equipment.Where(obj => obj.equipSlot == EquipmentSlot.Weapon).RandomItem().Id;
+
+        CharacterEquipment equipment = new CharacterEquipment(beltId, bottonId, feetId, handId, helmetId, torsoId, weaponId);
+
+        return equipment;
+    }
+
+    public struct CharacterEquipment
+    {
+        public CharacterEquipment(string beltId, string bottonId, string feetId, string handId, string helmetId, string torsoId, string weaponId)
+        {
+            BeltId = beltId;
+            BottonId = bottonId;
+            FeetId = feetId;
+            HandId = handId;
+            HelmetId = helmetId;
+            TorsoId = torsoId;
+            WeaponId = weaponId;
+        }
+
+        public string BeltId {get; private set; }
+        public string BottonId {get; private set; }
+        public string FeetId {get; private set; }
+        public string HandId {get; private set; }
+        public string HelmetId {get; private set; }
+        public string TorsoId {get; private set; }
+        public string WeaponId {get; private set; }
+
+        public List<string> ItemsId => new List<string> { BeltId, BottonId, FeetId, HandId, HelmetId, TorsoId , WeaponId };
     }
 
     public static InteractableChest GetChest()

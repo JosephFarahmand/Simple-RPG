@@ -5,7 +5,6 @@ using UnityEngine;
 public class EquipmentHandler : MonoBehaviour
 {
     [SerializeField] private Equipment item;
-    [SerializeField] private bool setPlayerMaterial;
 
     public string ID => item.Id;
     public Equipment Item => item;
@@ -17,16 +16,21 @@ public class EquipmentHandler : MonoBehaviour
 
     private void Start()
     {
-        if (setPlayerMaterial)
+        if (transform.root.TryGetComponent(out SkinController skinController))
         {
-            if (TryGetComponent(out MeshRenderer meshRenderer))
-            {
-                PlayerManager.SkinController.SetMaterial(meshRenderer);
-            }
-            else if (TryGetComponent(out SkinnedMeshRenderer skinnedMeshRenderer))
-            {
-                PlayerManager.SkinController.SetMaterial(skinnedMeshRenderer);
-            }
+            SetMaterial(skinController.SkinMaterial);
+        }
+    }
+
+    public void SetMaterial(Material material)
+    {
+        if (TryGetComponent(out MeshRenderer meshRenderer))
+        {
+            meshRenderer.sharedMaterial = material;
+        }
+        else if (TryGetComponent(out SkinnedMeshRenderer skinnedMeshRenderer))
+        {
+            skinnedMeshRenderer.sharedMaterial = material;
         }
     }
 }
