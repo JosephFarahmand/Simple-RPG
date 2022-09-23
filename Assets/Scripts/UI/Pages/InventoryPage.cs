@@ -124,15 +124,16 @@ public class InventoryPage : PageBase
     private void onEquip(Equipment newItem, Equipment oldItem)
     {
         InventoryEquipSlot equipSlot;
-        if (newItem == null)
-        {
-            equipSlot = equipSlots.Find(x => x.Slot == oldItem.equipSlot);
-            equipSlot.SetIcon(oldItem.Icon);
-        }
-        else
+        if (newItem != null)
         {
             equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
             equipSlot.SetIcon(newItem.Icon);
+            
+        }
+        else
+        {
+            //equipSlot = equipSlots.Find(x => x.Slot == oldItem.equipSlot);
+            //equipSlot.SetIcon(oldItem.Icon);
         }
 
         damage.SetCurrentValue(PlayerManager.Stats.Damage.GetValue());

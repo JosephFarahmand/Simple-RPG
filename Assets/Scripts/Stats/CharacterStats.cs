@@ -26,7 +26,7 @@ public class CharacterStats : MonoBehaviour
     public event System.Action OnDie;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         CurrentHealth = maxHealth;
     }

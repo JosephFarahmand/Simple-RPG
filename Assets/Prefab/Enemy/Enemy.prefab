@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7979890521940609243}
   - component: {fileID: 7979890521940609240}
   - component: {fileID: 2474015769514378617}
+  - component: {fileID: 7157056799023311046}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -209,6 +210,36 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 513cdcf79ca95564a9b12b8e927411c6, type: 2}
   - {fileID: 2100000, guid: 5a398fa8e7ad9b64a8c6059a4d7942d5, type: 2}
   - {fileID: 2100000, guid: bf638ec3f8b912d408f3d77b75420855, type: 2}
+--- !u!114 &7157056799023311046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979890521940609232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7426352a00582d48a2f4da145a1d3c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replacableIdleAnim: {fileID: 7400000, guid: 9284d1d78ee1ba347b34c91ccf9b87df, type: 2}
+  replacableSlowWalkAnim: {fileID: 7400000, guid: da43ecd157892754591175f8dba0fc4a, type: 2}
+  replacableWalkAnim: {fileID: 7400000, guid: 91745366da1be574cbc423bf0697add0, type: 2}
+  replacableRunAnim: {fileID: 7400000, guid: 21350fb0fa9aaa94ab929b1b959004c1, type: 2}
+  replacableAttackIdleAnim: {fileID: 7400000, guid: 0feeedb3f245df3459bb7241d5a16711, type: 2}
+  replacableDeathAnim: {fileID: 7400000, guid: 0419c1c44f0b4614f86a8a79871f5669, type: 2}
+  replacableAttackAnim: {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}
+  defaultAttackAnimSet:
+  - {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}
+  - {fileID: 7400000, guid: fabe9394e1e24c14c8eee818cabb1dfa, type: 2}
+  - {fileID: 7400000, guid: 8b7f7539c207d4943a4fac25b798efdc, type: 2}
+  - {fileID: 7400000, guid: 2bb3b305843ce4f428039106af366f0a, type: 2}
+  - {fileID: 7400000, guid: af78a2212043b184796eaff1a75fe7df, type: 2}
+  - {fileID: 7400000, guid: 9890f06458acfcd4b8d48929010a9006, type: 2}
+  speedPercent: SpeedPercent
+  inCombat: inCombat
+  attack: Attack
+  isAlive: isAlive
 --- !u!1001 &603987502168768383
 PrefabInstance:
   m_ObjectHideFlags: 0

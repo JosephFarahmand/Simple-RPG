@@ -6,7 +6,7 @@ public class Equipment : Item
 {
     public ItemStoredData StoredData => new ItemStoredData(this);
 
-    public ItemModifier Modifier { get => modifier; }
+    public ItemModifier Modifier { get => StaticData.GetItemModifier(Type, equipSlot); }
 
     [Header("Crafting")]
     public bool isCrafted = false;
@@ -37,6 +37,11 @@ public class Equipment : Item
         RemoveFromInventory();                      // Remove it from inventory
     }
 
+    [NaughtyAttributes.Button]
+    private void Display()
+    {
+        modifier = Modifier;
+    }
 
     [System.Serializable]
     public struct ItemModifier

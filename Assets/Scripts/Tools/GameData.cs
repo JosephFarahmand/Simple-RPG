@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class GameData : MonoBehaviour
 {
     private static GameData instance;
+    [SerializeField] private GameAnimations animations;
+
+    public static GameAnimations Animations => instance.animations ?? instance.GetComponent<GameAnimations>();
 
     [SerializeField] private List<Equipment> equipment = new List<Equipment>();
     [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
 
+    [SerializeField] private List<CardBackground> cardBackgrounds;
     private void Awake()
     {
         if (instance == null)
@@ -23,6 +27,8 @@ public class GameData : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        animations ??= GetComponent<GameAnimations>();
     }
 
     public static Equipment GetEquipmentItem(string id)
@@ -79,7 +85,6 @@ public class GameData : MonoBehaviour
         return instance.chests[Random.Range(0, instance.chests.Count)];
     }
 
-    [SerializeField] private List<CardBackground> cardBackgrounds;
 
     public static CardBackground GetCardBackground(ItemType type)
     {

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class InventoryEquipSlot : MonoBehaviour, IPointerClickHandler
 {
-    Equipment item;
 
 
     [SerializeField] private EquipmentSlot slot;
@@ -27,8 +26,6 @@ public class InventoryEquipSlot : MonoBehaviour, IPointerClickHandler
             itemIcon.sprite = defaultSprite;
             return;
         }
-
-        item = newItem;
         itemIcon.sprite = newItem.Icon;
     }
 

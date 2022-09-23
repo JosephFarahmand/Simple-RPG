@@ -17,7 +17,18 @@ public abstract class Item : ScriptableObject
 
     public string Id => id;
     public string Name => name;
-    public ItemType Type => type;
+    public ItemType Type
+    {
+        get
+        {
+            if (isDefaultItem)
+            {
+                type = ItemType.None;
+            }
+            return type;
+        }
+    }
+
     public Sprite Icon => icon;
     public bool IsDefaultItem => isDefaultItem;
 

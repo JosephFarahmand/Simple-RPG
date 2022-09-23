@@ -25,5 +25,5 @@ MonoBehaviour:
   itemObject: {fileID: 4583136750840502634, guid: 571c6ac7a2a9bad46a6f7e149560f135, type: 3}
   modifier:
     damage: 0
-    armor: 0
+    armor: 5
     attackSpeed: 0

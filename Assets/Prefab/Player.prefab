@@ -44,23 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49e85338b3d0634893126c0c03134f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replacableAttackAnim: {fileID: 7400000, guid: 16031dac43abb0b4ea5338628284881f, type: 2}
+  replacableIdleAnim: {fileID: 7400000, guid: 9284d1d78ee1ba347b34c91ccf9b87df, type: 2}
+  replacableSlowWalkAnim: {fileID: 7400000, guid: da43ecd157892754591175f8dba0fc4a, type: 2}
+  replacableWalkAnim: {fileID: 7400000, guid: 91745366da1be574cbc423bf0697add0, type: 2}
+  replacableRunAnim: {fileID: 7400000, guid: 21350fb0fa9aaa94ab929b1b959004c1, type: 2}
+  replacableAttackIdleAnim: {fileID: 7400000, guid: 0feeedb3f245df3459bb7241d5a16711, type: 2}
+  replacableDeathAnim: {fileID: 7400000, guid: 0419c1c44f0b4614f86a8a79871f5669, type: 2}
+  replacableAttackAnim: {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}
   defaultAttackAnimSet:
-  - {fileID: 7400000, guid: 16031dac43abb0b4ea5338628284881f, type: 2}
+  - {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}
+  - {fileID: 7400000, guid: fabe9394e1e24c14c8eee818cabb1dfa, type: 2}
+  - {fileID: 7400000, guid: 8b7f7539c207d4943a4fac25b798efdc, type: 2}
+  - {fileID: 7400000, guid: 2bb3b305843ce4f428039106af366f0a, type: 2}
+  - {fileID: 7400000, guid: af78a2212043b184796eaff1a75fe7df, type: 2}
+  - {fileID: 7400000, guid: 9890f06458acfcd4b8d48929010a9006, type: 2}
   speedPercent: SpeedPercent
   inCombat: inCombat
   attack: Attack
   isAlive: isAlive
-  weaponAnimations:
-  - equipment: {fileID: 11400000, guid: 80c33c28ecb8412498f818821f6ac895, type: 2}
-    clips:
-    - {fileID: 7400000, guid: 39cf12f5cba6d07489ec1e998c1c21fe, type: 2}
-    - {fileID: 7400000, guid: f7fee84b0742f1f4abd67766b5c56f3a, type: 2}
-    - {fileID: 7400000, guid: 7fe8c2b7657aafd408c62c16bea2dbe3, type: 2}
-    - {fileID: 7400000, guid: 927027fa3485d4245abb561a80b9b6fa, type: 2}
-    - {fileID: 7400000, guid: 265aa486c490f974193d86ea962792ce, type: 2}
-    - {fileID: 7400000, guid: 47b69dbc22cf8fb4caf96eddefeb00df, type: 2}
-    - {fileID: 7400000, guid: 5c858c4aa92dc98439d5c62ca4ff22d3, type: 2}
 --- !u!1 &1125884435
 GameObject:
   m_ObjectHideFlags: 0

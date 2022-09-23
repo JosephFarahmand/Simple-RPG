@@ -24,6 +24,6 @@ MonoBehaviour:
   equipSlot: 7
   itemObject: {fileID: 7148657039829624650, guid: 5e06dc3cb647a054e890da5ed6d8314d, type: 3}
   modifier:
-    damage: 0
+    damage: 5
     armor: 0
     attackSpeed: 0

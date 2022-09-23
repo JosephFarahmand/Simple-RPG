@@ -16,6 +16,11 @@ public class CharacterAnimationEventReciver : AnimationEventReciver
         combat.AttackHit_AnimationEvent();
     }
 
+    public void Hit()
+    {
+        combat.AttackHit_AnimationEvent();
+    }
+
     public void FootL()
     {
 

@@ -11,12 +11,14 @@
         {
             armor.AddModifier(newItem.Modifier.Armor);
             Damage.AddModifier(newItem.Modifier.Damage);
+            attackSpeed.AddModifier(newItem.Modifier.AttackSpeed);
         }
 
         if (oldItem != null)
         {
             armor.RemoveModifier(oldItem.Modifier.Armor);
             Damage.RemoveModifier(oldItem.Modifier.Damage);
+            attackSpeed.RemoveModifier(newItem.Modifier.AttackSpeed);
         }
     }
 }

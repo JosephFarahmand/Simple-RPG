@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkinSelector : MonoBehaviour
+public class EnemyCustomizer : MonoBehaviour
 {
     private List<EquipmentHandler> equipmentHandlers;
     [SerializeField] private SkinnedMeshRenderer headSkinRenderer;
     [SerializeField] private List<Material> materials;
+
+    public System.Action<Equipment> onEquip;
 
     private void Awake()
     {
@@ -20,15 +22,17 @@ public class SkinSelector : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
         var material = materials.RandomItem();
         var data = GameData.GetCharacterEquipment();
-        foreach(var itemID in data.ItemsId)
+        foreach (var itemID in data.ItemsId)
         {
-            var item = equipmentHandlers.Find(item => item.ID == itemID);
-            item.SetActive(true);
-            item.SetMaterial(material);
+            var itemHandler = equipmentHandlers.Find(item => item.ID == itemID);
+            itemHandler.SetActive(true);
+            itemHandler.SetMaterial(material);
+
+            onEquip?.Invoke(itemHandler.Item);
         }
 
         headSkinRenderer.sharedMaterial = material;

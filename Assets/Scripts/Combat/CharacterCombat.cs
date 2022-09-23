@@ -18,6 +18,15 @@ public class CharacterCombat : MonoBehaviour
     private void Start()
     {
         myStats = GetComponent<CharacterStats>();
+        myStats.OnChangeHealth += MyStats_OnChangeHealth;
+    }
+
+    private void MyStats_OnChangeHealth(float arg1, float currentHealth)
+    {
+        if(currentHealth < 0)
+        {
+            inCombat = false;
+        }
     }
 
     private void Update()
@@ -48,12 +57,6 @@ public class CharacterCombat : MonoBehaviour
             lastAttackTime = Time.deltaTime;
         }
     }
-
-    //private IEnumerator DoDamge(CharacterStats stats, float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
-        
-    //}
 
     public void AttackHit_AnimationEvent()
     {
