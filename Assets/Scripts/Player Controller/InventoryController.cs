@@ -28,4 +28,9 @@ public class InventoryController : MonoBehaviour
         items.Remove(item);
         onItemChangedCallback?.Invoke();
     }
+
+    public bool HasItem(Item item)
+    {
+        return items.Contains(item);
+    }
 }

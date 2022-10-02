@@ -13,11 +13,6 @@ public class SaveOrLoadManager : MonoBehaviour
     private const string ESFile = "profile.txt";
     private const string TagSign = "?tag=";
 
-    //private const string tokenTag = "TOKEN_TAG";
-    //private const string playerTag = "PLAYER_TAG";
-
-    //private const string sfxTag = "SFX_TAG";
-    //private const string musicTag = "MUSIC_TAG";
 
 
     private void Awake()
@@ -34,16 +29,6 @@ public class SaveOrLoadManager : MonoBehaviour
 
     }
 
-    #region Base GameData
-
-    private const string hasSeenTeaserTag = "SEEN_TEASER_TAG";
-    public bool HasSeenTeaser
-    {
-        get { return GetBool(hasSeenTeaserTag); }
-        set { SetBool(hasSeenTeaserTag, value); }
-    }
-
-    #endregion
 
     #region Player
 

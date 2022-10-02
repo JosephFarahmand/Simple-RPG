@@ -105,6 +105,7 @@ public class PlayerProfile
 
         public PlayerStoredItems()
         {
+            Items = new List<ItemStoredData>();
         }
 
         public PlayerStoredItems(JSONObject json)

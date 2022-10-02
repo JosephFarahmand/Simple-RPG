@@ -11,7 +11,7 @@ public abstract class Item : ScriptableObject
     [SerializeField] private bool isDefaultItem = false;
 
     [Header("Shop")]
-    [SerializeField] private List<Requiement> conditions;
+    [SerializeField] private int RequiredLevel = 1;
     [SerializeField, Min(0)] private int price = 100;
     [SerializeField, NaughtyAttributes.ReadOnly] private int count = 0;
 
@@ -38,14 +38,7 @@ public abstract class Item : ScriptableObject
 
     public bool HasConditions()
     {
-        foreach (var condition in conditions)
-        {
-            if (condition.Check(this) == false)
-            {
-                return false;
-            }
-        }
-        return true;
+        return SaveOrLoadManager.instance.Player.Level >= RequiredLevel;
     }
 
     public virtual void Use()

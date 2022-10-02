@@ -55,7 +55,7 @@ public class InventoryPage : PageBase
             slots[i] = Instantiate(inventorySlotPrefab, itemsParent);
             slots[i].SetActive(false);
 
-            slots[i].OnToggleChange += InventoryPage_OnToggleChange;
+            slots[i].OnSlotSelectedHandler += Slot_OnSlotSelectedHandler;
         }
 
         SetActionButtonState(false);
@@ -67,7 +67,7 @@ public class InventoryPage : PageBase
         }
     }
 
-    private void InventoryPage_OnToggleChange(bool isEquiped, Item item)
+    private void Slot_OnSlotSelectedHandler(bool isEquiped, Item item)
     {
         if (isEquiped)
         {
@@ -92,6 +92,13 @@ public class InventoryPage : PageBase
         else
         {
             SetActionButtonState(false);
+
+            if (item is Equipment)
+            {
+                damage.SetNewValue();
+                armor.SetNewValue();
+                attackSpeed.SetNewValue();
+            }
         }
     }
 
@@ -201,9 +208,16 @@ public class InventoryPage : PageBase
             currentValueFill.color = defaultColor;
         }
 
-        public void SetNewValue(float value)
+        public void SetNewValue(float value = -1)
         {
-            newValue.value = value;
+            if (value == -1)
+            {
+                newValue.value = currentValue.value;
+            }
+            else
+            {
+                newValue.value = value;
+            }
 
             if (newValue.value > currentValue.value)
             {
