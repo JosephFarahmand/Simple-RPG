@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b42b3e010dba3d489f40ff2c3224271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 5
+  lookRadius: 20
   rotationSpeed: 5
 --- !u!114 &7979890521940609240
 MonoBehaviour:
@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3969c89764bc0a3488d822f49d6e2f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 0.6
 --- !u!114 &2474015769514378617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +226,7 @@ MonoBehaviour:
   replacableWalkAnim: {fileID: 7400000, guid: 91745366da1be574cbc423bf0697add0, type: 2}
   replacableRunAnim: {fileID: 7400000, guid: 21350fb0fa9aaa94ab929b1b959004c1, type: 2}
   replacableAttackIdleAnim: {fileID: 7400000, guid: 0feeedb3f245df3459bb7241d5a16711, type: 2}
-  replacableDeathAnim: {fileID: 7400000, guid: 0419c1c44f0b4614f86a8a79871f5669, type: 2}
+  replacableDeathAnim: {fileID: 7400000, guid: 8c549f34a4396ae489e397e8fd648af9, type: 2}
   replacableAttackAnim: {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}
   defaultAttackAnimSet:
   - {fileID: 7400000, guid: d91be625377e67d4891c13b971ab6690, type: 2}

@@ -14,14 +14,6 @@ public class EquipmentHandler : MonoBehaviour
         gameObject.SetActive(value);
     }
 
-    private void Start()
-    {
-        if (transform.root.TryGetComponent(out SkinController skinController))
-        {
-            SetMaterial(skinController.SkinMaterial);
-        }
-    }
-
     public void SetMaterial(Material material)
     {
         if (TryGetComponent(out MeshRenderer meshRenderer))

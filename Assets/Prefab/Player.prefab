@@ -227,6 +227,7 @@ Transform:
   - {fileID: 5834260433139998561}
   - {fileID: 608333639}
   - {fileID: 2132389489651923110}
+  - {fileID: 7057858249075150785}
   m_Father: {fileID: 8995232355157945964}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -247,7 +248,6 @@ GameObject:
   - component: {fileID: 8995232355157945961}
   - component: {fileID: 5467763918754336081}
   - component: {fileID: 1086813630685304093}
-  - component: {fileID: 3606070077942453314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -340,7 +340,7 @@ MonoBehaviour:
   inventoryController: {fileID: 1479827858957940807}
   combat: {fileID: 1086813630685304093}
   stats: {fileID: 5467763918754336081}
-  skinController: {fileID: 3606070077942453314}
+  skinCustomizer: {fileID: 8013533690465952533}
   profileData: {fileID: 6114329478161563286}
 --- !u!114 &8995232355157945966
 MonoBehaviour:
@@ -401,17 +401,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3969c89764bc0a3488d822f49d6e2f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 0.6
---- !u!114 &3606070077942453314
+--- !u!1 &9037648400691429500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7057858249075150785}
+  - component: {fileID: 8013533690465952533}
+  m_Layer: 0
+  m_Name: Skin Customizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7057858249075150785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037648400691429500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8882650547007383142}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8013533690465952533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8995232355157945967}
+  m_GameObject: {fileID: 9037648400691429500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc43927450229c940bca02283ee4b0a6, type: 3}
+  m_Script: {fileID: 11500000, guid: d61a6b7cdbb41bc4b9d979e69a50de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skinMaterial: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}
@@ -424,7 +455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1106949021828290, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
       propertyPath: m_Name
-      value: Male Warrior 01
+      value: Character Model
       objectReference: {fileID: 0}
     - target: {fileID: 4156170715410218, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
       propertyPath: m_RootOrder
@@ -470,14 +501,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 23283362981240166, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}
-    - target: {fileID: 23870953417792790, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
 --- !u!4 &8996987166678349968 stripped
