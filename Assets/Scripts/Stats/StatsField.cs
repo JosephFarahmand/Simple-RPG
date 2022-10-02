@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Stats
+public class StatsField
 {
     [SerializeField] private float baseValue;
 

@@ -7,17 +7,17 @@ public class CharacterStats : MonoBehaviour
     public float maxHealth = 100;
 
     [Header("Stats")]
-    [SerializeField] protected Stats damage;
-    [SerializeField] protected Stats armor;
-    [SerializeField] protected Stats attackSpeed;
+    [SerializeField] protected StatsField damage;
+    [SerializeField] protected StatsField armor;
+    [SerializeField] protected StatsField attackSpeed;
 
     /// <summary>
     /// Character's current health
     /// </summary>
     public float CurrentHealth { get; private set; }
-    public Stats Damage => damage;
-    public Stats Armor => armor;
-    public Stats AttackSpeed => attackSpeed;
+    public StatsField Damage => damage;
+    public StatsField Armor => armor;
+    public StatsField AttackSpeed => attackSpeed;
 
     /// <summary>
     /// (max health, current health)
