@@ -5,6 +5,12 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     public float maxHealth = 100;
+
+    [Header("Stats")]
+    [SerializeField] protected Stats damage;
+    [SerializeField] protected Stats armor;
+    [SerializeField] protected Stats attackSpeed;
+
     /// <summary>
     /// Character's current health
     /// </summary>
@@ -18,13 +24,7 @@ public class CharacterStats : MonoBehaviour
     /// </summary>
     public event Action<float,float> OnChangeHealth;
 
-    [Header("Stats")]
-    [SerializeField] protected Stats damage;
-    [SerializeField] protected Stats armor;
-    [SerializeField] protected Stats attackSpeed;
-
-    public event System.Action OnDie;
-
+    public event Action OnDie;
 
     protected virtual void Awake()
     {
@@ -39,13 +39,12 @@ public class CharacterStats : MonoBehaviour
         CurrentHealth -= damage;
         Debug.Log($"{transform.name} takes {damage} damage.");
 
-        OnChangeHealth?.Invoke(maxHealth,CurrentHealth);
+        OnChangeHealth?.Invoke(maxHealth, CurrentHealth);
 
-        if(CurrentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
-
     }
 
     protected virtual void Die()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,9 +5,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyStats))]
 public class EnemyController : MonoBehaviour
 {
-    
     [SerializeField] private float lookRadius = 10; // Detetion range for player
-    [SerializeField]private float rotationSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 5f;
 
     NavMeshAgent agent;
     Transform target;
@@ -40,9 +37,7 @@ public class EnemyController : MonoBehaviour
             // If within attacking distance
             if (distance < agent.stoppingDistance)
             {
-                agent.isStopped = true;
-
-                CharacterStats stats = target.GetComponent<CharacterStats>();
+                var stats = target.GetComponent<CharacterStats>();
                 if (stats != null)
                 {
                     combat.Attack(stats);
@@ -56,9 +51,8 @@ public class EnemyController : MonoBehaviour
     private void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)); ;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
-
     }
 
     private void OnDrawGizmosSelected()

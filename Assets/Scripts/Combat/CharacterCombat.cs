@@ -6,7 +6,6 @@ public class CharacterCombat : MonoBehaviour
 {
     private float attackCooldown = 0f;
     private float combatCooldown = 5f;
-    [SerializeField] private float attackDelay = 0.6f;
 
     public event System.Action OnAttack;
 
@@ -47,8 +46,6 @@ public class CharacterCombat : MonoBehaviour
         if (attackCooldown <= 0)
         {
             opennetStats = targetStats;
-
-            //StartCoroutine(DoDamge(targetStats, attackDelay));
 
             OnAttack?.Invoke();
 
