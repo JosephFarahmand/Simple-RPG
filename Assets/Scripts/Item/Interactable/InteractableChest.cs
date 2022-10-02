@@ -11,7 +11,7 @@ public class InteractableChest : Interactable
         return rewards;
     }
 
-    public void SetItem(Item item)
+    public void AddItem(Item item)
     {
         if (item == null)
             return;
@@ -37,11 +37,11 @@ public class InteractableChest : Interactable
 
     public override void Interact()
     {
+        if (hasInteractable) return;
         base.Interact();
 
-
         var chestPage = UI_Manager.instance.GetPageOfType<ChestPage>();
+        chestPage.Chest = this;
         UI_Manager.instance.OpenPage(chestPage);
-        chestPage.SetChest(this);
     }
 }

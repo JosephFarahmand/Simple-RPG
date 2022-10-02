@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public class ItemPickup : Interactable
 {
-    public Item item;
+    [SerializeField] Item item;
 
     public override void Interact()
     {

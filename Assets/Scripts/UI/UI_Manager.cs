@@ -49,6 +49,11 @@ public class UI_Manager : MonoBehaviour
             item.SetValuesOnSceneLoad();
         }
 
+        foreach (var item in allElements)
+        {
+            item.SetValuesOnSceneLoad();
+        }
+
         #endregion
 
         openPagesStack = new Stack<PageBase>();

@@ -11,6 +11,10 @@ public class QuickAccessMenu : UIElementBase
 
     public override void SetValues()
     {
+    }
+
+    public override void SetValuesOnSceneLoad()
+    {
         inventoryButton.onClick.RemoveAllListeners();
         inventoryButton.onClick.AddListener(() => UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<InventoryPage>()));
 

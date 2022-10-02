@@ -10,12 +10,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CharacterCombat combat;
     [SerializeField] private CharacterStats stats;
     [SerializeField] private SkinController skinController;
+    [SerializeField] private PlayerData profileData;
 
     public static EquipmentController EquipController => instance.equipController;
     public static InventoryController InventoryController => instance.inventoryController;
     public static CharacterCombat Combat => instance.combat;
     public static CharacterStats Stats => instance.stats;
     public static SkinController SkinController => instance.skinController;
+    public static PlayerData ProfileData => instance.profileData;
 
     private void Awake()
     {

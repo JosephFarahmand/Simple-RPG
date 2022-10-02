@@ -84,7 +84,7 @@ public class ShopPage : PageBase
 
         #region Icon
         itemIcon.sprite = equipment.Icon;
-        var details = GameData.GetCardBackground(equipment.Type);
+        var details = GameData.GetCardBackground(equipment.Rarity);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
         #endregion

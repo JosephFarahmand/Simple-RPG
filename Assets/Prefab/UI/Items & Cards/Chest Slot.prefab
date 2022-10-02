@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7927895599726014934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -42.8, y: 24.400002}
+  m_AnchoredPosition: {x: 27.2, y: -43.4}
   m_SizeDelta: {x: 66.10852, y: 37.53601}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7927895599726014932
@@ -521,11 +521,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f52f4b1ecf6ef459f13519a63bfa08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   itemIcon: {fileID: 7927895599921599009}
   itemBackground: {fileID: 7927895600541075768}
   itemFrame: {fileID: 7927895600483244086}
   slotToggle: {fileID: 440274016383293829}
+  countText: {fileID: 7927895599726014933}
   selectedFrame: {fileID: 21300000, guid: 451cd109040e0426483bf2ea4aa176ee, type: 3}
   defaultFrame: {fileID: 21300000, guid: 356c0b18fbd3e4e94a7e05ae60d72575, type: 3}
   defaultBackgroundColor: {r: 0.15686275, g: 0.14117648, b: 0.11372549, a: 1}

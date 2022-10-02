@@ -86,7 +86,7 @@ public class GameData : MonoBehaviour
     }
 
 
-    public static CardBackground GetCardBackground(ItemType type)
+    public static CardBackground GetCardBackground(ItemRarity type)
     {
         var cardDetail = instance.cardBackgrounds.Find(x => x.ItemType == type);
         return cardDetail;
@@ -95,11 +95,11 @@ public class GameData : MonoBehaviour
     [System.Serializable]
     public struct CardBackground
     {
-        [SerializeField] private ItemType itemType;
+        [SerializeField] private ItemRarity itemType;
         [SerializeField] private Sprite frameSprite;
         [SerializeField] private Color backgroundColor;
 
-        public ItemType ItemType { get => itemType;  }
+        public ItemRarity ItemType { get => itemType;  }
         public Sprite FrameSprite { get => frameSprite; }
         public Color BackgroundColor { get => backgroundColor; }
     }

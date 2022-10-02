@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public abstract class Slot : MonoBehaviour
     [SerializeField] protected Image itemBackground;
     [SerializeField] protected Image itemFrame;
     [SerializeField] protected Toggle slotToggle;
+    [SerializeField] protected TMP_Text countText;
 
     [Header("Customize")]
     [SerializeField] private Sprite selectedFrame;
@@ -31,7 +33,7 @@ public abstract class Slot : MonoBehaviour
         SetToggleAction(item);
     }
 
-    private void SetToggleAction(Item item)
+    protected virtual void SetToggleAction(Item item)
     {
         slotToggle.onValueChanged.RemoveAllListeners();
         slotToggle.onValueChanged.AddListener(((value) =>
@@ -60,6 +62,8 @@ public abstract class Slot : MonoBehaviour
         {
             itemIcon.sprite = null;
 
+            countText.SetText("");
+
             itemBackground.color = defaultBackgroundColor;
             itemFrame.sprite = defaultFrame;
         }
@@ -67,7 +71,9 @@ public abstract class Slot : MonoBehaviour
         {
             itemIcon.sprite = item.Icon;
 
-            var details = GameData.GetCardBackground(item.Type);
+            countText.SetText(item.Count.ToString());
+
+            var details = GameData.GetCardBackground(item.Rarity);
             itemBackground.color = details.BackgroundColor;
             itemFrame.sprite = details.FrameSprite;
         }

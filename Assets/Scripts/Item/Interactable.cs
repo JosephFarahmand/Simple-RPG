@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     bool isFocus = false;
     Transform player;
 
-    bool hasInteractable = false;
+    protected bool hasInteractable = false;
 
     public virtual void Interact()
     {

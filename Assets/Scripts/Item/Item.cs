@@ -6,7 +6,7 @@ public abstract class Item : ScriptableObject
 {
     [SerializeField] private string id = "";
     //[SerializeField] private new string name = "New Item";
-    [SerializeField] private ItemType type;
+    [SerializeField] private ItemRarity rarity;
     [SerializeField] private Sprite icon = null;
     [SerializeField] private bool isDefaultItem = false;
 
@@ -17,15 +17,15 @@ public abstract class Item : ScriptableObject
 
     public string Id => id;
     public string Name => name;
-    public ItemType Type
+    public ItemRarity Rarity
     {
         get
         {
             if (isDefaultItem)
             {
-                type = ItemType.None;
+                rarity = ItemRarity.Free;
             }
-            return type;
+            return rarity;
         }
     }
 
@@ -33,12 +33,11 @@ public abstract class Item : ScriptableObject
     public bool IsDefaultItem => isDefaultItem;
 
     public int Price => price;
-    public int Count => count;
-
+    public int Count => count <= 0 ? 1 : count;
 
     public bool HasConditions()
     {
-        return SaveOrLoadManager.instance.Player.Level >= RequiredLevel;
+        return PlayerManager.ProfileData.Profile.Level >= RequiredLevel;
     }
 
     public virtual void Use()
@@ -46,16 +45,17 @@ public abstract class Item : ScriptableObject
         Debug.Log("Using " + Name);
     }
 
-    public void RemoveFromInventory()
+    protected void RemoveFromInventory()
     {
         PlayerManager.InventoryController.Remove(this);
     }
 }
 
-public enum ItemType
+public enum ItemRarity
 {
-    None,
+    Free,
     Common,
     Rare,
+    Epic,
     Legendary
 }

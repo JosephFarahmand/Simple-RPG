@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item
 {
-    public ItemStoredData StoredData => new ItemStoredData(this);
+    //public ItemStoredData StoredData => new ItemStoredData(this);
 
-    public ItemModifier Modifier { get => StaticData.GetItemModifier(Type, equipSlot); }
+    public ItemModifier Modifier { get => StaticData.GetItemModifier(Rarity, equipSlot); }
 
     [Header("Crafting")]
     public bool isCrafted = false;

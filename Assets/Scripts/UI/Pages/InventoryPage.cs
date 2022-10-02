@@ -58,7 +58,7 @@ public class InventoryPage : PageBase
             slots[i].OnSlotSelectedHandler += Slot_OnSlotSelectedHandler;
         }
 
-        SetActionButtonState(false);
+        SetActionButtonInteractable(false);
 
         equipSlots = new List<InventoryEquipSlot>(GetComponentsInChildren<InventoryEquipSlot>());
         foreach (var slot in equipSlots)
@@ -73,7 +73,7 @@ public class InventoryPage : PageBase
         {
             if (item == null) return;
 
-            SetActionButtonState(true);
+            SetActionButtonInteractable(true);
 
             SetSelectButtonAction(item);
             SetDeleteButtonAction(item);
@@ -91,7 +91,7 @@ public class InventoryPage : PageBase
         }
         else
         {
-            SetActionButtonState(false);
+            SetActionButtonInteractable(false);
 
             if (item is Equipment)
             {
@@ -113,7 +113,7 @@ public class InventoryPage : PageBase
 
             //if is equipment item, display in slot!!
 
-            SetActionButtonState(false);
+            SetActionButtonInteractable(false);
         });
     }
 
@@ -128,7 +128,7 @@ public class InventoryPage : PageBase
 
             //drop item also!!
 
-            SetActionButtonState(false);
+            SetActionButtonInteractable(false);
         });
     }
 
@@ -145,7 +145,7 @@ public class InventoryPage : PageBase
         attackSpeed.SetValue(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
-    private void SetActionButtonState(bool value)
+    private void SetActionButtonInteractable(bool value)
     {
         selectButton.interactable = value;
         deleteButton.interactable = value;

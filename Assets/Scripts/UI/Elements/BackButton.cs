@@ -18,6 +18,11 @@ public class BackButton : UIElementBase
         titleText.text = UI_Manager.instance.GetActivePanelTitle().ToUpper();
     }
 
+    public override void SetValuesOnSceneLoad()
+    {
+
+    }
+
     public void SetValues(string title)
     {
         titleText.text = title;
