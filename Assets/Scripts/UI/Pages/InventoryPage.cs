@@ -26,21 +26,18 @@ public class InventoryPage : PageBase
     [Header("Text")]
     [SerializeField] private TMP_Text inventorySpaceText;
 
-
     [Header("State")]
-    [SerializeField] private StateElement damage;
-    [SerializeField] private StateElement armor;
-    [SerializeField] private StateElement attackSpeed;
-
-    Item selectedItem;
+    [SerializeField] private StatsElement damage;
+    [SerializeField] private StatsElement armor;
+    [SerializeField] private StatsElement attackSpeed;
 
     public override void SetValues()
     {
         UpdateUI();
 
-        damage.SetCurrentValue(PlayerManager.Stats.Damage.GetValue());
-        armor.SetCurrentValue(PlayerManager.Stats.Armor.GetValue());
-        attackSpeed.SetCurrentValue(PlayerManager.Stats.AttackSpeed.GetValue());
+        damage.Initialize(PlayerManager.Stats.Damage.GetValue());
+        armor.Initialize(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.Initialize(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
     public override void SetValuesOnSceneLoad()
@@ -61,87 +58,87 @@ public class InventoryPage : PageBase
             slots[i].OnToggleChange += InventoryPage_OnToggleChange;
         }
 
-        selectButton.onClick.RemoveAllListeners();
-        selectButton.onClick.AddListener(() =>
-        {
-            if (selectedItem == null) return;
+        SetActionButtonState(false);
 
-            selectedItem.Use();
-
-            //if is equipment item, display in slot!!
-
-            SetActiveButtons(false);
-        });
-
-
-        deleteButton.onClick.RemoveAllListeners();
-        deleteButton.onClick.AddListener(() =>
-        {
-            if (selectedItem == null) return;
-
-            inventory.Remove(selectedItem);
-
-            //drop item also!!
-
-            SetActiveButtons(false);
-        });
-
-        SetActiveButtons(false);
-
-        this.equipSlots = new List<InventoryEquipSlot>();
-        var equipSlots = GetComponentsInChildren<InventoryEquipSlot>();
+        equipSlots = new List<InventoryEquipSlot>(GetComponentsInChildren<InventoryEquipSlot>());
         foreach (var slot in equipSlots)
         {
             slot.SetIcon(null);
-            this.equipSlots.Add(slot);
         }
     }
 
-    private void InventoryPage_OnToggleChange(bool arg1, Item arg2)
+    private void InventoryPage_OnToggleChange(bool isEquiped, Item item)
     {
-        if (arg1)
+        if (isEquiped)
         {
-            if (arg2 == null) return;
-            SetActiveItem(arg2);
+            if (item == null) return;
 
-            if (arg2 is Equipment equipment)
+            SetActionButtonState(true);
+
+            SetSelectButtonAction(item);
+            SetDeleteButtonAction(item);
+
+            if (item is Equipment equipment)
             {
-                UpdatePlayerState(equipment);
+                var damageValue = PlayerManager.Stats.Damage.GetValue() + equipment.Modifier.Damage;
+                var armorValue = PlayerManager.Stats.Armor.GetValue() + equipment.Modifier.Armor;
+                var attackSpeedValue = PlayerManager.Stats.AttackSpeed.GetValue() + equipment.Modifier.AttackSpeed;
+
+                damage.SetNewValue(damageValue);
+                armor.SetNewValue(armorValue);
+                attackSpeed.SetNewValue(attackSpeedValue);
             }
         }
         else
         {
-            SetActiveItem(null);
-
-            if (arg2 is Equipment equipment)
-            {
-                var tempEquipment = new Equipment(new Equipment.ItemModifier(-equipment.Modifier.Damage, -equipment.Modifier.Armor, -equipment.Modifier.AttackSpeed));
-                UpdatePlayerState(tempEquipment);
-            }
+            SetActionButtonState(false);
         }
+    }
+
+    private void SetSelectButtonAction(Item item)
+    {
+        selectButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(() =>
+        {
+            if (item == null) return;
+
+            item.Use();
+
+            //if is equipment item, display in slot!!
+
+            SetActionButtonState(false);
+        });
+    }
+
+    private void SetDeleteButtonAction(Item item)
+    {
+        deleteButton.onClick.RemoveAllListeners();
+        deleteButton.onClick.AddListener(() =>
+        {
+            if (item == null) return;
+
+            inventory.Remove(item);
+
+            //drop item also!!
+
+            SetActionButtonState(false);
+        });
     }
 
     private void onEquip(Equipment newItem, Equipment oldItem)
     {
-        InventoryEquipSlot equipSlot;
         if (newItem != null)
         {
-            equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
+            var equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
             equipSlot.SetIcon(newItem.Icon);
-            
-        }
-        else
-        {
-            //equipSlot = equipSlots.Find(x => x.Slot == oldItem.equipSlot);
-            //equipSlot.SetIcon(oldItem.Icon);
         }
 
-        damage.SetCurrentValue(PlayerManager.Stats.Damage.GetValue());
-        armor.SetCurrentValue(PlayerManager.Stats.Armor.GetValue());
-        attackSpeed.SetCurrentValue(PlayerManager.Stats.AttackSpeed.GetValue());
+        damage.SetValue(PlayerManager.Stats.Damage.GetValue());
+        armor.SetValue(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.SetValue(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
-    private void SetActiveButtons(bool value)
+    private void SetActionButtonState(bool value)
     {
         selectButton.interactable = value;
         deleteButton.interactable = value;
@@ -164,48 +161,62 @@ public class InventoryPage : PageBase
         SetInventorySpaceText();
     }
 
-    public void SetActiveItem(Item item)
-    {
-        if (item == null)
-        {
-            SetActiveButtons(false);
-            return;
-        }
-        SetActiveButtons(true);
-        selectedItem = item;
-    }
-
     private void SetInventorySpaceText()
     {
         inventorySpaceText.text = $"{inventory.items.Count} / {StaticData.inventorySpace}";
     }
 
-
-    private void UpdatePlayerState(Equipment equipment)
+    [Serializable]
+    public struct StatsElement
     {
-        damage.SetNewValue(equipment.Modifier.Damage);
-        armor.SetNewValue(equipment.Modifier.Armor);
-        attackSpeed.SetNewValue(equipment.Modifier.AttackSpeed);
-    }
-
-    [System.Serializable]
-    public struct StateElement
-    {
+        [Header("Slider")]
         [SerializeField] private Slider currentValue;
+        private Image currentValueFill;
         [SerializeField] private Slider newValue;
+        private Image newValueFill;
 
-        public void SetCurrentValue(float value)
+        [Header("Color")]
+        [SerializeField] private Color defaultColor;
+
+        public void Initialize(float value)
+        {
+            currentValue.maxValue = 100;
+            currentValue.minValue = 0;
+            currentValueFill = currentValue.fillRect.GetComponent<Image>();
+            currentValueFill.color = defaultColor;
+
+            newValue.maxValue = 100;
+            newValue.minValue = 0;
+            newValueFill = newValue.fillRect.GetComponent<Image>();
+            newValueFill.color = defaultColor;
+
+            SetValue(value);
+        }
+
+        public void SetValue(float value)
         {
             currentValue.value = value;
             newValue.value = value;
+            newValueFill.color = defaultColor;
+            currentValueFill.color = defaultColor;
         }
 
-        public void SetNewValue(float changedValue)
+        public void SetNewValue(float value)
         {
-            newValue.value += changedValue;
-        }
+            newValue.value = value;
 
-        public Slider CurrentValue { get => currentValue; set => currentValue = value; }
-        public Slider NewValue { get => newValue; set => newValue = value; }
+            if (newValue.value > currentValue.value)
+            {
+                newValue.transform.SetAsFirstSibling();
+
+                newValueFill.color = Color.green;
+            }
+            else if (newValue.value < currentValue.value)
+            {
+                newValue.transform.SetAsLastSibling();
+
+                newValueFill.color = Color.red;
+            }
+        }
     }
 }

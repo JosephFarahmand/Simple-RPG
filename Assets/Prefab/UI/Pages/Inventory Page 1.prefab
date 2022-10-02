@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.67058825, g: 0.44705883, b: 0.2784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6369,12 +6369,15 @@ MonoBehaviour:
   damage:
     currentValue: {fileID: 4266524645082752536}
     newValue: {fileID: 2383067603093470863}
+    defaultColor: {r: 0.67058825, g: 0.44705883, b: 0.2784314, a: 1}
   armor:
     currentValue: {fileID: 1224658682351750864}
     newValue: {fileID: 6862469971474767828}
+    defaultColor: {r: 0.3019608, g: 0.6313726, b: 0.77254903, a: 1}
   attackSpeed:
     currentValue: {fileID: 6803507824859911286}
     newValue: {fileID: 5741642446508015134}
+    defaultColor: {r: 0.81960785, g: 0.29411766, b: 0.22352941, a: 1}
 --- !u!1 &1699513125384639350
 GameObject:
   m_ObjectHideFlags: 0
@@ -8988,7 +8991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3019608, g: 0.6313726, b: 0.77254903, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10192,7 +10195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.81960785, g: 0.29411766, b: 0.22352941, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

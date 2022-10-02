@@ -58,7 +58,7 @@ public class EquipmentController : MonoBehaviour
         var defaultItem = defaultItems.Find(x => x.equipSlot == slot);
         if (defaultItem == null)
         {
-            Debug.LogError($"There is no default item for ({slot})");
+            Debug.LogWarning($"There is no default item for ({slot})");
             return;
         }
         Equip(defaultItem);
@@ -119,7 +119,7 @@ public class EquipmentController : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"This slot ({slot}) is empty!!");
+                Debug.LogWarning($"This slot ({slot}) is empty!!");
                 return null;
             }
         }

@@ -18,7 +18,7 @@
         {
             armor.RemoveModifier(oldItem.Modifier.Armor);
             Damage.RemoveModifier(oldItem.Modifier.Damage);
-            attackSpeed.RemoveModifier(newItem.Modifier.AttackSpeed);
+            attackSpeed.RemoveModifier(oldItem.Modifier.AttackSpeed);
         }
     }
 }
