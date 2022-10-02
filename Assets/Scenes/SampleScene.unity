@@ -2256,27 +2256,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1814655513843680509, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 2.5
+      value: 2.969088
       objectReference: {fileID: 0}
     - target: {fileID: 1814655513843680509, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -5
+      value: -6.340711
       objectReference: {fileID: 0}
     - target: {fileID: 7076946138385985286, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 2.5
+      value: 2.969088
       objectReference: {fileID: 0}
     - target: {fileID: 7076946138385985286, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -5
+      value: -6.340711
       objectReference: {fileID: 0}
     - target: {fileID: 8654948638113942048, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 2.5
+      value: 2.969088
       objectReference: {fileID: 0}
     - target: {fileID: 8654948638113942048, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -5
+      value: -6.340711
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef55b0d34ff197e4daecca1f7cd8afe9, type: 3}
@@ -2466,10 +2466,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7157056799023311046, guid: d10822341fb6a5f46ad9bca373d8a2d6, type: 3}
-      propertyPath: replacableDeathAnim
-      value: 
-      objectReference: {fileID: 7400000, guid: 8c549f34a4396ae489e397e8fd648af9, type: 2}
     - target: {fileID: 7459658834876634145, guid: d10822341fb6a5f46ad9bca373d8a2d6, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2520,10 +2516,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7979890521940609235, guid: d10822341fb6a5f46ad9bca373d8a2d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7979890521940609242, guid: d10822341fb6a5f46ad9bca373d8a2d6, type: 3}
-      propertyPath: damage.baseValue
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
