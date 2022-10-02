@@ -3,34 +3,25 @@ using UnityEngine;
 
 public class PlayerCustomizer : MonoBehaviour
 {
-    [SerializeField] private Material skinMaterial;
+    List<EquipmentHandler> equipmentHandlers;
 
-    List<MeshRenderer> renderers;
-    List<SkinnedMeshRenderer> skinnedMeshRenderers;
-
-    private void Start()
+    public void Initialization()
     {
-        renderers = new List<MeshRenderer>(transform.root.GetComponentsInChildren<MeshRenderer>());
-        skinnedMeshRenderers = new List<SkinnedMeshRenderer>(transform.root.GetComponentsInChildren<SkinnedMeshRenderer>());
+        equipmentHandlers = new List<EquipmentHandler>(transform.root.GetComponentsInChildren<EquipmentHandler>());
 
-        ApplySkin();
+        PlayerManager.Profile.onChangeProperty += ChangeProperty;
     }
 
-    public void ChangeSkin(Material material)
+    private void ChangeProperty(PlayerProfile profile)
     {
-        skinMaterial = material;
-        ApplySkin();
+        ApplySkin(profile.SkinMaterial);
     }
 
-    private void ApplySkin()
+    private void ApplySkin(Material material)
     {
-        foreach (var renderer in renderers)
+        foreach (var handler in equipmentHandlers)
         {
-            renderer.sharedMaterial = skinMaterial;
-        }
-        foreach (var skinnedMeshRenderer in skinnedMeshRenderers)
-        {
-            skinnedMeshRenderer.sharedMaterial = skinMaterial;
+            handler.SetMaterial(material);
         }
     }
 }

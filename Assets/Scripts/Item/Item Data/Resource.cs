@@ -15,11 +15,11 @@ public class Resource : Item
         // Use Resource
         if (type == ResourceType.Coin)
         {
-            PlayerManager.ProfileData.AddCoinValue(Count);
+            PlayerManager.Profile.AddCoinValue(Count);
         }
         else if (type == ResourceType.Gem)
         {
-            PlayerManager.ProfileData.AddGemValue(Count);
+            PlayerManager.Profile.AddGemValue(Count);
         }
 
         // Remove it from inventory

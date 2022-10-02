@@ -37,7 +37,7 @@ public abstract class Item : ScriptableObject
 
     public bool HasConditions()
     {
-        return PlayerManager.ProfileData.Profile.Level >= RequiredLevel;
+        return PlayerManager.Profile.Data.Level >= RequiredLevel;
     }
 
     public virtual void Use()

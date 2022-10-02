@@ -10,6 +10,10 @@ public class PlayerProfile
     public int CoinAmount { get; private set; }
     public int GemAmount { get; private set; }
     public int Level { get; private set; }
+
+
+    public Material SkinMaterial { get; private set; }
+
     //public PlayerStoredItems Inventory { get; private set; }
     //public PlayerStoredItems Equipment { get; private set; }
 
@@ -19,7 +23,7 @@ public class PlayerProfile
         //Equipment = new PlayerStoredItems();
     }
 
-    public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level)
+    public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level, Material skinMaterial)
     {
         Id = id;
         Name = name;
@@ -27,6 +31,7 @@ public class PlayerProfile
         GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
+        SkinMaterial = skinMaterial;
     }
 
     public void UpdateData(string newName = "",int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)

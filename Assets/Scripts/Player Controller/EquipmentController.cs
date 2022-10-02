@@ -26,6 +26,7 @@ public class EquipmentController : MonoBehaviour
         foreach (var handler in handlers)
         {
             if (handler.Item == null) continue;
+            if (handler.IsStaticItem) continue;
             equipmentHandlers.Add(handler);
             handler.gameObject.SetActive(false);
         }

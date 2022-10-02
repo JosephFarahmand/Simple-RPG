@@ -1,34 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterPreview : MonoBehaviour
 {
     private List<EquipmentHandler> equipmentHandlers;
-    EquipmentController playerEquipment;
     InventoryPage inventoryPage;
     [SerializeField] private Transform character;
 
-    private void Awake()
+    public void Initialization()
     {
-        playerEquipment = PlayerManager.EquipController;
-
-
         equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = GetComponentsInChildren<EquipmentHandler>(true);
+        var handlers = transform.root.GetComponentsInChildren<EquipmentHandler>(true);
         foreach (var handler in handlers)
         {
             if (handler.Item == null) continue;
+            if (handler.IsStaticItem) continue;
             equipmentHandlers.Add(handler);
             handler.gameObject.SetActive(false);
         }
 
-        playerEquipment.onEquipmentChanged += onChangePreview;
+        PlayerManager.EquipController.onEquipmentChanged += onChangePreview;
+        PlayerManager.Profile.onChangeProperty += (profile) =>
+        {
+            foreach (var handler in handlers)
+            {
+                handler.SetMaterial(profile.SkinMaterial);
+            }
+        };
     }
 
     private void Start()
     {
         inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
-
     }
 
     private void onChangePreview(Equipment newItem, Equipment oldItem)

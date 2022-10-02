@@ -17,17 +17,17 @@ public class PlayerStatus : UIElementBase
     public override void SetValuesOnSceneLoad()
     {
         //get player coin and gem value and set theme
-        coin.SetValue(PlayerManager.ProfileData.Profile.CoinAmount, () =>
+        coin.SetValue(PlayerManager.Profile.Data.CoinAmount, () =>
         {
 
         });
 
-        gem.SetValue(PlayerManager.ProfileData.Profile.GemAmount, () =>
+        gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
         {
 
         });
 
-        PlayerData.onChangeProperty += ChangeProperty;
+        PlayerManager.Profile.onChangeProperty += ChangeProperty;
     }
 
     private void ChangeProperty(PlayerProfile profile)
