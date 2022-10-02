@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class EnemyStats : CharacterStats
 {
+    [SerializeField] private EnemyCustomizer customizer;
+
     protected override void Die()
     {
         base.Die();
 
         // Supply rewards
-        var chest = Instantiate(GameData.GetChest());
+        var chest = Instantiate(GameManager.GameData.GetChest());
         chest.transform.position = transform.position;
 
         StartCoroutine(DestriyDelay());
@@ -23,10 +25,11 @@ public class EnemyStats : CharacterStats
         Destroy(gameObject);
     }
 
-    protected override void Awake()
+    public override void Initialization()
     {
-        base.Awake();
-        transform.root.GetComponentInChildren<EnemyCustomizer>().onEquip += onEquip;
+        base.Initialization();
+
+        customizer.onEquip += onEquip;
     }
 
     private void onEquip(Equipment item)

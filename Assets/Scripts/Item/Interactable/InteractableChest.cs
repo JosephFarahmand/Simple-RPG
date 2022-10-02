@@ -31,7 +31,7 @@ public class InteractableChest : Interactable
         var count = Random.Range(3, 20);
         for (int i = 0; i < count; i++)
         {
-            rewards.Add(GameData.GetEquipmentItems().RandomItem());
+            rewards.Add(GameManager.GameData.GetEquipmentItems().RandomItem());
         }
     }
 

@@ -5,29 +5,12 @@ using UnityEngine;
 
 public class PlayerAnimation : CharacterAnimation
 {
-    
-
-    //[SerializeField] private List<WeaponAnimations> weaponAnimations;
-    //Dictionary<Equipment, AnimationClip[]> weaponAnimationsDic;
-    protected override void Start()
+    public override void Initialization()
     {
-        base.Start();
+        base.Initialization();
         IsArmed = false;
 
         PlayerManager.EquipController.onEquipmentChanged += onEquipmentChanged;
-
-        //weaponAnimationsDic= new Dictionary<Equipment, AnimationClip[]>();
-        //foreach(var weaponAnimation in weaponAnimations)
-        //{
-        //    if (weaponAnimationsDic.ContainsKey(weaponAnimation.equipment))
-        //    {
-        //        weaponAnimationsDic[weaponAnimation.equipment] = weaponAnimation.clips;
-        //    }
-        //    else
-        //    {
-        //        weaponAnimationsDic.Add(weaponAnimation.equipment, weaponAnimation.clips);
-        //    }
-        //}
     }
 
     private void onEquipmentChanged(Equipment newItem, Equipment oldItem)
@@ -35,7 +18,7 @@ public class PlayerAnimation : CharacterAnimation
         if(newItem != null && newItem.equipSlot == EquipmentSlot.Weapon)
         {
             // a weapon equiped
-            var animationSet = GameData.Animations.GetWeaponAnimationSet(newItem.Id);
+            var animationSet = GameManager.GameData.Animations.GetWeaponAnimationSet(newItem.Id);
             if(animationSet.Length > 0)
             //if (weaponAnimationsDic.ContainsKey(newItem))
             {

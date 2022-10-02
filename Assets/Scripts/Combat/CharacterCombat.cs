@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterStats))]
 public class CharacterCombat : MonoBehaviour
 {
     private float attackCooldown = 0f;
-    private float combatCooldown = 5f;
+    private float combatCooldown = 1f;
 
     public event System.Action OnAttack;
 
@@ -17,15 +16,12 @@ public class CharacterCombat : MonoBehaviour
     private void Start()
     {
         myStats = GetComponent<CharacterStats>();
-        myStats.OnChangeHealth += MyStats_OnChangeHealth;
+        myStats.OnDie += Stats_OnDie;
     }
 
-    private void MyStats_OnChangeHealth(float arg1, float currentHealth)
+    private void Stats_OnDie()
     {
-        if(currentHealth < 0)
-        {
-            inCombat = false;
-        }
+        inCombat = false;
     }
 
     private void Update()
@@ -35,9 +31,14 @@ public class CharacterCombat : MonoBehaviour
             attackCooldown -= Time.deltaTime;
         }
 
-        if (Time.deltaTime - lastAttackTime > combatCooldown)
+        if (lastAttackTime > 0)
         {
-            inCombat = false;
+            lastAttackTime -= Time.deltaTime;
+
+            if (lastAttackTime <= 0)
+            {
+                inCombat = false;
+            }
         }
     }
 
@@ -51,7 +52,7 @@ public class CharacterCombat : MonoBehaviour
 
             attackCooldown = 1 / myStats.AttackSpeed.GetValue();
             inCombat = true;
-            lastAttackTime = Time.deltaTime;
+            lastAttackTime = combatCooldown;
         }
     }
 

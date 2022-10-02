@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CharacterStats stats;
     [SerializeField] private PlayerCustomizer skinCustomizer;
     [SerializeField] private ProfileController profile;
+    [SerializeField] private CharacterAnimation animationController;
 
     public static EquipmentController EquipController => instance.equipController;
     public static InventoryController InventoryController => instance.inventoryController;
@@ -19,13 +20,15 @@ public class PlayerManager : MonoBehaviour
     public static PlayerCustomizer SkinCustomizer => instance.skinCustomizer;
     public static ProfileController Profile => instance.profile;
 
-    private void Awake()
+    //private void Awake()
+    //{
+        
+    //}
+
+    public void Initialization()
     {
         instance = this;
-    }
 
-    private void Start()
-    {
         var preview = FindObjectOfType<CharacterPreview>();
         if (preview == null)
         {
@@ -38,6 +41,14 @@ public class PlayerManager : MonoBehaviour
         skinCustomizer.Initialization();
 
         profile.Initialization();
+
+        animationController.Initialization();
+        stats.Initialization();
+    }
+
+    private void Start()
+    {
+        
     }
 
     public static PlayerManager GetPlayer()

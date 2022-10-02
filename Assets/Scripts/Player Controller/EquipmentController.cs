@@ -44,7 +44,7 @@ public class EquipmentController : MonoBehaviour
     private void EquipDefaultItems()
     {
         defaultItems = new List<Equipment>();
-        foreach (var item in GameData.GetEquipmentItems())
+        foreach (var item in GameManager.GameData.GetEquipmentItems())
         {
             if (item.IsDefaultItem && activeEquipment[item.equipSlot] == null)
             {

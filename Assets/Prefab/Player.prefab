@@ -62,6 +62,10 @@ MonoBehaviour:
   inCombat: inCombat
   attack: Attack
   isAlive: isAlive
+  agent: {fileID: 8995232355157945965}
+  animator: {fileID: 9045258470698739066}
+  combat: {fileID: 1086813630685304093}
+  stats: {fileID: 5467763918754336081}
 --- !u!1 &1125884435
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +347,7 @@ MonoBehaviour:
   stats: {fileID: 5467763918754336081}
   skinCustomizer: {fileID: 8013533690465952533}
   profile: {fileID: 6114329478161563286}
+  animationController: {fileID: 415349784}
 --- !u!114 &8995232355157945966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,5 +530,10 @@ MonoBehaviour:
 --- !u!4 &8996987166678349968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4156170715410218, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
+  m_PrefabInstance: {fileID: 8995232355161626554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9045258470698739066 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95220510204703424, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
   m_PrefabInstance: {fileID: 8995232355161626554}
   m_PrefabAsset: {fileID: 0}

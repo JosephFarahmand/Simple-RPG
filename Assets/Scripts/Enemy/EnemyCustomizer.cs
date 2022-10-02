@@ -25,7 +25,7 @@ public class EnemyCustomizer : MonoBehaviour
     private void Start()
     {
         var material = materials.RandomItem();
-        var data = GameData.GetCharacterEquipment();
+        var data = GameManager.GameData.GetCharacterEquipment();
         foreach (var itemID in data.ItemsId)
         {
             var itemHandler = equipmentHandlers.Find(item => item.ID == itemID);

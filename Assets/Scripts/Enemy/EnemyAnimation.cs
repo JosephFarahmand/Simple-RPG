@@ -1,16 +1,15 @@
-﻿public class EnemyAnimation: CharacterAnimation
+﻿using UnityEngine;
+
+public class EnemyAnimation: CharacterAnimation
 {
-    protected override void Awake()
-    {
-        base.Awake();
-        transform.root.GetComponentInChildren<EnemyCustomizer>().onEquip += onEquip;
-    }
+    [SerializeField] private EnemyCustomizer customizer;
 
-    protected override void Start()
+    public override void Initialization()
     {
-        base.Start();
+        base.Initialization();
+
+        customizer.onEquip += onEquip;
         IsArmed = true;
-
     }
 
     private void onEquip(Equipment item)
@@ -18,7 +17,7 @@
         if (item != null && item.equipSlot == EquipmentSlot.Weapon)
         {
             // a weapon equiped
-            var animationSet = GameData.Animations.GetWeaponAnimationSet(item.Id);
+            var animationSet = GameManager.GameData.Animations.GetWeaponAnimationSet(item.Id);
             if (animationSet.Length > 0)
             {
                 currentAttackAnimSet = animationSet;

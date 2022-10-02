@@ -73,7 +73,7 @@ public abstract class Slot : MonoBehaviour
 
             countText.SetText(item.Count.ToString());
 
-            var details = GameData.GetCardBackground(item.Rarity);
+            var details = GameManager.GameData.GetCardBackground(item.Rarity);
             itemBackground.color = details.BackgroundColor;
             itemFrame.sprite = details.FrameSprite;
         }

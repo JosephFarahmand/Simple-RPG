@@ -11,22 +11,23 @@ public class CharacterAnimation : MonoBehaviour
         get => isArmed; set
         {
             isArmed = value;
-            AnimationClip[] idleAnimationSet = GameData.Animations.GetIdleAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
-            AnimationClip[] slowWalkAnimationSet = GameData.Animations.GetSlowWalkAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
-            AnimationClip[] walkAnimationSet = GameData.Animations.GetWalkAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
-            AnimationClip[] runAnimationSet = GameData.Animations.GetRunAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] idleAnimationSet = GameManager.GameData.Animations.GetIdleAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] slowWalkAnimationSet = GameManager.GameData.Animations.GetSlowWalkAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] walkAnimationSet = GameManager.GameData.Animations.GetWalkAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] runAnimationSet = GameManager.GameData.Animations.GetRunAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
             ChangeWalkTreeAnimations(idleAnimationSet.RandomItem(),
                                      slowWalkAnimationSet.RandomItem(),
                                      walkAnimationSet.RandomItem(),
                                      runAnimationSet.RandomItem());
 
-            AnimationClip[] deathAnimationSet = GameData.Animations.GetDeathAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] deathAnimationSet = GameManager.GameData.Animations.GetDeathAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
             ChangeDeathAnimation(deathAnimationSet.RandomItem());
 
-            AnimationClip[] attackIdleAnimationSet = GameData.Animations.GetAttackIdleAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
+            AnimationClip[] attackIdleAnimationSet = GameManager.GameData.Animations.GetAttackIdleAnimations(value ? GameAnimations.Mode.Armed : GameAnimations.Mode.UnArmed);
             ChangeAttackIdleAnimation(attackIdleAnimationSet.RandomItem());
         }
     }
+
 
     [Header("Walk Tree")]
     [SerializeField] AnimationClip replacableIdleAnim;
@@ -48,11 +49,6 @@ public class CharacterAnimation : MonoBehaviour
 
     const float locomationAnimationSmoothTime = 0.1f;
 
-    NavMeshAgent agent;
-    protected Animator animator;
-    protected CharacterCombat combat;
-    protected CharacterStats stats;
-    protected AnimatorOverrideController overrideController;
 
     [Header("Parameter")]
     [SerializeField, AnimatorParam(nameof(animator), AnimatorControllerParameterType.Float)] private string speedPercent = "SpeedPercent";
@@ -60,18 +56,25 @@ public class CharacterAnimation : MonoBehaviour
     [SerializeField, AnimatorParam(nameof(animator), AnimatorControllerParameterType.Trigger)] private string attack = "attack";
     [SerializeField, AnimatorParam(nameof(animator), AnimatorControllerParameterType.Bool)] private string isAlive = "isAlive";
 
+    [Header("Components")]
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected CharacterCombat combat;
+    [SerializeField] protected CharacterStats stats;
+    protected AnimatorOverrideController overrideController;
 
     private void Reset()
     {
         animator = transform.root.GetComponentInChildren<Animator>();
     }
 
-    protected virtual void Awake()
+
+    public virtual void Initialization()
     {
-        agent ??= transform.root.GetComponentInChildren<NavMeshAgent>();
-        animator ??= transform.root.GetComponentInChildren<Animator>();
-        combat ??= transform.root.GetComponentInChildren<CharacterCombat>();
-        stats ??= transform.root.GetComponentInChildren<CharacterStats>();
+        //agent ??= transform.root.GetComponentInChildren<NavMeshAgent>();
+        //animator ??= transform.root.GetComponentInChildren<Animator>();
+        //combat ??= transform.root.GetComponentInChildren<CharacterCombat>();
+        //stats ??= transform.root.GetComponentInChildren<CharacterStats>();
 
         overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
         animator.runtimeAnimatorController = overrideController;
@@ -81,20 +84,12 @@ public class CharacterAnimation : MonoBehaviour
         animator.SetBool(isAlive, true);
 
         combat.OnAttack += OnAttack;
-        stats.OnChangeHealth += Stats_OnChangeHealth;
+        stats.OnDie += Stats_OnDie;
     }
 
-    protected virtual void Start()
+    private void Stats_OnDie()
     {
-        
-    }
-
-    private void Stats_OnChangeHealth(float maxHealth, float currentHealth)
-    {
-        if (currentHealth <= 0)
-        {
-            animator.SetBool(isAlive, false);
-        }
+        animator.SetBool(isAlive, false);
     }
 
     private void Update()

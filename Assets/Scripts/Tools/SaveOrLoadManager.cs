@@ -6,28 +6,10 @@ using UnityEngine;
 
 public class SaveOrLoadManager : MonoBehaviour
 {
-    public static SaveOrLoadManager instance;
-
     public TextAsset samplePlayerJson; 
 
     private const string ESFile = "profile.txt";
     private const string TagSign = "?tag=";
-
-
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
-    }
 
 
 //    #region Player

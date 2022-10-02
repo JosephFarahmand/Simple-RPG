@@ -39,7 +39,7 @@ public class ShopPage : PageBase
         inventory = PlayerManager.InventoryController;
 
         slots = new List<Slot>();
-        var items = GameData.GetEquipmentItems();
+        var items = GameManager.GameData.GetEquipmentItems();
         foreach(var item in items)
         {
             var slot = Instantiate(shopSlotPrefab,itemsParent);
@@ -84,7 +84,7 @@ public class ShopPage : PageBase
 
         #region Icon
         itemIcon.sprite = equipment.Icon;
-        var details = GameData.GetCardBackground(equipment.Rarity);
+        var details = GameManager.GameData.GetCardBackground(equipment.Rarity);
         itemBackground.color = details.BackgroundColor;
         itemFrame.sprite = details.FrameSprite;
         #endregion

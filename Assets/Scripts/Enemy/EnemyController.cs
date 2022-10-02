@@ -31,8 +31,11 @@ public class EnemyController : MonoBehaviour
         // If inside the look radius
         if (distance < lookRadius)
         {
-            // Move toward the target
-            agent.SetDestination(target.position);
+            if (!combat.inCombat)
+            {
+                // Move toward the target
+                agent.SetDestination(target.position);
+            }
 
             // If within attacking distance
             if (distance < agent.stoppingDistance)

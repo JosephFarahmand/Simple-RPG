@@ -6,10 +6,14 @@ using UnityEngine;
 public class Enemy : Interactable
 {
     CharacterStats myStats;
+    EnemyAnimation myAnimation;
 
     private void Start()
     {
         myStats = GetComponent<CharacterStats>();
+        myStats.Initialization();
+        myAnimation = GetComponent<EnemyAnimation>();
+        myAnimation.Initialization();
     }
 
     public override void Interact()

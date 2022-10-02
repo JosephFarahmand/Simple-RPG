@@ -127,6 +127,7 @@ MonoBehaviour:
     baseValue: 0
   attackSpeed:
     baseValue: 1
+  customizer: {fileID: 2474015769514378617}
 --- !u!114 &7979890521940609243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +240,11 @@ MonoBehaviour:
   inCombat: inCombat
   attack: Attack
   isAlive: isAlive
+  agent: {fileID: 7979890521940609234}
+  animator: {fileID: 663016379118407103}
+  combat: {fileID: 7979890521940609240}
+  stats: {fileID: 7979890521940609242}
+  customizer: {fileID: 2474015769514378617}
 --- !u!1001 &603987502168768383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,6 +309,11 @@ PrefabInstance:
 --- !u!4 &607721435621052501 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4156170715410218, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
+  m_PrefabInstance: {fileID: 603987502168768383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &663016379118407103 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95220510204703424, guid: e813d7613a0468341b50e74aa5a16bc4, type: 3}
   m_PrefabInstance: {fileID: 603987502168768383}
   m_PrefabAsset: {fileID: 0}
 --- !u!137 &687288492251310955 stripped

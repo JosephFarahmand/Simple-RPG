@@ -1,7 +1,8 @@
 ﻿public class PlayerStats : CharacterStats
 {
-    private void Start()
+    public override void Initialization()
     {
+        base.Initialization();
         PlayerManager.EquipController.onEquipmentChanged += OnEquipmentChanged;
     }
 
