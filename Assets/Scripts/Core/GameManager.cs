@@ -51,5 +51,7 @@ public class GameManager : MonoBehaviour
         //preview.Initialization();
 
         cameraController.Initialization();
+
+        UI_Manager.instance.Initialization();
     }
 }

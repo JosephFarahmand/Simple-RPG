@@ -32,7 +32,7 @@ public class UI_Manager : MonoBehaviour
         
     }
 
-    private void Start()
+    public void Initialization()
     {
         #region Load all of the pages and dialogs
 
