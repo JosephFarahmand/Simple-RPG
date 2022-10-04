@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerProfile
@@ -14,14 +12,8 @@ public class PlayerProfile
 
     public Material SkinMaterial { get; private set; }
 
-    //public PlayerStoredItems Inventory { get; private set; }
-    //public PlayerStoredItems Equipment { get; private set; }
-
-    public PlayerProfile()
-    {
-        //Inventory = new PlayerStoredItems();
-        //Equipment = new PlayerStoredItems();
-    }
+    public List<ItemStoredData> InventoryItems { get; private set; }
+    public List<ItemStoredData> EquipedItems { get; private set; }
 
     public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level, Material skinMaterial)
     {
@@ -32,14 +24,54 @@ public class PlayerProfile
 
         Level = level == 0 ? 1 : level;
         SkinMaterial = skinMaterial;
+
+        InventoryItems = new List<ItemStoredData>();
+        EquipedItems = new List<ItemStoredData>();
     }
 
-    public void UpdateData(string newName = "",int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
+    public void UpdateData(string newName = "", int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
     {
         Name = newName == "" ? Name : newName;
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
         GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
         Level = newLevelValue == -1 ? Level : newLevelValue;
+    }
+
+    public void AddInventoryItem(Item item)
+    {
+        if (!InventoryItems.Contains(item.StoredData))
+        {
+            InventoryItems.Add(item.StoredData);
+        }
+    }
+
+    public void RemoveInventoryItem(Item item)
+    {
+        if (InventoryItems.Contains(item.StoredData))
+        {
+            InventoryItems.Add(item.StoredData);
+        }
+    }
+
+    public class PlayerItem
+    {
+        public List<ItemStoredData> Items { get; private set; }
+
+        public void AddItem(Item item)
+        {
+            if (!Items.Contains(item.StoredData))
+            {
+                Items.Add(item.StoredData);
+            }
+        }
+
+        public void RemoveItem(Item item)
+        {
+            if (Items.Contains(item.StoredData))
+            {
+                Items.Add(item.StoredData);
+            }
+        }
     }
 
     //public JSONObject ToJSON()
@@ -205,79 +237,47 @@ public class PlayerProfile
 }
 
 
-//public class ItemStoredData
-//{
-//    public ItemStoredData(string id, string name, bool isDefaultItem, bool isCrafted, List<string> requiredItem)
-//    {
-//        Id = id;
-//        Name = name;
-//        IsDefaultItem = isDefaultItem;
-//        IsCrafted = isCrafted;
-//        RequiredItem = requiredItem;
-//    }
+public struct ItemStoredData
+{
+    public ItemStoredData(string id, string name, bool isDefaultItem, ItemRarity rarity = default, int requiredLevel = 0, int price = 100, int count = 1)
+    {
+        Id = id;
+        Name = name;
+        IsDefaultItem = isDefaultItem;
+        Rarity = rarity;
+        RequiredLevel = requiredLevel;
+        Price = price <= 0 ? 100 : price;
+        Count = count <= 0 ? 1 : count;
+    }
 
-//    public ItemStoredData(Equipment item) : this(item.Id, item.Name, item.IsDefaultItem, item.isCrafted, item.requerdItems.Select(x => x.Id).ToList())
-//    {
+    public ItemStoredData(Item item) : this(item.Id,item.name,item.IsDefaultItem,item.Rarity,item.Price, item.RequiredLevel, item.Count)
+    {
+    }
 
-//    }
+    public string Id { get; private set; }
+    public string Name { get; private set; }
+    public bool IsDefaultItem { get; private set; }
+    public ItemRarity Rarity { get; private set; }
+    public int RequiredLevel { get; private set; }
+    public int Price { get; private set; }
+    public int Count { get; private set; }
 
-//    public ItemStoredData(JSONObject json)
-//    {
-//        FromJSON(json);
-//    }
+    public JSONObject ToJSON()
+    {
+        JSONObject json = new JSONObject();
 
-//    public string Id { get; private set; }
-//    public string Name { get; private set; }
-//    public bool IsDefaultItem { get; private set; }
-//    public bool IsCrafted { get; private set; }
-//    public List<string> RequiredItem { get; private set; }
+        json.AddField(nameof(Id), Id);
+        json.AddField(nameof(Name), Name);
+        json.AddField(nameof(IsDefaultItem), IsDefaultItem);
 
-//    public JSONObject ToJSON()
-//    {
-//        JSONObject json = new JSONObject();
+        return json;
+    }
 
-//        json.AddField(nameof(Id), Id);
-//        json.AddField(nameof(Name), Name);
-//        json.AddField(nameof(IsDefaultItem), IsDefaultItem);
-//        json.AddField(nameof(IsCrafted), IsCrafted);
-
-//        JSONObject RequiredItemJson = new JSONObject(JSONObject.Type.ARRAY);
-//        foreach (string item in RequiredItem)
-//        {
-//            RequiredItemJson.Add(item);
-//        }
-//        json.AddField(nameof(RequiredItem), RequiredItemJson);
-
-//        return json;
-//    }
-
-//    public void FromJSON(JSONObject json)
-//    {
-//        Id = json[nameof(Id)].str;
-//        Name = json[nameof(Name)].str;
-//        IsDefaultItem = json[nameof(IsDefaultItem)].b;
-//        IsCrafted = json[nameof(IsCrafted)].b;
-
-//        RequiredItem = new List<string>();
-//        for (int i = 0; i < json[nameof(RequiredItem)].Count; i++)
-//        {
-//            var itemID = json[nameof(RequiredItem)][i].str;
-//            RequiredItem.Add(itemID);
-//        }
-//    }
-//}
-
-//public static class StoredDataExtention
-//{
-//    public static bool Contains(this List<ItemStoredData> datas, string dataId)
-//    {
-//        return datas.Find(obj => obj.Id == dataId) != null;
-//    }
-
-//    public static void Remove(this List<ItemStoredData> datas, string dataId)
-//    {
-//        var index = datas.FindIndex(x => x.Id == dataId);
-//        datas.RemoveAt(index);
-//    }
-//}
+    public void FromJSON(JSONObject json)
+    {
+        Id = json[nameof(Id)].str;
+        Name = json[nameof(Name)].str;
+        IsDefaultItem = json[nameof(IsDefaultItem)].b;
+    }
+}
 
