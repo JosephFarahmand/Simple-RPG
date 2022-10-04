@@ -1,32 +1,18 @@
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Equipment", menuName = "Inventory/Equipment")]
 public class Equipment : Item
 {
-    //public ItemStoredData StoredData => new ItemStoredData(this);
-
-    public ItemModifier Modifier { get => StaticData.GetItemModifier(Rarity, equipSlot); }
-
-    [Header("Crafting")]
-    public bool isCrafted = false;
-    public List<Item> requerdItems;
-
     [Header("Equipment")]
     public EquipmentSlot equipSlot;  // Slot to store equipment in
 
-    [Header("")]
-    public ItemPickup itemObject;
-    //public EquipmentMeshRegion[] coveredMeshRegions;
-
     [Header("Modifier")]
     [Tooltip("Increase/decrease in each one")]
-    [SerializeField] private ItemModifier modifier;
+    [SerializeField, ReadOnly] private ItemModifier modifier;
 
-    public Equipment(ItemModifier modifier)
-    {
-        this.modifier = modifier;
-    }
+    public ItemModifier Modifier => StaticData.GetItemModifier(Rarity, equipSlot);
 
     // When pressed in inventory
     public override void Use()
@@ -37,7 +23,7 @@ public class Equipment : Item
         RemoveFromInventory();                      // Remove it from inventory
     }
 
-    [NaughtyAttributes.Button]
+    [Button]
     private void Display()
     {
         modifier = Modifier;
@@ -63,7 +49,6 @@ public class Equipment : Item
     }
 }
 
-
 public enum EquipmentSlot
 {
     Weapon,
@@ -76,12 +61,4 @@ public enum EquipmentSlot
     Belt,
     Legs,
     Feet
-}
-
-[System.Obsolete]
-public enum EquipmentMeshRegion // Corresponds to body blendshapes.
-{
-    Legs,
-    Arms,
-    Torso
 }

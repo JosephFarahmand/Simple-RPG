@@ -66,7 +66,7 @@ public class ShopPage : PageBase
 
             buyButton.interactable = false;
 
-            if (!inventory.HasItem(item) && item.HasConditions())
+            if (!inventory.HasItem(item) && PlayerManager.Profile.Data.Level >= item.RequiredLevel)
             {
                 buyButton.interactable = true;
                 buyButton.onClick.RemoveAllListeners();
