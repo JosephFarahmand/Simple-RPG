@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Hand - 2
   m_EditorClassIdentifier: 
   id: Hand - 2
-  type: 1
-  icon: {fileID: 0}
+  displayName: New Item
+  rarity: 1
+  icon: {fileID: 21300000, guid: dd7193eb946c4ff40b103b907220c4bc, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 1
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 5
-  itemObject: {fileID: 0}
   modifier:
     damage: 0
     armor: 0

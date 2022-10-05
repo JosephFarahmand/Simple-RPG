@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Belt - 2
   m_EditorClassIdentifier: 
   id: Belt - 2
-  type: 1
-  icon: {fileID: 0}
-  isDefaultItem: 0
-  conditions: []
+  displayName: Belt
+  rarity: 1
+  icon: {fileID: 21300000, guid: f0e6355222ba79746843b335a7348a54, type: 3}
+  requiredLevel: 1
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 7
-  itemObject: {fileID: 7148657039829624650, guid: 5e06dc3cb647a054e890da5ed6d8314d, type: 3}
   modifier:
     damage: 5
     armor: 0

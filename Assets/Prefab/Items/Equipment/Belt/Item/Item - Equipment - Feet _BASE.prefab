@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2514435505096035602, guid: bd9fecb6a35aa664ea51c6b67e9d77ec, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 451e82d2764b3fb4d90d860701056f54, type: 2}
     - target: {fileID: 2514435505096035603, guid: bd9fecb6a35aa664ea51c6b67e9d77ec, type: 3}
       propertyPath: m_Name
-      value: Item - Equipment - Torso _BASE
+      value: Item - Equipment - Feet _BASE
       objectReference: {fileID: 0}
     - target: {fileID: 2514435505096035605, guid: bd9fecb6a35aa664ea51c6b67e9d77ec, type: 3}
       propertyPath: m_RootOrder

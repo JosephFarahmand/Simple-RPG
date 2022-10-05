@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: Button - 4
   m_EditorClassIdentifier: 
   id: Button - 4
-  type: 1
-  icon: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
-  isDefaultItem: 0
-  conditions: []
+  displayName: Pants
+  rarity: 1
+  icon: {fileID: 21300000, guid: 475eba01dceb7104ead77da21c2a1cdf, type: 3}
+  requiredLevel: 1
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 8
-  itemObject: {fileID: 0}
   modifier:
     damage: 0
     armor: 0

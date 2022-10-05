@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Weapon - Sword - 3
   m_EditorClassIdentifier: 
   id: Sword 3
-  type: 2
-  icon: {fileID: 21300000, guid: 21cd4c9a521fb4aee958351c51a5c332, type: 3}
+  displayName: Sword 3
+  rarity: 2
+  icon: {fileID: 21300000, guid: 8bfdbe46d88ec3c489a8913e1483e4ff, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 7
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 0
-  itemObject: {fileID: 2036227285087090785, guid: 48126198bcc95854d8221aeee19cc13b, type: 3}
   modifier:
     damage: 0
     armor: 0
