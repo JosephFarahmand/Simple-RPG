@@ -8,7 +8,7 @@ public abstract class Item : ScriptableObject
     [SerializeField, Label("Name")] private string displayName = "New Item";
     [SerializeField] private ItemRarity rarity;
     [SerializeField] private Sprite icon = null;
-    [SerializeField] private bool isDefaultItem = false;
+    //[SerializeField] private bool isDefaultItem = false;
 
     [Header("Shop")]
     [SerializeField] private int requiredLevel = 1;
@@ -17,9 +17,9 @@ public abstract class Item : ScriptableObject
 
     public string Id => id;
     public string Name => displayName == "New Item" ? name : displayName;
-    public ItemRarity Rarity => isDefaultItem ? ItemRarity.Free : rarity;
+    public ItemRarity Rarity => rarity;
     public Sprite Icon => icon;
-    public bool IsDefaultItem => isDefaultItem;
+    public bool IsDefaultItem => rarity == ItemRarity.Free;
     public int RequiredLevel => requiredLevel;
     public int Price => price;
     public int Count => count <= 0 ? 1 : count;
@@ -40,6 +40,9 @@ public abstract class Item : ScriptableObject
 
 public enum ItemRarity
 {
+    /// <summary>
+    /// default item
+    /// </summary>
     Free,
     Common,
     Rare,
