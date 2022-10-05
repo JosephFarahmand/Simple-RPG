@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Weapon - Hummer - 2
   m_EditorClassIdentifier: 
   id: Hummer - 2
-  type: 1
-  icon: {fileID: 21300000, guid: b3852af2c04594fb5806c021b214e474, type: 3}
+  displayName: New Item
+  rarity: 3
+  icon: {fileID: 21300000, guid: dd3e9ce246ea1504293febb3cc68f37f, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 15
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 0
-  itemObject: {fileID: 2036227285087090785, guid: 5444253fac384614e9367246f15a9f7e, type: 3}
   modifier:
     damage: 0
     armor: 0
