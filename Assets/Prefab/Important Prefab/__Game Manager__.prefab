@@ -93,6 +93,7 @@ MonoBehaviour:
   saveOrLoad: {fileID: 7753418199822023115}
   errorController: {fileID: 4483342581090825375}
   shopController: {fileID: 6710693477722106352}
+  player: {fileID: 0}
 --- !u!1001 &355317614282884213
 PrefabInstance:
   m_ObjectHideFlags: 0

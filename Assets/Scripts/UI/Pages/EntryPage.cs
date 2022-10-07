@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,17 +17,22 @@ public class EntryPage : PageBase
         loginButton.onClick.RemoveAllListeners();
         signupButton.onClick.RemoveAllListeners();
 
-        loginButton.onClick.AddListener(()=>UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<LoginDialog>()));
-        signupButton.onClick.AddListener(()=>UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<SignupDialog>()));
+        loginButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<LoginDialog>()));
+        signupButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<SignupDialog>()));
     }
 
-    private void Update()
-    {
-        if (Input.anyKey)
-        {
-            OpenMainPage();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.anyKey)
+    //    {
+    //        OpenMainPage();
+    //    }
+    //}
+
+    //private void Start()
+    //{    
+        
+    //}
 
     public void OpenMainPage()
     {

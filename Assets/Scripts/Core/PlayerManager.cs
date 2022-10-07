@@ -20,23 +20,13 @@ public class PlayerManager : MonoBehaviour
     public static PlayerCustomizer SkinCustomizer => instance.skinCustomizer;
     public static ProfileController Profile => instance.profile;
 
-    //private void Awake()
-    //{
-        
-    //}
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void Initialization()
     {
-        instance = this;
-
-        var preview = FindObjectOfType<CharacterPreview>();
-        if (preview == null)
-        {
-            Debug.LogError("Initialization ERROR!!\nCharacter Preview Not Found!!");
-            return;
-        }
-        preview.Initialization();
-
         equipController.Initialization();
         skinCustomizer.Initialization();
 

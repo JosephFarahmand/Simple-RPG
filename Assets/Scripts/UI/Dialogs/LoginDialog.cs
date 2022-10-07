@@ -46,13 +46,12 @@ public class LoginDialog : DialogBase
         forgotPasswordButton.onClick.AddListener(() => Debug.Log("NOTHING"));
         loginButton.onClick.AddListener(() =>
         {
-            LoginAction();
-            UI_Manager.instance.CloseDialog(this);
+            var accept= AccountController.Login(usernameInputField.text, passwordInputField.text, rememberMeToggle.isOn);
+            if (accept)
+            {
+                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
+                UI_Manager.instance.CloseDialog(this);
+            }
         });
-    }
-
-    private void LoginAction()
-    {
-        UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
     }
 }

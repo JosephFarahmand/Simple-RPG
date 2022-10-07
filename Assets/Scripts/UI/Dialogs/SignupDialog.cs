@@ -38,18 +38,49 @@ public class SignupDialog : DialogBase
         });
         signupButton.onClick.AddListener(() =>
         {
-            SignupAction();
-            UI_Manager.instance.CloseDialog(this);
+            var accept = AccountController.SignUp(emailInputField.text, usernameInputField.text, passwordInputField.text);
+            if (accept)
+            {
+                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
+                UI_Manager.instance.CloseDialog(this);
+            }
         });
         loginButton.onClick.AddListener(() =>
         {
             UI_Manager.instance.CloseDialog(this);
             UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<LoginDialog>());
         });
+
+
+        emailInputField.onValueChanged.AddListener((value) =>
+        {   
+            if (!IsValidEmail(value) || value == defaultEmail)
+            {
+                signupButton.interactable = false;
+            }
+            else
+            {
+                signupButton.interactable = true;
+            }
+        });
     }
 
-    private void SignupAction()
+    bool IsValidEmail(string email)
     {
-        UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
+        var trimmedEmail = email.Trim();
+
+        if (trimmedEmail.EndsWith("."))
+        {
+            return false; // suggested by @TK-421
+        }
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == trimmedEmail;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

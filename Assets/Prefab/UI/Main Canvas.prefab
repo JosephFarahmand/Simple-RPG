@@ -497,6 +497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sign-In Page
       objectReference: {fileID: 0}
+    - target: {fileID: 1913843360044700341, guid: f412219b972fe4647bc0cf9b962bb9c2, type: 3}
+      propertyPath: loadAtFirst
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f412219b972fe4647bc0cf9b962bb9c2, type: 3}
 --- !u!224 &1554979013509586184 stripped
@@ -927,6 +931,10 @@ PrefabInstance:
     - target: {fileID: 1654031478058905831, guid: 5bffcf39a8d6b4241b8c756c6317df84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654031478058905832, guid: 5bffcf39a8d6b4241b8c756c6317df84, type: 3}
+      propertyPath: loadAtFirst
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8284515617316240941, guid: 5bffcf39a8d6b4241b8c756c6317df84, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1727,6 +1735,10 @@ PrefabInstance:
     - target: {fileID: 4217292263922182451, guid: fdfd27f9188267645a8e6e82b2434cf0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491080480708430796, guid: fdfd27f9188267645a8e6e82b2434cf0, type: 3}
+      propertyPath: loadAtFirst
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdfd27f9188267645a8e6e82b2434cf0, type: 3}
@@ -3919,6 +3931,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Login Dialog
       objectReference: {fileID: 0}
+    - target: {fileID: 3049595516293730870, guid: a204d483453619742813daa0e493d5fd, type: 3}
+      propertyPath: loadAtFirst
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a204d483453619742813daa0e493d5fd, type: 3}
 --- !u!224 &5359486763537025288 stripped
@@ -4327,6 +4343,10 @@ PrefabInstance:
     - target: {fileID: 1835794183002354158, guid: ec23d339c8b9e6444b7576354561648d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835794183240259807, guid: ec23d339c8b9e6444b7576354561648d, type: 3}
+      propertyPath: loadAtFirst
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1835794183240259808, guid: ec23d339c8b9e6444b7576354561648d, type: 3}
       propertyPath: m_Pivot.x

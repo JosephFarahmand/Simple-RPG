@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour, IController
 
     CinemachineFreeLook freeLookComponent;
 
-    public void Initialization()
+    private void Start()
     {
         freeLookComponent = FindObjectOfType<CinemachineFreeLook>();
 
@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour, IController
         {
             freeLookComponent = Instantiate(prefab);
         }
+    }
+
+    public void Initialization()
+    {
         freeLookComponent.LookAt = PlayerManager.GetPlayer().transform;
         freeLookComponent.Follow = PlayerManager.GetPlayer().transform;
     }

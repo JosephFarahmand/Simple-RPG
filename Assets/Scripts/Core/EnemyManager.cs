@@ -23,6 +23,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.IsStarted) return;
         timePassed += Time.deltaTime;
         if (canPlay && (int)timePassed % Interval == 0)
         {

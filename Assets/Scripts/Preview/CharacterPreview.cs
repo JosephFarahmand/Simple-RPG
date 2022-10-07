@@ -28,10 +28,7 @@ public class CharacterPreview : MonoBehaviour
                 handler.SetMaterial(profile.SkinMaterial);
             }
         };
-    }
 
-    private void Start()
-    {
         inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
     }
 
@@ -50,6 +47,7 @@ public class CharacterPreview : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.IsStarted) return;
         if (inventoryPage.gameObject.activeSelf)
         {
             character.Rotate(0.0f, -Input.GetAxis("Horizontal") * speed, 0.0f);

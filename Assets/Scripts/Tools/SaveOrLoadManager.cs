@@ -11,10 +11,28 @@ public class SaveOrLoadManager : MonoBehaviour, IController
     private const string ESFile = "profile.txt";
     private const string TagSign = "?tag=";
 
+    private const string PLAYER_TOKEN = "token";
+
     public void Initialization()
     {
 
     }
+
+    #region Player
+
+    public string PlayerToken
+    {
+        get
+        {
+            return GetString(PLAYER_TOKEN);
+        }
+        set
+        {
+            SetString(PLAYER_TOKEN, value);
+        }
+    }
+
+    #endregion
 
     //    #region Player
 
