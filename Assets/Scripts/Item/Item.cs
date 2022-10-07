@@ -13,7 +13,7 @@ public abstract class Item : ScriptableObject
     [Header("Shop")]
     [SerializeField] private int requiredLevel = 1;
     [SerializeField, Min(0)] private int price = 100;
-    [SerializeField, ReadOnly] private int count = 0;
+    //[SerializeField, ReadOnly] private int count = 0;
 
     public string Id => id;
     public string Name => displayName == "New Item" ? name : displayName;
@@ -22,10 +22,19 @@ public abstract class Item : ScriptableObject
     public bool IsDefaultItem => rarity == ItemRarity.Free;
     public int RequiredLevel => requiredLevel;
     public int Price => price;
-    public int Count => count <= 0 ? 1 : count;
+    //public int Count => count <= 0 ? 1 : count;
 
     public ItemStoredData StoredData => new ItemStoredData(this);
 
+    //public void AddCount()
+    //{
+    //    count++;
+    //}
+
+    //public void RemoveCount()
+    //{
+    //    count--;
+    //}
 
     public virtual void Use()
     {

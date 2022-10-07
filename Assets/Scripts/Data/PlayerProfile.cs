@@ -6,50 +6,50 @@ public class PlayerProfile
     public string Id { get; private set; }
     public string Name { get; private set; }
     public int CoinAmount { get; private set; }
-    public int GemAmount { get; private set; }
+    //public int GemAmount { get; private set; }
     public int Level { get; private set; }
 
 
     public Material SkinMaterial { get; private set; }
 
-    public List<ItemStoredData> InventoryItems { get; private set; }
-    public List<ItemStoredData> EquipedItems { get; private set; }
+    public List<Item> InventoryItems { get; private set; }
+    public List<Item> EquipedItems { get; private set; }
 
     public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level, Material skinMaterial)
     {
         Id = id;
         Name = name;
         CoinAmount = coinAmount;
-        GemAmount = gemAmount;
+        //GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
         SkinMaterial = skinMaterial;
 
-        InventoryItems = new List<ItemStoredData>();
-        EquipedItems = new List<ItemStoredData>();
+        InventoryItems = new List<Item>();
+        EquipedItems = new List<Item>();
     }
 
     public void UpdateData(string newName = "", int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
     {
         Name = newName == "" ? Name : newName;
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
-        GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
+        //GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
 
     public void AddInventoryItem(Item item)
     {
-        if (!InventoryItems.Contains(item.StoredData))
-        {
-            InventoryItems.Add(item.StoredData);
-        }
+        InventoryItems.Add(item);
+        CoinAmount -= item.Price;
     }
 
     public void RemoveInventoryItem(Item item)
     {
-        if (InventoryItems.Contains(item.StoredData))
+        if (InventoryItems.Contains(item))
         {
-            InventoryItems.Add(item.StoredData);
+            InventoryItems.Remove(item);
+
+            CoinAmount += item.Price;
         }
     }
 
@@ -247,10 +247,10 @@ public struct ItemStoredData
         Rarity = rarity;
         RequiredLevel = requiredLevel;
         Price = price <= 0 ? 100 : price;
-        Count = count <= 0 ? 1 : count;
+        //Count = count <= 0 ? 1 : count;
     }
 
-    public ItemStoredData(Item item) : this(item.Id,item.name,item.IsDefaultItem,item.Rarity,item.Price, item.RequiredLevel, item.Count)
+    public ItemStoredData(Item item) : this(item.Id,item.name,item.IsDefaultItem,item.Rarity,item.Price, item.RequiredLevel)
     {
     }
 
@@ -260,7 +260,7 @@ public struct ItemStoredData
     public ItemRarity Rarity { get; private set; }
     public int RequiredLevel { get; private set; }
     public int Price { get; private set; }
-    public int Count { get; private set; }
+    //public int Count { get; set; }
 
     public JSONObject ToJSON()
     {

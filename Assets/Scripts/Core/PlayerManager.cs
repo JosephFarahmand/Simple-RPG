@@ -44,6 +44,9 @@ public class PlayerManager : MonoBehaviour
 
         animationController.Initialization();
         stats.Initialization();
+
+        inventoryController.onAddNewItem += profile.Data.AddInventoryItem;
+        inventoryController.onRemoveItem += profile.Data.RemoveInventoryItem;
     }
 
     private void Start()

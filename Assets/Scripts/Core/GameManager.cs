@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IController
+{
+    void Initialization();
+}
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -10,14 +15,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CharacterPreview previewPrefab;
 
     [Header("Component")]
-    [SerializeField] private EnemySpawner spawner;
+    [SerializeField] private EnemyManager spawner;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private GameData gameData;
     [SerializeField] private SaveOrLoadManager saveOrLoad;
+    [SerializeField] private ErrorController errorController;
+    [SerializeField] private ShopController shopController;
 
-    public static EnemySpawner Spawner => instance.spawner;
+    public static EnemyManager Spawner => instance.spawner;
     public static GameData GameData => instance.gameData;
     public static SaveOrLoadManager SaveOrLoad => instance.saveOrLoad;
+    public static ErrorController ErrorController => instance.errorController;
+    public static ShopController ShopController => instance.shopController;
 
     private void Awake()
     {
@@ -48,10 +57,11 @@ public class GameManager : MonoBehaviour
         }
         player.Initialization();
 
-        //preview.Initialization();
-
         cameraController.Initialization();
 
         UI_Manager.instance.Initialization();
+
+        errorController.Initialization();
+        shopController.Initialization();
     }
 }

@@ -4,58 +4,62 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class SaveOrLoadManager : MonoBehaviour
+public class SaveOrLoadManager : MonoBehaviour, IController
 {
     public TextAsset samplePlayerJson; 
 
     private const string ESFile = "profile.txt";
     private const string TagSign = "?tag=";
 
+    public void Initialization()
+    {
 
-//    #region Player
+    }
 
-//    private PlayerProfile player;
-//    public PlayerProfile Player
-//    {
-//        get
-//        {
-//            if (player == null)
-//            {
-//                player = new PlayerProfile();
-//                player.FromJSON(new JSONObject(samplePlayerJson.text));
-//            }
-//            return player;
-//        }
-//        set
-//        {
-//            player = value;
-//        }
-//    }
-//#if UNITY_EDITOR
-//    /****************************** REMOVE THIS FUNCTION ****************************************/
-//    [ContextMenu("Update Player JSON")]
-//    public void UpdatePlayerJSON()
-//    {
-//        var Player = new PlayerProfile();
-//        var text = Player.ToJSON().ToString();
-//        Debug.Log(text);
-//        return;
-//        string originalFile = AssetDatabase.GetAssetPath(samplePlayerJson);
+    //    #region Player
 
-//        if (File.Exists(originalFile))
-//        {
-//            File.Delete(originalFile);
-//        }
-//        File.WriteAllText(originalFile, text);
+    //    private PlayerProfile player;
+    //    public PlayerProfile Player
+    //    {
+    //        get
+    //        {
+    //            if (player == null)
+    //            {
+    //                player = new PlayerProfile();
+    //                player.FromJSON(new JSONObject(samplePlayerJson.text));
+    //            }
+    //            return player;
+    //        }
+    //        set
+    //        {
+    //            player = value;
+    //        }
+    //    }
+    //#if UNITY_EDITOR
+    //    /****************************** REMOVE THIS FUNCTION ****************************************/
+    //    [ContextMenu("Update Player JSON")]
+    //    public void UpdatePlayerJSON()
+    //    {
+    //        var Player = new PlayerProfile();
+    //        var text = Player.ToJSON().ToString();
+    //        Debug.Log(text);
+    //        return;
+    //        string originalFile = AssetDatabase.GetAssetPath(samplePlayerJson);
 
-//        samplePlayerJson = AssetDatabase.LoadAssetAtPath<TextAsset>(originalFile);
+    //        if (File.Exists(originalFile))
+    //        {
+    //            File.Delete(originalFile);
+    //        }
+    //        File.WriteAllText(originalFile, text);
 
-//        AssetDatabase.SaveAssets();
-//        AssetDatabase.Refresh();
-//    }
-//#endif
+    //        samplePlayerJson = AssetDatabase.LoadAssetAtPath<TextAsset>(originalFile);
 
-//    #endregion
+    //        AssetDatabase.SaveAssets();
+    //        AssetDatabase.Refresh();
+    //    }
+    //#endif
+
+    //    #endregion
 
     #region Tools
 

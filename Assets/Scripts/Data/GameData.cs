@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
 
-public class GameData : MonoBehaviour
+public class GameData : MonoBehaviour, IController
 {
     //private static GameData instance;
 
@@ -26,9 +26,8 @@ public class GameData : MonoBehaviour
     [Header("Character")]
     [SerializeField] private List<Enemy> enemies;
 
-    private void Awake()
+    public void Initialization()
     {
-
         animations ??= GetComponent<GameAnimations>();
     }
 

@@ -38,7 +38,7 @@ public class ProfileController : MonoBehaviour
 
     public void AddGemValue(int value)
     {
-        data.UpdateData(newGemAmount: data.GemAmount + value);
+        //data.UpdateData(newGemAmount: data.GemAmount + value);
 
         // Apply change to game
         onChangeProperty?.Invoke(data);

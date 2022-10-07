@@ -8,7 +8,7 @@ using System;
 public class PlayerStatus : UIElementBase
 {
     [SerializeField] private Element coin;
-    [SerializeField] private Element gem;
+    //[SerializeField] private Element gem;
 
     public override void SetValues()
     {
@@ -22,10 +22,10 @@ public class PlayerStatus : UIElementBase
 
         });
 
-        gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
-        {
+        //gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
+        //{
 
-        });
+        //});
 
         PlayerManager.Profile.onChangeProperty += ChangeProperty;
     }
@@ -33,7 +33,7 @@ public class PlayerStatus : UIElementBase
     private void ChangeProperty(PlayerProfile profile)
     {
         coin.SetValue(profile.CoinAmount);
-        gem.SetValue(profile.GemAmount);
+        //gem.SetValue(profile.GemAmount);
     }
 
     [System.Serializable]

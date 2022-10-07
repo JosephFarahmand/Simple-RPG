@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Feet - 3
   displayName: Shoe 2
-  rarity: 0
+  rarity: 1
   icon: {fileID: 21300000, guid: 8bfcfa70068cc6149aec7dcdca8ce7a3, type: 3}
   requiredLevel: 1
   price: 0
