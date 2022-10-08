@@ -9,7 +9,10 @@ public class PlayerInfo : UIElementBase
 {
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text levelText;
-    [SerializeField] private Slider levelSlider;
+
+    [Header("XP bar")]
+    [SerializeField] private Slider xpSlider;
+    [SerializeField] private TMP_Text xpValueText;
 
     public override void SetValues()
     {
@@ -28,5 +31,9 @@ public class PlayerInfo : UIElementBase
     {
         nameText.SetText(profile.Username);
         levelText.SetText(profile.Level.ToString());
+
+        xpSlider.maxValue = profile.XP.MaximumValue;
+        xpSlider.value = profile.XP.CurrentValue;
+        xpValueText.SetText($"{profile.XP.CurrentValue}/{profile.XP.MaximumValue}");
     }
 }

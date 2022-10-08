@@ -62,7 +62,7 @@ public static class AccountController
     public static void LoadPlayerProfile()
     {
         // Create new player profile
-        Data = new PlayerProfile("", "Diana", 0, 0, 0, "0");
+        Data = new PlayerProfile("", "Diana", 0, 0, 0, "0", new XP());//sample data
 
         // Load data from DB
 

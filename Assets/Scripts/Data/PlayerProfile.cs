@@ -11,13 +11,17 @@ public class PlayerProfile
     //public int GemAmount { get; private set; }
     public int Level { get; private set; }
 
+    public XP XP { get; private set; }
+
 
     public Material SkinMaterial { get; private set; }
 
     public List<Item> InventoryItems { get; private set; }
     public List<Item> EquipedItems { get; private set; }
 
-    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)
+
+
+    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId,XP xp)
     {
         Id = id;
         Username = username;
@@ -29,6 +33,8 @@ public class PlayerProfile
 
         InventoryItems = new List<Item>();
         EquipedItems = new List<Item>();
+
+        XP = xp;
     }
 
     public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, Material skinMaterial)
@@ -73,26 +79,28 @@ public class PlayerProfile
         }
     }
 
-    public class PlayerItem
-    {
-        public List<ItemStoredData> Items { get; private set; }
+    
 
-        public void AddItem(Item item)
-        {
-            if (!Items.Contains(item.StoredData))
-            {
-                Items.Add(item.StoredData);
-            }
-        }
+    //public class PlayerItem
+    //{
+    //    public List<ItemStoredData> Items { get; private set; }
 
-        public void RemoveItem(Item item)
-        {
-            if (Items.Contains(item.StoredData))
-            {
-                Items.Add(item.StoredData);
-            }
-        }
-    }
+    //    public void AddItem(Item item)
+    //    {
+    //        if (!Items.Contains(item.StoredData))
+    //        {
+    //            Items.Add(item.StoredData);
+    //        }
+    //    }
+
+    //    public void RemoveItem(Item item)
+    //    {
+    //        if (Items.Contains(item.StoredData))
+    //        {
+    //            Items.Add(item.StoredData);
+    //        }
+    //    }
+    //}
 
     //public JSONObject ToJSON()
     //{
@@ -256,6 +264,17 @@ public class PlayerProfile
     //}
 }
 
+public struct XP
+{
+    public XP(float currentValue, float maximumValue)
+    {
+        CurrentValue = currentValue;
+        MaximumValue = maximumValue;
+    }
+
+    public float CurrentValue { get;private set; }
+    public float MaximumValue { get;private set; }
+}
 
 public struct ItemStoredData
 {

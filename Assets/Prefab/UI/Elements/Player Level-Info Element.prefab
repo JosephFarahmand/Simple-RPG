@@ -207,7 +207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1545088492264159822}
   levelText: {fileID: 1545088492757566877}
-  levelSlider: {fileID: 1545088493252629346}
+  xpSlider: {fileID: 1545088493252629346}
+  xpValueText: {fileID: 1545088492618928838}
 --- !u!1 &1545088492264159816
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +777,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.552
+  m_Value: 0.602
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
