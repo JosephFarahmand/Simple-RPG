@@ -47,6 +47,7 @@ MonoBehaviour:
   databases:
   - {fileID: 11400000, guid: 1d2e71b9dbdaaa148bfa8f43e2d5677f, type: 2}
   - {fileID: 11400000, guid: 8bc6d02d56072364b8b110733928f0de, type: 2}
+  - {fileID: 11400000, guid: d3a2549a3aad0044ea3682898d160337, type: 2}
   errorIcon: {fileID: 21300000, guid: 61a6813d35d79d44d9653b80f0621285, type: 3}
   warningIcon: {fileID: 21300000, guid: ce989ac5ec98eba4fb50e7f0a97ccda1, type: 3}
   messageIcon: {fileID: 21300000, guid: ce26795e9e8dd6f4682d0e7dc0ea8126, type: 3}
