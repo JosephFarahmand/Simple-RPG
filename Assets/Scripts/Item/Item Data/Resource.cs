@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Resource", menuName = "Inventory/Resource")]
+[CreateAssetMenu(fileName = "New Resource", menuName = "Item/Resource")]
 public class Resource : Item
 {
     [Header("Resource")]

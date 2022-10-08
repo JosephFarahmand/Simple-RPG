@@ -3,6 +3,8 @@ public static class StaticData
     public const int maxChestSpace = 24;
     public const int inventorySpace = 24;
 
+    public const string defaultSkinId = "skin_0";
+    public static PlayerProfile SampleProfile => new PlayerProfile("SAMPLE", "Sample Player", 0, 1, defaultSkinId, new XP(0, 100));
     public static Equipment.ItemModifier GetItemModifier(ItemRarity rarity, EquipmentSlot slot)
     {
         int damage = 0;

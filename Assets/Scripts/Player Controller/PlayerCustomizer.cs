@@ -14,11 +14,12 @@ public class PlayerCustomizer : MonoBehaviour
 
     private void ChangeProperty(PlayerProfile profile)
     {
-        ApplySkin(profile.SkinMaterial);
+        ApplySkin(profile.SkinId);
     }
 
-    private void ApplySkin(Material material)
+    private void ApplySkin(string skinId)
     {
+        Material material = GameManager.GameData.GetSkinMaterial(skinId);
         foreach (var handler in equipmentHandlers)
         {
             handler.SetMaterial(material);

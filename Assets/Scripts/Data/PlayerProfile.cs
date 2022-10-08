@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayerProfile
 {
@@ -14,22 +13,20 @@ public class PlayerProfile
     public XP XP { get; private set; }
 
 
-    public Material SkinMaterial { get; private set; }
+    public string SkinId { get; private set; }
 
     public List<Item> InventoryItems { get; private set; }
     public List<Item> EquipedItems { get; private set; }
 
-
-
-    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId,XP xp)
+    public PlayerProfile(string id, string nickname, int coinAmount, int level, string skinId, XP xp)
     {
         Id = id;
-        Username = username;
+        Nickname = nickname;
         CoinAmount = coinAmount;
         //GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
-        //SkinMaterial = /*FIND SKIN FROM GAME DATA BY ID*/;
+        SkinId = skinId;
 
         InventoryItems = new List<Item>();
         EquipedItems = new List<Item>();
@@ -37,29 +34,55 @@ public class PlayerProfile
         XP = xp;
     }
 
-    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, Material skinMaterial)
+    public PlayerProfile(string id, string username,string password,string nickname, int coinAmount, int level, string skinId, XP xp)
     {
         Id = id;
         Username = username;
+        Password = password;
+        Nickname = nickname;
         CoinAmount = coinAmount;
         //GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
-        SkinMaterial = skinMaterial;
+        SkinId = skinId;
 
         InventoryItems = new List<Item>();
         EquipedItems = new List<Item>();
+
+        XP = xp;
     }
 
-    public void UpdateData(string newUsername = "", string newPassword = "", string newNickname = "", int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
+    //public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)
+    //{
+    //    Id = id;
+    //    Username = username;
+    //    CoinAmount = coinAmount;
+    //    //GemAmount = gemAmount;
+
+    //    Level = level == 0 ? 1 : level;
+    //    SkinId = skinId;
+
+    //    InventoryItems = new List<Item>();
+    //    EquipedItems = new List<Item>();
+    //}
+
+    public void UpdateData(string newUsername = "",
+                           string newPassword = "",
+                           string newNickname = "",
+                           string newSkinId = "",
+                           int newCoinAmount = -1,
+                           int newGemAmount = -1,
+                           int newLevelValue = -1)
     {
         Username = newUsername == "" ? Username : newUsername;
         Password = newPassword == "" ? Password : newPassword;
         Nickname = newNickname == "" ? Nickname : newNickname;
 
+        SkinId = newSkinId == "" ? SkinId : newSkinId;
+
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
         //GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
-        
+
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
 
@@ -285,8 +308,8 @@ public struct XP
         MaximumValue = maximumValue;
     }
 
-    public float CurrentValue { get;private set; }
-    public float MaximumValue { get;private set; }
+    public float CurrentValue { get; private set; }
+    public float MaximumValue { get; private set; }
 }
 
 public struct ItemStoredData
@@ -302,7 +325,7 @@ public struct ItemStoredData
         //Count = count <= 0 ? 1 : count;
     }
 
-    public ItemStoredData(Item item) : this(item.Id,item.name,item.IsDefaultItem,item.Rarity,item.Price, item.RequiredLevel)
+    public ItemStoredData(Item item) : this(item.Id, item.name, item.IsDefaultItem, item.Rarity, item.Price, item.RequiredLevel)
     {
     }
 

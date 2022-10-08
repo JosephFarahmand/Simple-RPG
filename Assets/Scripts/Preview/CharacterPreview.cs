@@ -23,9 +23,10 @@ public class CharacterPreview : MonoBehaviour
         PlayerManager.EquipController.onEquipmentChanged += onChangePreview;
         AccountController.onChangeProperty += (profile) =>
         {
+            var material = GameManager.GameData.GetSkinMaterial(profile.SkinId);
             foreach (var handler in handlers)
             {
-                handler.SetMaterial(profile.SkinMaterial);
+                handler.SetMaterial(material);
             }
         };
 
