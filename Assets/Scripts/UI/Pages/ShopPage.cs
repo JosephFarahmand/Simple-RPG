@@ -121,7 +121,7 @@ public class ShopPage : PageBase
             buyButton.interactable = false;
             sellButton.gameObject.SetActive(false);
 
-            if(PlayerManager.Profile.Data.Level < item.RequiredLevel)
+            if(AccountController.Data.Level < item.RequiredLevel)
             {
                 warningMessenger.gameObject.SetActive(true);
                 warningMessenger.SetWarning(GameManager.ShopController.NotRequiredLevel);

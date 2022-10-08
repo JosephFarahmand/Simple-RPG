@@ -18,15 +18,15 @@ public class PlayerInfo : UIElementBase
     public override void SetValuesOnSceneLoad()
     {
         //set player level and name
-        nameText.SetText(PlayerManager.Profile.Data.Name);
-        levelText.SetText(PlayerManager.Profile.Data.Level.ToString());
+        nameText.SetText(AccountController.Data.Username);
+        levelText.SetText(AccountController.Data.Level.ToString());
 
-        PlayerManager.Profile.onChangeProperty += ChangeProperty;
+        AccountController.onChangeProperty += ChangeProperty;
     }
 
     private void ChangeProperty(PlayerProfile profile)
     {
-        nameText.SetText(profile.Name);
+        nameText.SetText(profile.Username);
         levelText.SetText(profile.Level.ToString());
     }
 }

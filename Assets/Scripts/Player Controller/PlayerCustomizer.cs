@@ -9,7 +9,7 @@ public class PlayerCustomizer : MonoBehaviour
     {
         equipmentHandlers = new List<EquipmentHandler>(transform.root.GetComponentsInChildren<EquipmentHandler>());
 
-        PlayerManager.Profile.onChangeProperty += ChangeProperty;
+        AccountController.onChangeProperty += ChangeProperty;
     }
 
     private void ChangeProperty(PlayerProfile profile)

@@ -21,7 +21,7 @@ public class CharacterPreview : MonoBehaviour
         }
 
         PlayerManager.EquipController.onEquipmentChanged += onChangePreview;
-        PlayerManager.Profile.onChangeProperty += (profile) =>
+        AccountController.onChangeProperty += (profile) =>
         {
             foreach (var handler in handlers)
             {
@@ -47,7 +47,7 @@ public class CharacterPreview : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.IsStarted) return;
+        if (!GameManager.IsRun) return;
         if (inventoryPage.gameObject.activeSelf)
         {
             character.Rotate(0.0f, -Input.GetAxis("Horizontal") * speed, 0.0f);

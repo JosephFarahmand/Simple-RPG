@@ -25,6 +25,11 @@ public class ErrorDialog : DialogBase
         
     }
 
+    public void SetValues(int erorrCode, Action cancelCallback = null, Action acceptCallback = null)
+    {
+
+    }
+
     public void SetValues(ErrorDatabase.ErrorEntity errorEntity, Action cancelCallback = null, Action acceptCallback = null)
     {
         if (errorEntity.Title == null)
@@ -46,7 +51,7 @@ public class ErrorDialog : DialogBase
             messageText.SetText(errorEntity.Message);
         }
 
-icon.sprite = GameManager.ErrorController.GetIcon(errorEntity.ErrorType);
+        icon.sprite = GameManager.ErrorController.GetIcon(errorEntity.ErrorType);
 
         if (cancelCallback == null)
         {

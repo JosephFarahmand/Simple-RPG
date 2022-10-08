@@ -34,9 +34,9 @@ public class ShopController : MonoBehaviour, IController
 
     public ErrorDatabase.ErrorEntity Buying(Item item)
     {
-        if (PlayerManager.Profile.Data.Level <= item.RequiredLevel)
+        if (AccountController.Data.Level <= item.RequiredLevel)
         {
-            if(PlayerManager.Profile.Data.CoinAmount <= item.Price)
+            if(AccountController.Data.CoinAmount <= item.Price)
             {
                 PlayerManager.InventoryController.Add(item);                
                 return acceptBuying;

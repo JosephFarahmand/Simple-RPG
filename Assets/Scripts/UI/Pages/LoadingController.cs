@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public static class LoadingController
 {
-    public static List<Action> callbacks;
-    public static int callbacksCount => callbacks.Count;
+    private static List<Action> callbacks;
 
     public static Action onLoadingComplete;
 
+    public delegate void OnLoadingProgress(int currentIndex, int maxCallbacksCount);
+    public static OnLoadingProgress onLoadingProgressCallback;
+    public static Action<int> onLoadingError;
+
     public static void AddAction(Action callback)
     {
-        if(callbacks == null)
+        if (callbacks == null)
         {
             callbacks = new List<Action>();
         }
@@ -21,5 +25,26 @@ public static class LoadingController
     {
         onLoadingComplete?.Invoke();
         callbacks.Clear();
+    }
+
+    public static async void LoadAction()
+    {
+        try
+        {
+            for (int i = 0; i < callbacks.Count; i++)
+            {
+                Action callback = callbacks[i];
+                await Task.Delay(UnityEngine.Random.Range(100, 150));
+                callback?.Invoke();
+                onLoadingProgressCallback?.Invoke(i, callbacks.Count);
+            }
+        }
+        catch (Exception)
+        {
+            onLoadingError?.Invoke(600);
+            throw;
+        }
+
+        Complete();
     }
 }

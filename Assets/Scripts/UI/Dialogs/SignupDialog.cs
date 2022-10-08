@@ -41,7 +41,7 @@ public class SignupDialog : DialogBase
             var accept = AccountController.SignUp(emailInputField.text, usernameInputField.text, passwordInputField.text);
             if (accept)
             {
-                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
+                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
                 UI_Manager.instance.CloseDialog(this);
             }
         });

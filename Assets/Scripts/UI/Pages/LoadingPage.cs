@@ -12,28 +12,19 @@ public class LoadingPage : PageBase
 
     public override void SetValues()
     {
-        LoadAction();
+        LoadingController.LoadAction();
     }
 
     public override void SetValuesOnSceneLoad()
     {
-
+        LoadingController.onLoadingProgressCallback += LoadingProgress;
     }
 
-    private async void LoadAction()
+    private void LoadingProgress(int currentIndex, int maxCallbacksCount)
     {
-        loadingBar.maxValue = LoadingController.callbacksCount;
-        for (int i = 0; i < LoadingController.callbacks.Count; i++)
-        {
-            Action callback = LoadingController.callbacks[i];
-            await Task.Delay(UnityEngine.Random.Range(100, 150));
-            callback?.Invoke();
-            
-            var val = i + 1;
-            loadingBar.value = val;
-            loadingValueText.SetText($"Loading... {val * 100 / LoadingController.callbacksCount}%");
-        }
-
-        LoadingController.Complete();
+        loadingBar.maxValue = maxCallbacksCount;
+        var val = currentIndex + 1;
+        loadingBar.value = val;
+        loadingValueText.SetText($"Loading... {val * 100 / maxCallbacksCount}%");
     }
 }

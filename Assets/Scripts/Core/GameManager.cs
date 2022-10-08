@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public static ErrorController ErrorController => instance.errorController;
     public static ShopController ShopController => instance.shopController;
 
-    public static bool IsStarted { get; private set; } = false;
+    public static bool IsRun { get; set; } = false;
 
     private void Awake()
     {
@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
         }
         preview.Initialization();
 
+        errorController.Initialization();
+
         LoadingController.AddAction(() =>
         {
             player.Initialization();
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         LoadingController.AddAction(() =>
         {
-            instance.cameraController.Initialization();
+            cameraController.Initialization();
         });
 
         LoadingController.AddAction(() =>
@@ -69,18 +71,8 @@ public class GameManager : MonoBehaviour
 
         LoadingController.AddAction(() =>
         {
-            instance.errorController.Initialization();
+            shopController.Initialization();
         });
-        LoadingController.AddAction(() =>
-        {
-            instance.shopController.Initialization();
-        });
-
-        LoadingController.onLoadingComplete += () =>
-        {
-            IsStarted = true;
-        };
-
 
         UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<EntryPage>());
         if (AccountController.CheckAccount())

@@ -49,7 +49,7 @@ public class LoginDialog : DialogBase
             var accept= AccountController.Login(usernameInputField.text, passwordInputField.text, rememberMeToggle.isOn);
             if (accept)
             {
-                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<HomePage>());
+                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
                 UI_Manager.instance.CloseDialog(this);
             }
         });

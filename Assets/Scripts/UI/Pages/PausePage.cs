@@ -11,7 +11,7 @@ public class PausePage : PageBase
 
     public override void SetValues()
     {
-
+        GameManager.IsRun = false;
     }
 
     public override void SetValuesOnSceneLoad()
@@ -35,6 +35,6 @@ public class PausePage : PageBase
 
     private void ContinueAction()
     {
-
+        GameManager.IsRun = true;
     }
 }

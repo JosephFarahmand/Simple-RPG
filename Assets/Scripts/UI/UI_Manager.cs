@@ -35,8 +35,8 @@ public class UI_Manager : MonoBehaviour
 
         foreach (var item in allPages)
         {
-            if(item.LoadAtFirst)
-            item.SetValuesOnSceneLoad();
+            if (item.LoadAtFirst)
+                item.SetValuesOnSceneLoad();
         }
 
         foreach (var item in allDialogs)
@@ -64,7 +64,7 @@ public class UI_Manager : MonoBehaviour
 
         LoadingController.onLoadingComplete += () =>
         {
-            OpenPage(GetPageOfType<GameHUDPage>());
+            OpenPage(GetPageOfType<HomePage>());
         };
     }
 

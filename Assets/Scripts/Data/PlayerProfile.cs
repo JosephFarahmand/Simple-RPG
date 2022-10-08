@@ -4,7 +4,9 @@ using UnityEngine;
 public class PlayerProfile
 {
     public string Id { get; private set; }
-    public string Name { get; private set; }
+    public string Username { get; private set; }
+    public string Password { get; private set; }
+    public string Nickname { get; private set; }
     public int CoinAmount { get; private set; }
     //public int GemAmount { get; private set; }
     public int Level { get; private set; }
@@ -15,10 +17,24 @@ public class PlayerProfile
     public List<Item> InventoryItems { get; private set; }
     public List<Item> EquipedItems { get; private set; }
 
-    public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level, Material skinMaterial)
+    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)
     {
         Id = id;
-        Name = name;
+        Username = username;
+        CoinAmount = coinAmount;
+        //GemAmount = gemAmount;
+
+        Level = level == 0 ? 1 : level;
+        //SkinMaterial = /*FIND SKIN FROM GAME DATA BY ID*/;
+
+        InventoryItems = new List<Item>();
+        EquipedItems = new List<Item>();
+    }
+
+    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, Material skinMaterial)
+    {
+        Id = id;
+        Username = username;
         CoinAmount = coinAmount;
         //GemAmount = gemAmount;
 
@@ -29,11 +45,15 @@ public class PlayerProfile
         EquipedItems = new List<Item>();
     }
 
-    public void UpdateData(string newName = "", int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
+    public void UpdateData(string newUsername = "", string newPassword = "", string newNickname = "", int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
     {
-        Name = newName == "" ? Name : newName;
+        Username = newUsername == "" ? Username : newUsername;
+        Password = newPassword == "" ? Password : newPassword;
+        Nickname = newNickname == "" ? Nickname : newNickname;
+
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
         //GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
+        
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
 

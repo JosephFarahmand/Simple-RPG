@@ -15,7 +15,10 @@ public class ErrorController : MonoBehaviour, IController
 
     public void Initialization()
     {
-
+        LoadingController.onLoadingError += (errorCode) =>
+        {
+            ShowError(errorCode, retryCallback : () => LoadingController.LoadAction());
+        };
     }
 
     public Sprite GetIcon(ErrorDatabase.ErrorType type)
@@ -43,7 +46,7 @@ public class ErrorController : MonoBehaviour, IController
         return default;
     }
 
-    public void ShowError(int code, Action cancelCallback = null, Action acceptCallback = null)
+    public void ShowError(int code, Action cancelCallback = null, Action retryCallback = null)
     {
         var errorData = FindEntity(code);
 
@@ -55,7 +58,7 @@ public class ErrorController : MonoBehaviour, IController
 
         // display a error dialog
         var errorDialog = UI_Manager.instance.GetDialogOfType<ErrorDialog>();
-        errorDialog.SetValues((ErrorDatabase.ErrorEntity)errorData, cancelCallback, acceptCallback);
+        errorDialog.SetValues((ErrorDatabase.ErrorEntity)errorData, cancelCallback, retryCallback);
         UI_Manager.instance.OpenDialog(errorDialog);
     }
 
