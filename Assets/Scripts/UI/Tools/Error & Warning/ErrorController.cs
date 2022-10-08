@@ -43,6 +43,7 @@ public class ErrorController : MonoBehaviour, IController
                 return entity;
             }
         }
+        Debug.LogError($"This code is not available in the database. (Code={code})");
         return default;
     }
 
@@ -56,9 +57,14 @@ public class ErrorController : MonoBehaviour, IController
             return;
         }
 
+        ShowError(errorData, cancelCallback, retryCallback);
+    }
+
+    public void ShowError(ErrorDatabase.ErrorEntity error, Action cancelCallback = null, Action retryCallback = null)
+    {
         // display a error dialog
         var errorDialog = UI_Manager.instance.GetDialogOfType<ErrorDialog>();
-        errorDialog.SetValues((ErrorDatabase.ErrorEntity)errorData, cancelCallback, retryCallback);
+        errorDialog.SetValues(error, cancelCallback, retryCallback);
         UI_Manager.instance.OpenDialog(errorDialog);
     }
 
@@ -72,6 +78,6 @@ public class ErrorController : MonoBehaviour, IController
             return;
         }
 
-        warningMassege.SetWarning((ErrorDatabase.ErrorEntity)errorData);
+        warningMassege.SetWarning(errorData);
     }
 }

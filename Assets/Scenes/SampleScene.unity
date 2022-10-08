@@ -905,7 +905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11298313052201890, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1275.7122
       objectReference: {fileID: 0}
     - target: {fileID: 11298313142201964, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1157,19 +1157,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 800830356907549488, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 7.244452
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 800830356907549488, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -12.56554
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 1240686849564542486, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 7.244452
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1240686849564542486, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -12.56554
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 1312302404856934580, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1957,11 +1957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7651440437957357037, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 7.244452
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7651440437957357037, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -12.56554
+      value: -15
       objectReference: {fileID: 0}
     - target: {fileID: 7753418199384486097, guid: 06df64adf7f1a3249b1586e65c93534b, type: 3}
       propertyPath: m_Name

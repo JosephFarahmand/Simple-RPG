@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946379d4da9281f4a975656ff15c2ee9, type: 3}
+  m_Name: Account Error Database
+  m_EditorClassIdentifier: 
+  errors:
+  - errorType: 0
+    code: 520
+    title: Invalide Username
+    message: 
+  - errorType: 0
+    code: 521
+    title: Invalide Password
+    message: 
+  - errorType: 2
+    code: 522
+    title: Change Successfuly!
+    message: 

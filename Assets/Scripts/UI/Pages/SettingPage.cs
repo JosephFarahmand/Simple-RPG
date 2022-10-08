@@ -1,11 +1,12 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SettingPage : PageBase
 {
     [Header("Buttons")]
+    [SerializeField] private Button changePasswordButton;
     [SerializeField] private Button languageButton;
     [SerializeField] private Button likeButton;
     [SerializeField] private Button aboutButton;
@@ -28,6 +29,10 @@ public class SettingPage : PageBase
         // load music and sfx from save or load manager and set values
         music.Setup(0);
         sfx.Setup(0);
+
+        //Buttons listener
+        changePasswordButton.onClick.RemoveAllListeners();
+        changePasswordButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<ChangePasswordDialog>()));
 
         languageButton.onClick.RemoveAllListeners();
         languageButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<LanguageDialog>()));

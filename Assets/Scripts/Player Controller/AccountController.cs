@@ -135,12 +135,16 @@ public static class AccountController
         onChangeProperty?.Invoke(Data);
     }
 
-    public static void ChangeUsername(string newUsername)
+    public static bool ChangeUsername(string newUsername)
     {
+        // check in DB
+        // if accept, then
         Data.UpdateData(newUsername: newUsername);
 
         // Apply change to game
         onChangeProperty?.Invoke(Data);
+
+        return true;
     }
 
     public static void ChangePassword(string newPassword)
@@ -151,13 +155,13 @@ public static class AccountController
         onChangeProperty?.Invoke(Data);
     }
 
-    public static void ChangeNickname(string newNickname)
-    {
-        Data.UpdateData(newNickname: newNickname);
+    //public static void ChangeNickname(string newNickname)
+    //{
+    //    Data.UpdateData(newNickname: newNickname);
 
-        // Apply change to game
-        onChangeProperty?.Invoke(Data);
-    }
+    //    // Apply change to game
+    //    onChangeProperty?.Invoke(Data);
+    //}
 
     public static void AddInventoryItem(Item item)
     {

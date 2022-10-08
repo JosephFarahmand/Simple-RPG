@@ -5,7 +5,7 @@ public class PlayerProfile
     public string Id { get; private set; }
     public string Username { get; private set; }
     public string Password { get; private set; }
-    public string Nickname { get; private set; }
+    //public string Nickname { get; private set; }
     public int CoinAmount { get; private set; }
     //public int GemAmount { get; private set; }
     public int Level { get; private set; }
@@ -18,10 +18,11 @@ public class PlayerProfile
     public List<Item> InventoryItems { get; private set; }
     public List<Item> EquipedItems { get; private set; }
 
-    public PlayerProfile(string id, string nickname, int coinAmount, int level, string skinId, XP xp)
+    public PlayerProfile(string id, string username, int coinAmount, int level, string skinId, XP xp)
     {
         Id = id;
-        Nickname = nickname;
+        //Nickname = nickname;
+        Username = username;
         CoinAmount = coinAmount;
         //GemAmount = gemAmount;
 
@@ -34,12 +35,12 @@ public class PlayerProfile
         XP = xp;
     }
 
-    public PlayerProfile(string id, string username,string password,string nickname, int coinAmount, int level, string skinId, XP xp)
+    public PlayerProfile(string id, string username,string password, int coinAmount, int level, string skinId, XP xp)
     {
         Id = id;
         Username = username;
         Password = password;
-        Nickname = nickname;
+        //Nickname = nickname;
         CoinAmount = coinAmount;
         //GemAmount = gemAmount;
 
@@ -68,7 +69,7 @@ public class PlayerProfile
 
     public void UpdateData(string newUsername = "",
                            string newPassword = "",
-                           string newNickname = "",
+                           //string newNickname = "",
                            string newSkinId = "",
                            int newCoinAmount = -1,
                            int newGemAmount = -1,
@@ -76,7 +77,7 @@ public class PlayerProfile
     {
         Username = newUsername == "" ? Username : newUsername;
         Password = newPassword == "" ? Password : newPassword;
-        Nickname = newNickname == "" ? Nickname : newNickname;
+        //Nickname = newNickname == "" ? Nickname : newNickname;
 
         SkinId = newSkinId == "" ? SkinId : newSkinId;
 

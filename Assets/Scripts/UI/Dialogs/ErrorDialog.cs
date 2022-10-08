@@ -53,6 +53,8 @@ public class ErrorDialog : DialogBase
 
         icon.sprite = GameManager.ErrorController.GetIcon(errorEntity.ErrorType);
 
+        bool hasListener = false;
+
         if (cancelCallback == null)
         {
             cancelButton.gameObject.SetActive(false);
@@ -61,7 +63,9 @@ public class ErrorDialog : DialogBase
         {
             cancelButton.gameObject.SetActive(true);
             cancelButton.onClick.RemoveAllListeners();
+            cancelButton.onClick.AddListener(() => UI_Manager.instance.CloseDialog(this));
             cancelButton.onClick.AddListener(() => cancelCallback.Invoke());
+            hasListener = true;
         }
 
         if (acceptCallback == null)
@@ -72,7 +76,16 @@ public class ErrorDialog : DialogBase
         {
             acceptButton.gameObject.SetActive(true);
             acceptButton.onClick.RemoveAllListeners();
+            acceptButton.onClick.AddListener(() => UI_Manager.instance.CloseDialog(this));
             acceptButton.onClick.AddListener(() => acceptCallback.Invoke());
+            hasListener = true;
+        }
+
+        if (!hasListener)
+        {
+            acceptButton.gameObject.SetActive(true);
+            acceptButton.onClick.RemoveAllListeners();
+            acceptButton.onClick.AddListener(() => UI_Manager.instance.CloseDialog(this));
         }
     }
 

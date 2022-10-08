@@ -2182,6 +2182,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4806839926034917297, guid: be04e77fd8a71dd4b93e3107cade2b47, type: 3}
+      propertyPath: databases.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806839926034917297, guid: be04e77fd8a71dd4b93e3107cade2b47, type: 3}
+      propertyPath: databases.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 66d6cd674107c5844abb40ec6066314c, type: 2}
     - target: {fileID: 6245072758646997796, guid: be04e77fd8a71dd4b93e3107cade2b47, type: 3}
       propertyPath: m_Name
       value: __Error Controller__
