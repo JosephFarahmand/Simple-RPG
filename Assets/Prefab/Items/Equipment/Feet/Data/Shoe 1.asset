@@ -15,10 +15,9 @@ MonoBehaviour:
   id: Feet - 2
   displayName: Shoe 1
   rarity: 1
-  icon: {fileID: 21300000, guid: 9fbdd0376ab914cc6a1b8835495610c8, type: 3}
+  icon: {fileID: 21300000, guid: 043cfb7cf08c6b14babfc091563e11b4, type: 3}
   requiredLevel: 1
   price: 0
-  count: 0
   equipSlot: 9
   modifier:
     damage: 0

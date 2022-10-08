@@ -103,12 +103,48 @@ public static class AccountController
         onChangeProperty?.Invoke(Data);
     }
 
-    public static void ChangeName(string newName)
+    public static void ChangeUsername(string newUsername)
     {
-        Data.UpdateData(newUsername: newName);
+        Data.UpdateData(newUsername: newUsername);
 
         // Apply change to game
         onChangeProperty?.Invoke(Data);
+    }
+
+    public static void ChangePassword(string newPassword)
+    {
+        Data.UpdateData(newPassword: newPassword);
+
+        // Apply change to game
+        onChangeProperty?.Invoke(Data);
+    }
+
+    public static void ChangeNickname(string newNickname)
+    {
+        Data.UpdateData(newNickname: newNickname);
+
+        // Apply change to game
+        onChangeProperty?.Invoke(Data);
+    }
+
+    public static void AddInventoryItem(Item item)
+    {
+        Data.AddInventoryItem(item);
+    }
+
+    public static void RemoveInventoryItem(Item oldItem)
+    {
+        Data.RemoveInventoryItem(oldItem);
+    }
+
+    public static void EquipItem(Equipment newItem)
+    {
+        Data.EquipItem(newItem);
+    }
+
+    public static void UnequipItem(Equipment oldItem)
+    {
+        Data.UnequipItem(oldItem);
     }
 
     #endregion

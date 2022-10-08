@@ -79,7 +79,20 @@ public class PlayerProfile
         }
     }
 
-    
+    public void EquipItem(Equipment newItem)
+    {
+        EquipedItems.Add(newItem);
+    }
+
+    public void UnequipItem(Equipment oldItem)
+    {
+        if (EquipedItems.Contains(oldItem))
+        {
+            EquipedItems.Remove(oldItem);
+        }
+    }
+
+
 
     //public class PlayerItem
     //{

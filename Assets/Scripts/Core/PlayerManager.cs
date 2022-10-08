@@ -27,6 +27,22 @@ public class PlayerManager : MonoBehaviour
 
     public void Initialization()
     {
+        inventoryController.onAddNewItem += AccountController.AddInventoryItem;
+        inventoryController.onRemoveItem += AccountController.RemoveInventoryItem;
+
+        equipController.onEquipmentChanged += (newItem, oldItem) =>
+        {
+            if (newItem != null)
+            {
+                AccountController.EquipItem(newItem);
+            }
+
+            if (oldItem != null)
+            {
+                AccountController.UnequipItem(oldItem);
+            }
+        };
+
         equipController.Initialization();
         skinCustomizer.Initialization();
 
@@ -35,8 +51,7 @@ public class PlayerManager : MonoBehaviour
         animationController.Initialization();
         stats.Initialization();
 
-        //inventoryController.onAddNewItem += profile.Data.AddInventoryItem;
-        //inventoryController.onRemoveItem += profile.Data.RemoveInventoryItem;
+        
     }
 
     private void Start()
