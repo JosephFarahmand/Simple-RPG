@@ -111,51 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 8995232355157945964}
---- !u!1 &6470858584840079807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2132389489651923110}
-  - component: {fileID: 6114329478161563286}
-  m_Layer: 0
-  m_Name: Profile Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2132389489651923110
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6470858584840079807}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8882650547007383142}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6114329478161563286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6470858584840079807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d02e04e28d00d745b2da5d6341c7ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinMaterial: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}
 --- !u!1 &8507528962122635025
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +187,6 @@ Transform:
   - {fileID: 1125884437}
   - {fileID: 5834260433139998561}
   - {fileID: 608333639}
-  - {fileID: 2132389489651923110}
   - {fileID: 7057858249075150785}
   m_Father: {fileID: 8995232355157945964}
   m_RootOrder: 1
@@ -347,7 +301,6 @@ MonoBehaviour:
   combat: {fileID: 1086813630685304093}
   stats: {fileID: 5467763918754336081}
   skinCustomizer: {fileID: 8013533690465952533}
-  profile: {fileID: 6114329478161563286}
   animationController: {fileID: 415349784}
 --- !u!114 &8995232355157945966
 MonoBehaviour:
@@ -438,7 +391,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8882650547007383142}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8013533690465952533
 MonoBehaviour:

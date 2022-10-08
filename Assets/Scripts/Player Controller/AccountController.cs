@@ -10,8 +10,6 @@ public static class AccountController
     {
         if (GameManager.SaveOrLoad.PlayerToken == string.Empty || GameManager.SaveOrLoad.PlayerToken == null)
         {
-            // not found account
-            //CreateNewAccount();
             return false;
         }
         else
@@ -20,9 +18,9 @@ public static class AccountController
         }
     }
 
-    private static void CreateNewAccount()
+    private static void SaveToken(string token)
     {
-        GameManager.SaveOrLoad.PlayerToken = CreateToken();
+        GameManager.SaveOrLoad.PlayerToken = token;
     }
 
     private static string CreateToken()
@@ -37,6 +35,12 @@ public static class AccountController
         return new string(chars);
     }
 
+    public static bool Logout()
+    {
+        GameManager.SaveOrLoad.PlayerToken = null;
+        return true;
+    }
+
     public static bool Login(string username,string password,bool rememberMe)
     {
         // find in database
@@ -44,8 +48,16 @@ public static class AccountController
         // if find
         //      LoadPlayerProfile()
         //      if rememberMe
-        //          save token
+        //          save token --> SaveToken(/*GET FROM DATA*/);
 
+        LoadPlayerProfile();
+        
+        return true;
+    }
+
+    public static bool LoginAsGuest()
+    {
+        LoadPlayerProfile();
         return true;
     }
 
@@ -55,13 +67,16 @@ public static class AccountController
 
         // if accept
         //      LoadPlayerProfile()
+
         LoadPlayerProfile();
+        SaveToken(CreateToken());
+
         return true;
     }
 
-    public static void LoadPlayerProfile()
+    public static void LoadPlayerProfile(/*PROFILE ENTITY*/)
     {
-        // Create new player profile
+        // Create new player profile from parameter
         Data = StaticData.SampleProfile;
 
         // Load data from DB
@@ -71,6 +86,7 @@ public static class AccountController
         {
             onChangeProperty?.Invoke(Data);
         };
+        LoadingController.LoadAction();
     }
 
     /////////////////////////////////////////////////////////
@@ -82,6 +98,22 @@ public static class AccountController
     public static void IncreseLevel()
     {
         Data.UpdateData(newLevelValue: Data.Level + 1);
+
+        // Apply change to game
+        onChangeProperty?.Invoke(Data);
+    }
+
+    public static void IncreseXP(float value)
+    {
+        if (Data.XP.CurrentValue + value >= Data.XP.MaximumValue)
+        {
+            IncreseLevel();
+            Data.UpdateData(0);
+        }
+        else
+        {
+            Data.UpdateData(Data.XP.CurrentValue + value);
+        }
 
         // Apply change to game
         onChangeProperty?.Invoke(Data);

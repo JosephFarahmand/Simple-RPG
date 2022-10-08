@@ -8,6 +8,8 @@ public class Enemy : Interactable
     CharacterStats myStats;
     EnemyAnimation myAnimation;
 
+    public CharacterStats Stats { get => myStats;  }
+
     private void Start()
     {
         myStats = GetComponent<CharacterStats>();

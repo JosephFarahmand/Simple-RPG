@@ -86,6 +86,11 @@ public class PlayerProfile
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
 
+    public void UpdateData(float newValue)
+    {
+        XP = new XP(newValue, XP.MaximumValue);
+    }
+
     public void AddInventoryItem(Item item)
     {
         InventoryItems.Add(item);

@@ -18,13 +18,10 @@ public class LoginDialog : DialogBase
     [Header("Toggle")]
     [SerializeField] private Toggle rememberMeToggle;
 
-    private const string defaultUsername = "Fantasy RPG";
-    private const string defaultPassword = "";
-
     public override void SetValues()
     {
-        usernameInputField.text = defaultUsername;
-        passwordInputField.text = defaultPassword;
+        usernameInputField.text = StaticData.defaultUsername;
+        passwordInputField.text = StaticData.defaultPassword;
     }
 
     public override void SetValuesOnSceneLoad()
@@ -49,9 +46,21 @@ public class LoginDialog : DialogBase
             var accept= AccountController.Login(usernameInputField.text, passwordInputField.text, rememberMeToggle.isOn);
             if (accept)
             {
-                UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
                 UI_Manager.instance.CloseDialog(this);
             }
+        });
+
+        int isUsernameValidate = 0, isPasswordValidate = 0;
+
+        usernameInputField.onValueChanged.AddListener((value) =>
+        {
+            isUsernameValidate = value != null && value != string.Empty && value != StaticData.defaultUsername ? 1 : 0;
+            loginButton.interactable = isUsernameValidate * isPasswordValidate == 1;
+        });
+        passwordInputField.onValueChanged.AddListener((value) =>
+        {
+            isPasswordValidate = value != null && value != string.Empty && value != StaticData.defaultPassword ? 1 : 0;
+            loginButton.interactable = isUsernameValidate * isPasswordValidate == 1;
         });
     }
 }

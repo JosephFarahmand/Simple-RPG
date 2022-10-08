@@ -12,7 +12,7 @@ public class LoadingPage : PageBase
 
     public override void SetValues()
     {
-        LoadingController.LoadAction();
+        
     }
 
     public override void SetValuesOnSceneLoad()

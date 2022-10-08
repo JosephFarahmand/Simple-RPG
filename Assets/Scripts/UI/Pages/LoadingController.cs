@@ -29,6 +29,7 @@ public static class LoadingController
 
     public static async void LoadAction()
     {
+        UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
         try
         {
             for (int i = 0; i < callbacks.Count; i++)

@@ -38,6 +38,11 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        if (spawnPoints.Count == 0)
+        {
+            Debug.LogWarning("No spawn point found!!!", gameObject);
+            return;
+        }
         var point = spawnPoints.RandomItem();
         var enemyPrefab = GameManager.GameData.GetRandomEnemy();
 
@@ -46,7 +51,13 @@ public class EnemyManager : MonoBehaviour
         if (spawnedEnemy != null)
         {
             enemies.Add(spawnedEnemy);
+            spawnedEnemy.Stats.OnDie += onEnemyDead;
         }
+    }
+
+    private void onEnemyDead()
+    {
+        AccountController.IncreseXP(StaticData.killEnemyXP);
     }
 
     public void AddPoint(SpawnPoint point)
