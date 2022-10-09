@@ -21,17 +21,15 @@ public class CharacterPreview : MonoBehaviour
         }
 
         PlayerManager.EquipController.onEquipmentChanged += onChangePreview;
-        PlayerManager.Profile.onChangeProperty += (profile) =>
+        AccountController.onChangeProperty += (profile) =>
         {
+            var material = GameManager.GameData.GetSkinMaterial(profile.SkinId);
             foreach (var handler in handlers)
             {
-                handler.SetMaterial(profile.SkinMaterial);
+                handler.SetMaterial(material);
             }
         };
-    }
 
-    private void Start()
-    {
         inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
     }
 
@@ -50,6 +48,7 @@ public class CharacterPreview : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.IsRun) return;
         if (inventoryPage.gameObject.activeSelf)
         {
             character.Rotate(0.0f, -Input.GetAxis("Horizontal") * speed, 0.0f);

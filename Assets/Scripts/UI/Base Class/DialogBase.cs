@@ -7,7 +7,7 @@ public abstract class DialogBase : MonoBehaviour
     [SerializeField] private string title;
     public List<UIElementBase> elements;
     public UnityEvent onOpen;
-
+    [SerializeField] private bool loadAtFirst = false;
     public string Title
     {
         get
@@ -19,6 +19,8 @@ public abstract class DialogBase : MonoBehaviour
             return title;
         }
     }
+
+    public bool LoadAtFirst => loadAtFirst;
 
     public virtual void OnEnable()
     {

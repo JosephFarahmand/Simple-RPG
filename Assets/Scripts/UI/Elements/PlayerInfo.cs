@@ -9,7 +9,11 @@ public class PlayerInfo : UIElementBase
 {
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text levelText;
-    [SerializeField] private Slider levelSlider;
+    [SerializeField] private Button editUsernameButton;
+
+    [Header("XP bar")]
+    [SerializeField] private Slider xpSlider;
+    [SerializeField] private TMP_Text xpValueText;
 
     public override void SetValues()
     {
@@ -18,15 +22,25 @@ public class PlayerInfo : UIElementBase
     public override void SetValuesOnSceneLoad()
     {
         //set player level and name
-        nameText.SetText(PlayerManager.Profile.Data.Name);
-        levelText.SetText(PlayerManager.Profile.Data.Level.ToString());
+        nameText.SetText(AccountController.Data.Username);
+        levelText.SetText(AccountController.Data.Level.ToString());
 
-        PlayerManager.Profile.onChangeProperty += ChangeProperty;
+        AccountController.onChangeProperty += ChangeProperty;
+
+        editUsernameButton.onClick.RemoveAllListeners();
+        editUsernameButton.onClick.AddListener(() =>
+        {
+            UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<ChangeUsernameDialog>());
+        });
     }
 
     private void ChangeProperty(PlayerProfile profile)
     {
-        nameText.SetText(profile.Name);
+        nameText.SetText(profile.Username);
         levelText.SetText(profile.Level.ToString());
+
+        xpSlider.maxValue = profile.XP.MaximumValue;
+        xpSlider.value = profile.XP.CurrentValue;
+        xpValueText.SetText($"{profile.XP.CurrentValue}/{profile.XP.MaximumValue}");
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,6 @@ public class UIShortcuts : MonoBehaviour
     [Header("Keys")]
     [SerializeField] private KeyCode backPressed = KeyCode.Escape;
 
-    private void Start()
-    {
-        inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
-    }
 
     private void Update()
     {
@@ -25,5 +22,10 @@ public class UIShortcuts : MonoBehaviour
         {
             UI_Manager.instance.OnBackPressed();
         }
+    }
+
+    public void Initialization()
+    {
+        inventoryPage = UI_Manager.instance.GetPageOfType<InventoryPage>();
     }
 }

@@ -9,16 +9,17 @@ public class PlayerCustomizer : MonoBehaviour
     {
         equipmentHandlers = new List<EquipmentHandler>(transform.root.GetComponentsInChildren<EquipmentHandler>());
 
-        PlayerManager.Profile.onChangeProperty += ChangeProperty;
+        AccountController.onChangeProperty += ChangeProperty;
     }
 
     private void ChangeProperty(PlayerProfile profile)
     {
-        ApplySkin(profile.SkinMaterial);
+        ApplySkin(profile.SkinId);
     }
 
-    private void ApplySkin(Material material)
+    private void ApplySkin(string skinId)
     {
+        Material material = GameManager.GameData.GetSkinMaterial(skinId);
         foreach (var handler in equipmentHandlers)
         {
             handler.SetMaterial(material);

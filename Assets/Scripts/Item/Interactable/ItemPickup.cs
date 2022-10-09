@@ -16,6 +16,8 @@ public class ItemPickup : Interactable
         //add item to inventory
         var wasPickedUp = PlayerManager.InventoryController.Add(item);
 
+        AccountController.IncreseXP(StaticData.collectItemXP);
+
         if (wasPickedUp)
             Destroy(gameObject);
     }

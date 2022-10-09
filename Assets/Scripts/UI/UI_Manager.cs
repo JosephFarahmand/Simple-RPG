@@ -14,7 +14,7 @@ public class UI_Manager : MonoBehaviour
     private Stack<PageBase> openPagesStack;
 
     //[ExecuteInEditMode()]
-    private void Awake()
+    public void Awake()
     {
         if (instance == null)
         {
@@ -29,31 +29,23 @@ public class UI_Manager : MonoBehaviour
 
         #endregion
 
-        
-    }
+        openPagesStack = new Stack<PageBase>();
 
-    private void Start()
-    {
         #region Load all of the pages and dialogs
 
         foreach (var item in allPages)
         {
-            item.SetValuesOnSceneLoad();
+            if (item.LoadAtFirst)
+                item.SetValuesOnSceneLoad();
         }
 
         foreach (var item in allDialogs)
         {
-            item.SetValuesOnSceneLoad();
-        }
-
-        foreach (var item in allElements)
-        {
-            item.SetValuesOnSceneLoad();
+            if (item.LoadAtFirst)
+                item.SetValuesOnSceneLoad();
         }
 
         #endregion
-
-        openPagesStack = new Stack<PageBase>();
 
         #region Close all of the pages and dialogs
 
@@ -69,7 +61,40 @@ public class UI_Manager : MonoBehaviour
 
         #endregion
 
-        OpenPage(GetPageOfType<EntryPage>());
+
+        LoadingController.onLoadingComplete += () =>
+        {
+            OpenPage(GetPageOfType<HomePage>());
+        };
+    }
+
+    public void Initialization()
+    {
+        #region Load all of the pages and dialogs
+
+        foreach (var item in allPages)
+        {
+            if (!item.LoadAtFirst)
+                item.SetValuesOnSceneLoad();
+        }
+
+        foreach (var item in allDialogs)
+        {
+            if (!item.LoadAtFirst)
+                item.SetValuesOnSceneLoad();
+        }
+
+        foreach (var item in allElements)
+        {
+            item.SetValuesOnSceneLoad();
+        }
+
+        #endregion
+
+        //OpenPage(GetPageOfType<EntryPage>());
+
+        GetComponent<UIShortcuts>().Initialization();
+
     }
 
     #region Page's functions

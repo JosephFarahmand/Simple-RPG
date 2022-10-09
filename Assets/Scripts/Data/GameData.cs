@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
 
-public class GameData : MonoBehaviour
+public class GameData : MonoBehaviour, IController
 {
     //private static GameData instance;
 
@@ -19,6 +19,7 @@ public class GameData : MonoBehaviour
     [Header("Item")]
     [SerializeField] private List<Equipment> equipment = new List<Equipment>();
     [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
+    [SerializeField] private List<SkinData> skins = new List<SkinData>();
 
     [Header("UI")]
     [SerializeField] private List<CardBackground> cardBackgrounds;
@@ -26,9 +27,8 @@ public class GameData : MonoBehaviour
     [Header("Character")]
     [SerializeField] private List<Enemy> enemies;
 
-    private void Awake()
+    public void Initialization()
     {
-
         animations ??= GetComponent<GameAnimations>();
     }
 
@@ -62,6 +62,16 @@ public class GameData : MonoBehaviour
     public InteractableChest GetChest()
     {
         return  chests.RandomItem();
+    }
+
+    public Material GetSkinMaterial(string id)
+    {
+        var skin = skins.Find(x => x.Id == id);
+        if (skin == null)
+        {
+            skin = skins.Find(x => x.Id == StaticData.defaultSkinId);
+        }
+        return skin.Material;
     }
 
     #endregion

@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 231}
+  m_AnchoredPosition: {x: 0, y: 91.4}
   m_SizeDelta: {x: 602.1079, y: 361.7221}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913843358631126248
@@ -10060,7 +10060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1913843359063408065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10839,7 +10839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1913843359648951550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11287,9 +11287,10 @@ MonoBehaviour:
   onOpen:
     m_PersistentCalls:
       m_Calls: []
+  loadAtFirst: 0
   loginButton: {fileID: 5822240349780971290}
   signupButton: {fileID: 2737576162726552502}
-  tapToStartButton: {fileID: 0}
+  guestLoginButton: {fileID: 3570821808345645356}
 --- !u!1 &1913843360215706140
 GameObject:
   m_ObjectHideFlags: 0
@@ -16314,7 +16315,6 @@ GameObject:
   - component: {fileID: 1913843360442540261}
   - component: {fileID: 1913843360442540259}
   - component: {fileID: 1913843360442540258}
-  - component: {fileID: 4518172798144272533}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -16381,35 +16381,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4518172798144272533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913843360442540260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1913843360044700341}
-          m_TargetAssemblyTypeName: EntryPage, Assembly-CSharp
-          m_MethodName: OpenMainPage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1913843360470093294
 GameObject:
   m_ObjectHideFlags: 0
@@ -16428,7 +16399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1913843360470093295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16761,7 +16732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6004827668910237820
 RectTransform:
   m_ObjectHideFlags: 0

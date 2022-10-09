@@ -1,6 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public interface IController
+{
+    void Initialization();
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -10,14 +13,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CharacterPreview previewPrefab;
 
     [Header("Component")]
-    [SerializeField] private EnemySpawner spawner;
+    [SerializeField] private EnemyManager spawner;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private GameData gameData;
     [SerializeField] private SaveOrLoadManager saveOrLoad;
+    [SerializeField] private ErrorController errorController;
+    [SerializeField] private ShopController shopController;
+    [SerializeField] private PlayerManager player;
 
-    public static EnemySpawner Spawner => instance.spawner;
+    public static EnemyManager Spawner => instance.spawner;
     public static GameData GameData => instance.gameData;
     public static SaveOrLoadManager SaveOrLoad => instance.saveOrLoad;
+    public static ErrorController ErrorController => instance.errorController;
+    public static ShopController ShopController => instance.shopController;
+
+    public static bool IsRun { get; set; } = false;
 
     private void Awake()
     {
@@ -35,21 +45,39 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (FindObjectOfType<CharacterPreview>() == null)
+        CharacterPreview preview = FindObjectOfType<CharacterPreview>();
+        if (preview == null)
         {
-            Instantiate(previewPrefab);
+            preview = Instantiate(instance.previewPrefab);
         }
+        preview.Initialization();
 
-        var player = FindObjectOfType<PlayerManager>();
-        if(player == null)
+        errorController.Initialization();
+
+        LoadingController.AddAction(() =>
         {
-            Debug.LogError("Initialization ERROR!!\nPlayer Not Found!!");
-            return;
+            player.Initialization();
+        });
+
+        LoadingController.AddAction(() =>
+        {
+            cameraController.Initialization();
+        });
+
+        LoadingController.AddAction(() =>
+        {
+            UI_Manager.instance.Initialization();
+        });
+
+        LoadingController.AddAction(() =>
+        {
+            shopController.Initialization();
+        });
+
+        UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<EntryPage>());
+        if (AccountController.CheckAccount())
+        {
+            UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
         }
-        player.Initialization();
-
-        //preview.Initialization();
-
-        cameraController.Initialization();
     }
 }

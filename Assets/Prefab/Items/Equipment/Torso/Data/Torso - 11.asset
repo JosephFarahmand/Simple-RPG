@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Torso - 11
   m_EditorClassIdentifier: 
   id: Torso - 11
-  type: 2
-  icon: {fileID: 21300000, guid: c23bb5c1541e4415bb82f430a308f7e3, type: 3}
+  displayName: Torso 11
+  rarity: 3
+  icon: {fileID: 21300000, guid: 289daece669f53542a5ad1a68c201bce, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 1
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 6
-  itemObject: {fileID: 4002765408627271705, guid: 65f93720679ce8f489525ba519b9d232, type: 3}
   modifier:
     damage: 0
     armor: 0

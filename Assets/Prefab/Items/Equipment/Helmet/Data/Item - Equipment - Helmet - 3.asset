@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Item - Equipment - Helmet - 3
   m_EditorClassIdentifier: 
   id: Helmet - 3
-  type: 1
-  icon: {fileID: 21300000, guid: a6d1118f239904a668126198564cc6a1, type: 3}
+  displayName: New Item
+  rarity: 2
+  icon: {fileID: 21300000, guid: 48fb7bbe32df0ad4db6dc46dec64ce6d, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 1
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 2
-  itemObject: {fileID: 4583136750840502634, guid: a8332b8771f617a4f9e59ed7f76e0fc9, type: 3}
   modifier:
     damage: 0
     armor: 0

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946379d4da9281f4a975656ff15c2ee9, type: 3}
+  m_Name: Shopping Error Database
+  m_EditorClassIdentifier: 
+  errors:
+  - errorType: 2
+    code: 700
+    title: Successful purchase
+    message: 
+  - errorType: 2
+    code: 701
+    title: Successful sale
+    message: 
+  - errorType: 0
+    code: 702
+    title: Not enough level
+    message: Your level is less than the minimum required level
+  - errorType: 0
+    code: 703
+    title: Not enough coins
+    message: You do not have the required coins to buy this item
+  - errorType: 0
+    code: 704
+    title: Not enough gems
+    message: You do not have the required gems to buy this item

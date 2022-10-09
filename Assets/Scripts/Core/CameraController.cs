@@ -1,13 +1,13 @@
 using Cinemachine;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IController
 {
     [SerializeField] private CinemachineFreeLook prefab;
 
     CinemachineFreeLook freeLookComponent;
 
-    public void Initialization()
+    private void Start()
     {
         freeLookComponent = FindObjectOfType<CinemachineFreeLook>();
 
@@ -15,6 +15,10 @@ public class CameraController : MonoBehaviour
         {
             freeLookComponent = Instantiate(prefab);
         }
+    }
+
+    public void Initialization()
+    {
         freeLookComponent.LookAt = PlayerManager.GetPlayer().transform;
         freeLookComponent.Follow = PlayerManager.GetPlayer().transform;
     }

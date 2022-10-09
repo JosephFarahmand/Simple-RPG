@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EquipmentController : MonoBehaviour
 {
+    [SerializeField] Transform root;
+
     [Header("Items")]
     private List<Equipment> defaultItems;
 
@@ -22,7 +24,7 @@ public class EquipmentController : MonoBehaviour
         inventory = PlayerManager.InventoryController;
 
         equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = transform.root.GetComponentsInChildren<EquipmentHandler>(true);
+        var handlers = root.GetComponentsInChildren<EquipmentHandler>(true);
         foreach (var handler in handlers)
         {
             if (handler.Item == null) continue;

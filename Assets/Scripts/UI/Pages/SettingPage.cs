@@ -1,13 +1,12 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SettingPage : PageBase
 {
-    private const string URL = "http://unity3d.com/";
-
     [Header("Buttons")]
+    [SerializeField] private Button changePasswordButton;
     [SerializeField] private Button languageButton;
     [SerializeField] private Button likeButton;
     [SerializeField] private Button aboutButton;
@@ -31,6 +30,10 @@ public class SettingPage : PageBase
         music.Setup(0);
         sfx.Setup(0);
 
+        //Buttons listener
+        changePasswordButton.onClick.RemoveAllListeners();
+        changePasswordButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<ChangePasswordDialog>()));
+
         languageButton.onClick.RemoveAllListeners();
         languageButton.onClick.AddListener(() => UI_Manager.instance.OpenDialog(UI_Manager.instance.GetDialogOfType<LanguageDialog>()));
 
@@ -42,15 +45,15 @@ public class SettingPage : PageBase
         });
 
         likeButton.onClick.RemoveAllListeners();
-        likeButton.onClick.AddListener(() => Application.OpenURL(URL));
+        likeButton.onClick.AddListener(() => Application.OpenURL(StaticData.likeURL));
 
         aboutButton.onClick.RemoveAllListeners();
-        aboutButton.onClick.AddListener(() => Application.OpenURL(URL));
+        aboutButton.onClick.AddListener(() => Application.OpenURL(StaticData.aboutURL));
     }
 
     private void LogOutAction()
     {
-
+        AccountController.Logout();
     }
 
     private void ChangeSFX(float value)

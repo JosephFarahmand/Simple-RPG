@@ -13,16 +13,14 @@ MonoBehaviour:
   m_Name: Weapon - Mace - 1
   m_EditorClassIdentifier: 
   id: Mace 1
-  type: 1
-  icon: {fileID: 21300000, guid: 08150fe2f8e424138a1c40afa0cdb78d, type: 3}
+  displayName: Mace 1
+  rarity: 3
+  icon: {fileID: 21300000, guid: 2c86badc50875514ab89401b7593d0a5, type: 3}
   isDefaultItem: 0
-  conditions: []
+  requiredLevel: 5
   price: 0
   count: 0
-  isCrafted: 0
-  requerdItems: []
   equipSlot: 0
-  itemObject: {fileID: 2036227285087090785, guid: 64ee523f99c801a4bbf876b4d1534f8b, type: 3}
   modifier:
     damage: 0
     armor: 0

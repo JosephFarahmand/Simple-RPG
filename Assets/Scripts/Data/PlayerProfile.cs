@@ -1,46 +1,148 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class PlayerProfile
 {
     public string Id { get; private set; }
-    public string Name { get; private set; }
+    public string Username { get; private set; }
+    public string Password { get; private set; }
+    //public string Nickname { get; private set; }
     public int CoinAmount { get; private set; }
-    public int GemAmount { get; private set; }
+    //public int GemAmount { get; private set; }
     public int Level { get; private set; }
 
+    public XP XP { get; private set; }
 
-    public Material SkinMaterial { get; private set; }
 
-    //public PlayerStoredItems Inventory { get; private set; }
-    //public PlayerStoredItems Equipment { get; private set; }
+    public string SkinId { get; private set; }
 
-    public PlayerProfile()
-    {
-        //Inventory = new PlayerStoredItems();
-        //Equipment = new PlayerStoredItems();
-    }
+    public List<Item> InventoryItems { get; private set; }
+    public List<Item> EquipedItems { get; private set; }
 
-    public PlayerProfile(string id, string name, int coinAmount, int gemAmount, int level, Material skinMaterial)
+    public PlayerProfile(string id, string username, int coinAmount, int level, string skinId, XP xp)
     {
         Id = id;
-        Name = name;
+        //Nickname = nickname;
+        Username = username;
         CoinAmount = coinAmount;
-        GemAmount = gemAmount;
+        //GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
-        SkinMaterial = skinMaterial;
+        SkinId = skinId;
+
+        InventoryItems = new List<Item>();
+        EquipedItems = new List<Item>();
+
+        XP = xp;
     }
 
-    public void UpdateData(string newName = "",int newCoinAmount = -1, int newGemAmount = -1, int newLevelValue = -1)
+    public PlayerProfile(string id, string username,string password, int coinAmount, int level, string skinId, XP xp)
     {
-        Name = newName == "" ? Name : newName;
+        Id = id;
+        Username = username;
+        Password = password;
+        //Nickname = nickname;
+        CoinAmount = coinAmount;
+        //GemAmount = gemAmount;
+
+        Level = level == 0 ? 1 : level;
+        SkinId = skinId;
+
+        InventoryItems = new List<Item>();
+        EquipedItems = new List<Item>();
+
+        XP = xp;
+    }
+
+    //public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)
+    //{
+    //    Id = id;
+    //    Username = username;
+    //    CoinAmount = coinAmount;
+    //    //GemAmount = gemAmount;
+
+    //    Level = level == 0 ? 1 : level;
+    //    SkinId = skinId;
+
+    //    InventoryItems = new List<Item>();
+    //    EquipedItems = new List<Item>();
+    //}
+
+    public void UpdateData(string newUsername = "",
+                           string newPassword = "",
+                           //string newNickname = "",
+                           string newSkinId = "",
+                           int newCoinAmount = -1,
+                           int newGemAmount = -1,
+                           int newLevelValue = -1)
+    {
+        Username = newUsername == "" ? Username : newUsername;
+        Password = newPassword == "" ? Password : newPassword;
+        //Nickname = newNickname == "" ? Nickname : newNickname;
+
+        SkinId = newSkinId == "" ? SkinId : newSkinId;
+
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
-        GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
+        //GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
+
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
+
+    public void UpdateData(float newValue)
+    {
+        XP = new XP(newValue, XP.MaximumValue);
+    }
+
+    public void AddInventoryItem(Item item)
+    {
+        InventoryItems.Add(item);
+        CoinAmount -= item.Price;
+    }
+
+    public void RemoveInventoryItem(Item item)
+    {
+        if (InventoryItems.Contains(item))
+        {
+            InventoryItems.Remove(item);
+
+            CoinAmount += item.Price;
+        }
+    }
+
+    public void EquipItem(Equipment newItem)
+    {
+        EquipedItems.Add(newItem);
+    }
+
+    public void UnequipItem(Equipment oldItem)
+    {
+        if (EquipedItems.Contains(oldItem))
+        {
+            EquipedItems.Remove(oldItem);
+        }
+    }
+
+
+
+    //public class PlayerItem
+    //{
+    //    public List<ItemStoredData> Items { get; private set; }
+
+    //    public void AddItem(Item item)
+    //    {
+    //        if (!Items.Contains(item.StoredData))
+    //        {
+    //            Items.Add(item.StoredData);
+    //        }
+    //    }
+
+    //    public void RemoveItem(Item item)
+    //    {
+    //        if (Items.Contains(item.StoredData))
+    //        {
+    //            Items.Add(item.StoredData);
+    //        }
+    //    }
+    //}
 
     //public JSONObject ToJSON()
     //{
@@ -204,80 +306,59 @@ public class PlayerProfile
     //}
 }
 
+public struct XP
+{
+    public XP(float currentValue, float maximumValue)
+    {
+        CurrentValue = currentValue;
+        MaximumValue = maximumValue;
+    }
 
-//public class ItemStoredData
-//{
-//    public ItemStoredData(string id, string name, bool isDefaultItem, bool isCrafted, List<string> requiredItem)
-//    {
-//        Id = id;
-//        Name = name;
-//        IsDefaultItem = isDefaultItem;
-//        IsCrafted = isCrafted;
-//        RequiredItem = requiredItem;
-//    }
+    public float CurrentValue { get; private set; }
+    public float MaximumValue { get; private set; }
+}
 
-//    public ItemStoredData(Equipment item) : this(item.Id, item.Name, item.IsDefaultItem, item.isCrafted, item.requerdItems.Select(x => x.Id).ToList())
-//    {
+public struct ItemStoredData
+{
+    public ItemStoredData(string id, string name, bool isDefaultItem, ItemRarity rarity = default, int requiredLevel = 0, int price = 100, int count = 1)
+    {
+        Id = id;
+        Name = name;
+        IsDefaultItem = isDefaultItem;
+        Rarity = rarity;
+        RequiredLevel = requiredLevel;
+        Price = price <= 0 ? 100 : price;
+        //Count = count <= 0 ? 1 : count;
+    }
 
-//    }
+    public ItemStoredData(Item item) : this(item.Id, item.name, item.IsDefaultItem, item.Rarity, item.Price, item.RequiredLevel)
+    {
+    }
 
-//    public ItemStoredData(JSONObject json)
-//    {
-//        FromJSON(json);
-//    }
+    public string Id { get; private set; }
+    public string Name { get; private set; }
+    public bool IsDefaultItem { get; private set; }
+    public ItemRarity Rarity { get; private set; }
+    public int RequiredLevel { get; private set; }
+    public int Price { get; private set; }
+    //public int Count { get; set; }
 
-//    public string Id { get; private set; }
-//    public string Name { get; private set; }
-//    public bool IsDefaultItem { get; private set; }
-//    public bool IsCrafted { get; private set; }
-//    public List<string> RequiredItem { get; private set; }
+    public JSONObject ToJSON()
+    {
+        JSONObject json = new JSONObject();
 
-//    public JSONObject ToJSON()
-//    {
-//        JSONObject json = new JSONObject();
+        json.AddField(nameof(Id), Id);
+        json.AddField(nameof(Name), Name);
+        json.AddField(nameof(IsDefaultItem), IsDefaultItem);
 
-//        json.AddField(nameof(Id), Id);
-//        json.AddField(nameof(Name), Name);
-//        json.AddField(nameof(IsDefaultItem), IsDefaultItem);
-//        json.AddField(nameof(IsCrafted), IsCrafted);
+        return json;
+    }
 
-//        JSONObject RequiredItemJson = new JSONObject(JSONObject.Type.ARRAY);
-//        foreach (string item in RequiredItem)
-//        {
-//            RequiredItemJson.Add(item);
-//        }
-//        json.AddField(nameof(RequiredItem), RequiredItemJson);
-
-//        return json;
-//    }
-
-//    public void FromJSON(JSONObject json)
-//    {
-//        Id = json[nameof(Id)].str;
-//        Name = json[nameof(Name)].str;
-//        IsDefaultItem = json[nameof(IsDefaultItem)].b;
-//        IsCrafted = json[nameof(IsCrafted)].b;
-
-//        RequiredItem = new List<string>();
-//        for (int i = 0; i < json[nameof(RequiredItem)].Count; i++)
-//        {
-//            var itemID = json[nameof(RequiredItem)][i].str;
-//            RequiredItem.Add(itemID);
-//        }
-//    }
-//}
-
-//public static class StoredDataExtention
-//{
-//    public static bool Contains(this List<ItemStoredData> datas, string dataId)
-//    {
-//        return datas.Find(obj => obj.Id == dataId) != null;
-//    }
-
-//    public static void Remove(this List<ItemStoredData> datas, string dataId)
-//    {
-//        var index = datas.FindIndex(x => x.Id == dataId);
-//        datas.RemoveAt(index);
-//    }
-//}
+    public void FromJSON(JSONObject json)
+    {
+        Id = json[nameof(Id)].str;
+        Name = json[nameof(Name)].str;
+        IsDefaultItem = json[nameof(IsDefaultItem)].b;
+    }
+}
 

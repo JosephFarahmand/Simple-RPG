@@ -8,6 +8,7 @@ public abstract class PageBase : MonoBehaviour
     [SerializeField] private string title;
     public List<UIElementBase> elements;
     [SerializeField] public UnityEvent onOpen;
+    [SerializeField] private bool loadAtFirst = false;
 
     public string Title
     {
@@ -20,6 +21,8 @@ public abstract class PageBase : MonoBehaviour
             return title;
         }
     }
+
+    public bool LoadAtFirst { get => loadAtFirst; }
 
     /// <summary>
     /// call when open this panel

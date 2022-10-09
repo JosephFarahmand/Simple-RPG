@@ -17,35 +17,42 @@ public abstract class Slot : MonoBehaviour
     [SerializeField] private Sprite defaultFrame;
     [SerializeField] private Color defaultBackgroundColor;
 
+    public Item Item { get;private set; }
+
     public event System.Action<bool, Item> OnSlotSelectedHandler;
 
     protected virtual void Start()
     {
         slotToggle.group = GetComponentInParent<ToggleGroup>();
+        countText.SetText("");
     }
 
     public virtual void AddItem(Item item)
     {
         SetActive(true);
 
-        ApplySlotSkin(item);
+        Item = item;
 
-        SetToggleAction(item);
+        ApplySlotSkin();
+
+        SetToggleAction();
     }
 
-    protected virtual void SetToggleAction(Item item)
+    protected virtual void SetToggleAction()
     {
         slotToggle.onValueChanged.RemoveAllListeners();
-        slotToggle.onValueChanged.AddListener(((value) =>
+        slotToggle.onValueChanged.AddListener((value) =>
         {
-            OnSlotSelectedHandler?.Invoke(value, item);
+            OnSlotSelectedHandler?.Invoke(value, Item);
 
             ApplySelectedFrame(value);
-        }));
+        });
     }
 
     public virtual void ClearSlot()
     {
+        Item = null;
+
         ApplySlotSkin();
 
         SetActive(false);
@@ -56,24 +63,24 @@ public abstract class Slot : MonoBehaviour
         itemIcon.enabled = value;
     }
 
-    protected void ApplySlotSkin(Item item = null)
+    protected void ApplySlotSkin()
     {
-        if (item == null)
+        if (Item == null)
         {
             itemIcon.sprite = null;
 
-            countText.SetText("");
+            
 
             itemBackground.color = defaultBackgroundColor;
             itemFrame.sprite = defaultFrame;
         }
         else
         {
-            itemIcon.sprite = item.Icon;
+            itemIcon.sprite = Item.Icon;
 
-            countText.SetText(item.Count.ToString());
+            //countText.SetText(Item.Count.ToString());
 
-            var details = GameManager.GameData.GetCardBackground(item.Rarity);
+            var details = GameManager.GameData.GetCardBackground(Item.Rarity);
             itemBackground.color = details.BackgroundColor;
             itemFrame.sprite = details.FrameSprite;
         }
@@ -82,5 +89,15 @@ public abstract class Slot : MonoBehaviour
     protected void ApplySelectedFrame(bool state)
     {
         itemFrame.sprite = state ? selectedFrame : defaultFrame;
+    }
+
+    private void OnEnable()
+    {
+        SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        SetActive(false);
     }
 }

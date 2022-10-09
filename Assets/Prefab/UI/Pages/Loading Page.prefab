@@ -570,7 +570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loading... 75%
+  m_text: Loading... 0%
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
   m_sharedMaterial: {fileID: 5416806443266638455, guid: d70f485aa27dc43f79a8fd168f58435c, type: 2}
@@ -924,6 +924,8 @@ MonoBehaviour:
   onOpen:
     m_PersistentCalls:
       m_Calls: []
+  loadingBar: {fileID: 1835794183572341802}
+  loadingValueText: {fileID: 1835794182660436066}
 --- !u!1 &1835794183502478262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1167,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 75
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

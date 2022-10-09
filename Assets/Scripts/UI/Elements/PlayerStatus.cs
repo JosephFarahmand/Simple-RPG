@@ -8,7 +8,7 @@ using System;
 public class PlayerStatus : UIElementBase
 {
     [SerializeField] private Element coin;
-    [SerializeField] private Element gem;
+    //[SerializeField] private Element gem;
 
     public override void SetValues()
     {
@@ -17,23 +17,23 @@ public class PlayerStatus : UIElementBase
     public override void SetValuesOnSceneLoad()
     {
         //get player coin and gem value and set theme
-        coin.SetValue(PlayerManager.Profile.Data.CoinAmount, () =>
+        coin.SetValue(AccountController.Data.CoinAmount, () =>
         {
 
         });
 
-        gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
-        {
+        //gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
+        //{
 
-        });
+        //});
 
-        PlayerManager.Profile.onChangeProperty += ChangeProperty;
+        AccountController.onChangeProperty += ChangeProperty;
     }
 
     private void ChangeProperty(PlayerProfile profile)
     {
         coin.SetValue(profile.CoinAmount);
-        gem.SetValue(profile.GemAmount);
+        //gem.SetValue(profile.GemAmount);
     }
 
     [System.Serializable]
