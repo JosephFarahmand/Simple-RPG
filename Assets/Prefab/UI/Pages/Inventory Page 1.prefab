@@ -7036,7 +7036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699513125623008607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10433,6 +10433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory Equip Slot - Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7543959574590759887, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10539,9 +10543,17 @@ PrefabInstance:
       propertyPath: defaultSprite
       value: 
       objectReference: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
       value: Inventory Equip Slot - Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7543959574590759887, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Pivot.x
@@ -10643,15 +10655,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: slot
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8b12e39eb178f461ea19864a0bcad0ed, type: 3}
+      objectReference: {fileID: 21300000, guid: ded77ef94631d425787fb06ea53496fa, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ded77ef94631d425787fb06ea53496fa, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
-      value: Inventory Equip Slot - Shoulders
+      value: Inventory Equip Slot - Head
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7543959574590759887, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Pivot.x
@@ -10758,7 +10778,11 @@ PrefabInstance:
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 509f6258c730641ed8611f36650b568f, type: 3}
+      objectReference: {fileID: 21300000, guid: a70f0bbdd5fac5c4392076ba3f1ce09b, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a70f0bbdd5fac5c4392076ba3f1ce09b, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
       value: Inventory Equip Slot - Legs
@@ -10868,7 +10892,11 @@ PrefabInstance:
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 27a6a27cfacc641a1a544c95c7a434ba, type: 3}
+      objectReference: {fileID: 21300000, guid: e669225fc6dd9ca4983864dbd11acbfc, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e669225fc6dd9ca4983864dbd11acbfc, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
       value: Inventory Equip Slot - Belt
@@ -10973,15 +11001,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: slot
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
       value: 
-      objectReference: {fileID: 21300000, guid: ded77ef94631d425787fb06ea53496fa, type: 3}
+      objectReference: {fileID: 21300000, guid: 8115d1c49d77641f184b719c7d26d397, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8115d1c49d77641f184b719c7d26d397, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
-      value: Inventory Equip Slot - Head
+      value: Inventory Equip Slot - Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 7543959574590759887, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Pivot.x
@@ -11087,6 +11119,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dccb42b4691c341c3a63ad5d35a58e4e, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: dccb42b4691c341c3a63ad5d35a58e4e, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
@@ -11199,6 +11235,10 @@ PrefabInstance:
       propertyPath: defaultSprite
       value: 
       objectReference: {fileID: 21300000, guid: 509f6258c730641ed8611f36650b568f, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 509f6258c730641ed8611f36650b568f, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
       value: Inventory Equip Slot - Feet
@@ -11303,15 +11343,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: slot
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4251123733992266780, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: defaultSprite
       value: 
       objectReference: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
+    - target: {fileID: 7543959573955679021, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6fd0c242a45d6472cb3533e9f7dbf179, type: 3}
     - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Name
-      value: Inventory Equip Slot - Arm
+      value: Inventory Equip Slot - Chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7543959574590759886, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7543959574590759887, guid: 5d69e663eb7ee9b41b982e1a2d025b57, type: 3}
       propertyPath: m_Pivot.x
