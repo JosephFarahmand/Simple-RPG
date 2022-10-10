@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
 public class PlayerStatus : UIElementBase
 {
     [SerializeField] private Element coin;
-    //[SerializeField] private Element gem;
+    [SerializeField] private Element gem;
 
     public override void SetValues()
     {
@@ -22,10 +20,10 @@ public class PlayerStatus : UIElementBase
 
         });
 
-        //gem.SetValue(PlayerManager.Profile.Data.GemAmount, () =>
-        //{
+        gem.SetValue(AccountController.Profile.GemAmount, () =>
+        {
 
-        //});
+        });
 
         AccountController.onChangeProperty += ChangeProperty;
     }
@@ -33,10 +31,10 @@ public class PlayerStatus : UIElementBase
     private void ChangeProperty(PlayerProfile profile)
     {
         coin.SetValue(profile.CoinAmount);
-        //gem.SetValue(profile.GemAmount);
+        gem.SetValue(profile.GemAmount);
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct Element
     {
         [SerializeField] private TMP_Text text;
@@ -47,7 +45,7 @@ public class PlayerStatus : UIElementBase
             text.text = value.ToString();
         }
 
-        public void SetValue(float value, System.Action callback)
+        public void SetValue(float value, Action callback)
         {
             text.text = value.ToString();
             button.onClick.RemoveAllListeners();
