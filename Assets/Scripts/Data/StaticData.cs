@@ -3,7 +3,7 @@ public static class StaticData
     public const int maxChestSpace = 24;
     public const int inventorySpace = 24;
 
-    public const string defaultSkinId = "skin_0";
+    public const string defaultSkinId = "90";
     public const string defaultEmail = "";
     public const string defaultUsername = "";
     public const string defaultPassword = "";
@@ -15,6 +15,11 @@ public static class StaticData
 
     public const string likeURL = "http://unity3d.com/";
     public const string aboutURL = "http://unity3d.com/";
+
+    public static Equipment.ItemModifier GetItemModifier(Equipment equipment)
+    {
+        return GetItemModifier(equipment.Rarity, equipment.equipSlot);
+    }
 
     public static Equipment.ItemModifier GetItemModifier(ItemRarity rarity, EquipmentSlot slot)
     {

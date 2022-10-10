@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyCustomizer : MonoBehaviour
 {
-    private List<EquipmentHandler> equipmentHandlers;
+    private List<ModelData> models;
     [SerializeField] private SkinnedMeshRenderer headSkinRenderer;
     [SerializeField] private List<Material> materials;
 
@@ -12,13 +12,15 @@ public class EnemyCustomizer : MonoBehaviour
 
     private void Awake()
     {
-        equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = GetComponentsInChildren<EquipmentHandler>(true);
-        foreach (var handler in handlers)
+        models = new List<ModelData>(GetComponentsInChildren<ModelData>(true));
+        foreach (var model in models)
         {
-            if (handler.Item == null) continue;
-            equipmentHandlers.Add(handler);
-            handler.SetActive(false);
+            if (model.Id.Length == 0)
+            {
+                Debug.LogWarning("This object has no id", model);
+                continue;
+            }
+            model.SetActive(false);
         }
     }
 
@@ -26,13 +28,13 @@ public class EnemyCustomizer : MonoBehaviour
     {
         var material = materials.RandomItem();
         var data = GameManager.GameData.GetCharacterEquipment();
-        foreach (var itemID in data.ItemsId)
+        foreach (var equipment in data.Equipment)
         {
-            var itemHandler = equipmentHandlers.Find(item => item.ID == itemID);
+            var itemHandler = models.Find(x => x.Equals(equipment));
             itemHandler.SetActive(true);
             itemHandler.SetMaterial(material);
 
-            onEquip?.Invoke(itemHandler.Item);
+            onEquip?.Invoke(equipment);
         }
 
         headSkinRenderer.sharedMaterial = material;

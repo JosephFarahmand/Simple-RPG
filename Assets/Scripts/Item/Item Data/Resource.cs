@@ -7,14 +7,24 @@ public class Resource : Item
     [SerializeField] private ResourceType type;
     [SerializeField] private int value = 10;
 
+    public Resource(string id, string displayName, ItemRarity rarity, Sprite icon, int requiredLevel, int price, CurrencyType currencyType, string assetId, ResourceType type, int value) : base(id, displayName, rarity, icon, requiredLevel, price, currencyType,assetId)
+    {
+        this.type = type;
+        this.value = value;
+
+        GameManager.GameData.SetItem(this);
+    }
+
     public ResourceType Type => type;
+
+    public int Value => value;
 
     public override void Use()
     {
         base.Use();
 
         // Use Resource
-        if (type == ResourceType.Coin)
+        if (type == ResourceType.Gold)
         {
             AccountController.AddCoinValue(value);
         }
@@ -30,6 +40,6 @@ public class Resource : Item
 
 public enum ResourceType
 {
-    Coin,
+    Gold,
     Gem
 }

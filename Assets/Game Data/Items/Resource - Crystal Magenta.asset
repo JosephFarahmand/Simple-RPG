@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Resource - Crystal Magenta
   m_EditorClassIdentifier: 
   id: 
-  rarity: 0
+  displayName: Small Gem Pack
+  rarity: 1
   icon: {fileID: 21300000, guid: 55aac4d93f232464c88cd97596839db9, type: 3}
-  isDefaultItem: 0
-  RequiredLevel: 1
+  requiredLevel: 1
   price: 100
-  count: 5
+  currencyType: 0
   type: 1
+  value: 10

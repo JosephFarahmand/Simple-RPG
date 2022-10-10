@@ -10,7 +10,7 @@ public class EquipmentController : MonoBehaviour
     [Header("Items")]
     private List<Equipment> defaultItems;
 
-    private List<EquipmentHandler> equipmentHandlers;
+    private List<ModelData> models;
 
     private Dictionary<EquipmentSlot, Equipment> activeEquipment;
 
@@ -23,14 +23,14 @@ public class EquipmentController : MonoBehaviour
     {
         inventory = PlayerManager.InventoryController;
 
-        equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = root.GetComponentsInChildren<EquipmentHandler>(true);
-        foreach (var handler in handlers)
+        this.models = new List<ModelData>();
+        var models = root.GetComponentsInChildren<ModelData>(true);
+        foreach (var model in models)
         {
-            if (handler.Item == null) continue;
-            if (handler.IsStaticItem) continue;
-            equipmentHandlers.Add(handler);
-            handler.gameObject.SetActive(false);
+            if (model.Id.Length == 0) continue;
+            if (model.IsStaticItem) continue;
+            this.models.Add(model);
+            model.SetActive(false);
         }
 
         activeEquipment = new Dictionary<EquipmentSlot, Equipment>();
@@ -70,9 +70,8 @@ public class EquipmentController : MonoBehaviour
     public void Equip(Equipment newItem)
     {
         // Find out what slot the item fits in
-        var handler = equipmentHandlers.Find(x => x.Item == newItem);// TODO: find by id
-        //var handler = equipmentHandlers.Find(x => x.ID == newItem.Id);
-        if (handler == null)
+        var model = models.Find(x => x.Equals(newItem));
+        if (model == null)
         {
             Debug.LogError($"This items is not available!! {newItem.Name}");
             return;
@@ -87,7 +86,7 @@ public class EquipmentController : MonoBehaviour
         }
 
         // Insert the item into the slot
-        handler.SetActive(true);
+        model.SetActive(true);
         activeEquipment[slot] = newItem;
 
         // An item has been equipped so we trigger the callback
@@ -111,8 +110,8 @@ public class EquipmentController : MonoBehaviour
                 inventory.Add(oldItem);
 
                 // Diactive item
-                var handler = equipmentHandlers.Find(x => x.Item == oldItem);
-                handler.SetActive(false);
+                var model = models.Find(x => x.Equals(oldItem));
+                model.SetActive(false);
                 activeEquipment[slot] = null;
 
                 // Equipment has been removed, so we trigger the callback

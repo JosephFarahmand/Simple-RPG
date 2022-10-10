@@ -12,7 +12,15 @@ public class Equipment : Item
     [Tooltip("Increase/decrease in each one")]
     [SerializeField, ReadOnly] private ItemModifier modifier;
 
-    public ItemModifier Modifier => StaticData.GetItemModifier(Rarity, equipSlot);
+    public Equipment(string id, string displayName, ItemRarity rarity, Sprite icon, int requiredLevel, int price, CurrencyType currencyType, string assetId, EquipmentSlot equipSlot, ItemModifier modifier) : base(id, displayName, rarity, icon, requiredLevel, price, currencyType,assetId)
+    {
+        this.equipSlot = equipSlot;
+        this.modifier = modifier;
+
+        GameManager.GameData.SetItem(this);
+    }
+
+    public ItemModifier Modifier => modifier;
 
     // When pressed in inventory
     public override void Use()

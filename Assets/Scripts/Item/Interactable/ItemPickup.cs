@@ -2,7 +2,20 @@ using UnityEngine;
 
 public class ItemPickup : Interactable
 {
-    [SerializeField] Item item;
+    [SerializeField] private string id;
+    Item item;
+
+    public string ID
+    {
+        get
+        {
+            if (id == null || id.Length == 0)
+            {
+                id = GetComponentInChildren<ModelData>().Id;
+            }
+            return id;
+        }
+    }
 
     public override void Interact()
     {
@@ -20,5 +33,16 @@ public class ItemPickup : Interactable
 
         if (wasPickedUp)
             Destroy(gameObject);
+    }
+
+    public void SetItem(Item item)
+    {
+        this.item = item;
+    }
+
+    [ContextMenu("Set Id")]
+    private void SetId()
+    {
+        id = GetComponentInChildren<ModelData>().Id;
     }
 }

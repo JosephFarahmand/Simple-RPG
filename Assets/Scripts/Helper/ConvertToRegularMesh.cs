@@ -3,6 +3,7 @@ using UnityEngine;
 public class ConvertToRegularMesh : MonoBehaviour
 {
     [ContextMenu("Convert To Regular Mesh")]
+    [NaughtyAttributes.Button("Convert To Regular Mesh")]
     void Convert()
     {
         SkinnedMeshRenderer skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();

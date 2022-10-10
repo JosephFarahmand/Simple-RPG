@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
+using DataBank;
 
 public class GameData : MonoBehaviour, IController
 {
@@ -17,9 +18,12 @@ public class GameData : MonoBehaviour, IController
     [NaughtyAttributes.HorizontalLine]
 
     [Header("Item")]
-    [SerializeField] private List<Equipment> equipment = new List<Equipment>();
+    [SerializeField] private List<ItemPickup> itemsAsset;
+    [SerializeField] private List<MaterialData> materials;
+    private List<Equipment> equipment = new List<Equipment>();
+    private List<Resource> resources = new List<Resource>();
     [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
-    [SerializeField] private List<SkinData> skins = new List<SkinData>();
+    private List<SkinData> skins = new List<SkinData>();
 
     [Header("UI")]
     [SerializeField] private List<CardBackground> cardBackgrounds;
@@ -30,6 +34,43 @@ public class GameData : MonoBehaviour, IController
     public void Initialization()
     {
         animations ??= GetComponent<GameAnimations>();
+    }
+
+
+    public void AddItem<T>(T newItem) where T : Item
+    {
+        if (newItem is Equipment newEquipment)
+        {
+            equipment.Add(newEquipment);
+        }
+        else if (newItem is SkinData newSkin)
+        {
+            skins.Add(newSkin);
+        }
+        else if (newItem is Resource newResource)
+        {
+            resources.Add(newResource);
+        }
+    }
+
+    public void SetItem<T>(T item) where T : Item
+    {
+        var asset = itemsAsset.Find(x => x.ID == item.AssetId);
+        asset.SetItem(item);
+    }
+
+    public Material GetMaterial(string id)
+    {
+        return materials.Find(x => x.Id == id).Material;
+    }
+
+    public List<Item> GetItems()
+    {
+        var list = new List<Item>();
+        list.AddRange(resources);
+        list.AddRange(skins);
+        list.AddRange(equipment);
+        return list;
     }
 
     #region Item
@@ -44,17 +85,22 @@ public class GameData : MonoBehaviour, IController
         return equipment;
     }
 
+    public List<Resource> GetResourceItems()
+    {
+        return resources;
+    }
+
     public CharacterEquipment GetCharacterEquipment()
     {
-        var beltId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Belt).RandomItem().Id;
-        var bottonId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Legs).RandomItem().Id;
-        var feetId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Feet).RandomItem().Id;
-        var handId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Hands).RandomItem().Id;
-        var helmetId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Head).RandomItem().Id;
-        var torsoId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Chest).RandomItem().Id;
-        var weaponId =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Weapon).RandomItem().Id;
+        var belt =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Belt).RandomItem();
+        var botton =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Legs).RandomItem();
+        var feet =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Feet).RandomItem();
+        var hand =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Hands).RandomItem();
+        var helmet =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Head).RandomItem();
+        var torso =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Chest).RandomItem();
+        var weapon =  equipment.Where(obj => obj.equipSlot == EquipmentSlot.Weapon).RandomItem();
 
-        CharacterEquipment resualt = new CharacterEquipment(beltId, bottonId, feetId, handId, helmetId, torsoId, weaponId);
+        CharacterEquipment resualt = new CharacterEquipment(belt, botton, feet, hand, helmet, torso, weapon);
 
         return resualt;
     }
@@ -103,26 +149,37 @@ public class GameData : MonoBehaviour, IController
 
     public struct CharacterEquipment
     {
-        public CharacterEquipment(string beltId, string bottonId, string feetId, string handId, string helmetId, string torsoId, string weaponId)
+        public CharacterEquipment(Equipment belt, Equipment botton, Equipment feet, Equipment hand, Equipment helmet, Equipment torso, Equipment weapon)
         {
-            BeltId = beltId;
-            BottonId = bottonId;
-            FeetId = feetId;
-            HandId = handId;
-            HelmetId = helmetId;
-            TorsoId = torsoId;
-            WeaponId = weaponId;
+            Belt = belt;
+            Botton = botton;
+            Feet = feet;
+            Hand = hand;
+            Helmet = helmet;
+            Torso = torso;
+            Weapon = weapon;
+
+            Equipment = new List<Equipment>
+            {
+                belt,
+                botton,
+                feet,
+                hand,
+                helmet,
+                torso,
+                weapon
+            };
         }
 
-        public string BeltId { get; private set; }
-        public string BottonId { get; private set; }
-        public string FeetId { get; private set; }
-        public string HandId { get; private set; }
-        public string HelmetId { get; private set; }
-        public string TorsoId { get; private set; }
-        public string WeaponId { get; private set; }
+        public Equipment Belt { get; private set; }
+        public Equipment Botton { get; private set; }
+        public Equipment Feet { get; private set; }
+        public Equipment Hand { get; private set; }
+        public Equipment Helmet { get; private set; }
+        public Equipment Torso { get; private set; }
+        public Equipment Weapon { get; private set; }
 
-        public List<string> ItemsId => new List<string> { BeltId, BottonId, FeetId, HandId, HelmetId, TorsoId, WeaponId };
+        public List<Equipment> Equipment { get; private set; }
     }
 
     [Serializable]

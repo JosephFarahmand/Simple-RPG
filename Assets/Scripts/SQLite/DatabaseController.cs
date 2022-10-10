@@ -6,10 +6,14 @@ public class DatabaseController : MonoBehaviour
 {
     ProfileDb profileDb;
     ItemDb itemDb;
+    EquipmentItemDb equipmentItemDb;
+    ResourceItemDb resourceItemDb;
     InventoryDb inventoryDb;
     EquipmentDb equipmentDb;
 
     List<ItemEntity> itemEntities;
+    List<EquipmentItemEntity> equipmentItems;
+    List<ResourceItemEntity> resourceItems;
     List<ItemCollectionEntity> inventoryEntities;
     List<ItemCollectionEntity> equipmentEntities;
 
@@ -20,6 +24,8 @@ public class DatabaseController : MonoBehaviour
         // Create or open databases
         profileDb = new ProfileDb();
         itemDb = new ItemDb();
+        equipmentItemDb = new EquipmentItemDb();
+        resourceItemDb = new ResourceItemDb();
         inventoryDb = new InventoryDb();
         equipmentDb = new EquipmentDb();
     }
@@ -116,23 +122,16 @@ public class DatabaseController : MonoBehaviour
 
     #region Item Database
 
-#if UNITY_EDITOR
-    [ContextMenu("Add items to database")]
-    private void AddItemToDatabase()
-    {
-        // Get all items from Game data
-
-        // add items to database
-        //foreach (var item in collection)
-        //{
-        //	itemDb.addData(new ItemEntity(/*item data*/));
-        //}
-    }
-#endif
-
+    [NaughtyAttributes.Button]
     private void LoadItems()
     {
+        var itemDb = new ItemDb();
+        var equipmentItemDb = new EquipmentItemDb();
+        var resourceItemDb = new ResourceItemDb();
+
         itemEntities = itemDb.GetAllData();
+        equipmentItems = equipmentItemDb.GetAllData();
+        resourceItems = resourceItemDb.GetAllData();
         SyncItemsWithGame();
     }
 
@@ -142,8 +141,51 @@ public class DatabaseController : MonoBehaviour
         {
             // find game asset with entity.AssetId from game data
 
+            var id = entity.Id.ToString();
+            var name = entity.Name;
+            var rarity = entity.Rarity;
+            var icon = Resources.Load<Sprite>(entity.IconPath);
+            var requiredLevel = entity.RequiredLevel;
+            var price = entity.Price;
+            var currency = entity.CurrencyType;
+            var assetId = entity.AssetId;
+
+            if (entity.Type == ItemType.Equipment)
+            {
+                var equipmentEntity = equipmentItems.Find(x => x.ItemId == entity.Id);
+                var equipSlot = equipmentEntity.EquipSlot;
+                var modifier = new Equipment.ItemModifier(equipmentEntity.DamageModifier, equipmentEntity.ArmorModifier, equipmentEntity.AttackSpeedModifier);
+
+                Equipment equipment = new Equipment(id, name, rarity, icon, requiredLevel, price, currency, assetId, equipSlot, modifier);
+
+                GameManager.GameData.AddItem(equipment);
+            }
+            else if (entity.Type == ItemType.Resource)
+            {
+                var resourceEntity = resourceItems.Find(x => x.ItemId == entity.Id);
+                var type = resourceEntity.ResourceType;
+                var value = resourceEntity.Value;
+
+                Resource resource = new Resource(id, name, rarity, icon, requiredLevel, price, currency, assetId, type, value);
+
+                GameManager.GameData.AddItem(resource);
+            }
+            else if (entity.Type == ItemType.Skin)
+            {
+                SkinData skin = new SkinData(id, name, rarity, icon, requiredLevel, price, currency, assetId, assetId);
+
+                GameManager.GameData.AddItem(skin);
+            }
+            else
+            {
+                Debug.LogWarning($"Incorrect type {entity.Type}");
+                continue;
+            }
+
             // sync founded item with entity data
         }
+
+        Debug.Log(GameManager.GameData.GetItems().Count);
     }
 
     #endregion
@@ -214,6 +256,8 @@ public class DatabaseController : MonoBehaviour
     {
         profileDb.close();
         itemDb.close();
+        equipmentItemDb.close();
+        resourceItemDb.close();
         inventoryDb.close();
         equipmentDb.close();
     }

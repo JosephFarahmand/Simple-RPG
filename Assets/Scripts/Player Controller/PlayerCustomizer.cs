@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class PlayerCustomizer : MonoBehaviour
 {
-    List<EquipmentHandler> equipmentHandlers;
+    List<ModelData> models;
 
     public void Initialization()
     {
-        equipmentHandlers = new List<EquipmentHandler>(transform.root.GetComponentsInChildren<EquipmentHandler>());
+        models = new List<ModelData>(transform.root.GetComponentsInChildren<ModelData>(true));
 
         AccountController.onChangeProperty += ChangeProperty;
     }
@@ -20,7 +20,7 @@ public class PlayerCustomizer : MonoBehaviour
     private void ApplySkin(string skinId)
     {
         Material material = GameManager.GameData.GetSkinMaterial(skinId);
-        foreach (var handler in equipmentHandlers)
+        foreach (var handler in models)
         {
             handler.SetMaterial(material);
         }

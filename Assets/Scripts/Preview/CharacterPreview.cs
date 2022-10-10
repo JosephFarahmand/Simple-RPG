@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class CharacterPreview : MonoBehaviour
 {
-    private List<EquipmentHandler> equipmentHandlers;
+    private List<ModelData> models;
     InventoryPage inventoryPage;
     [SerializeField] private Transform character;
 
     public void Initialization()
     {
-        equipmentHandlers = new List<EquipmentHandler>();
-        var handlers = transform.root.GetComponentsInChildren<EquipmentHandler>(true);
-        foreach (var handler in handlers)
+        this.models = new List<ModelData>();
+        var models = transform.root.GetComponentsInChildren<ModelData>(true);
+        foreach (var model in models)
         {
-            if (handler.Item == null) continue;
-            if (handler.IsStaticItem) continue;
-            equipmentHandlers.Add(handler);
-            handler.gameObject.SetActive(false);
+            if (model.Id.Length == 0) continue;
+            if (model.IsStaticItem) continue;
+            this.models.Add(model);
+            model.gameObject.SetActive(false);
         }
 
         PlayerManager.EquipController.onEquipmentChanged += onChangePreview;
         AccountController.onChangeProperty += (profile) =>
         {
             var material = GameManager.GameData.GetSkinMaterial(profile.SkinId);
-            foreach (var handler in handlers)
+            foreach (var handler in models)
             {
                 handler.SetMaterial(material);
             }
@@ -35,13 +35,19 @@ public class CharacterPreview : MonoBehaviour
 
     private void onChangePreview(Equipment newItem, Equipment oldItem)
     {
-        var handler = equipmentHandlers.Find(x => x.Item == newItem);
-        if (handler != null)
-            handler.gameObject.SetActive(true);
+        if (newItem != null)
+        {
+            var model = models.Find(x => x.Equals(newItem));
+            if (model != null)
+                model.gameObject.SetActive(true);
+        }
 
-        handler = equipmentHandlers.Find(x => x.Item == oldItem);
-        if (handler != null)
-            handler.gameObject.SetActive(false);
+        if (oldItem != null)
+        {
+            var model = models.Find(x => x.Equals(oldItem));
+            if (model != null)
+                model.gameObject.SetActive(false);
+        }
     }
 
     public float speed = 5.0f;
