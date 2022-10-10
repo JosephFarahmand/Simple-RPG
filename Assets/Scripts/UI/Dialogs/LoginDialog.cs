@@ -48,6 +48,10 @@ public class LoginDialog : DialogBase
             {
                 UI_Manager.instance.CloseDialog(this);
             }
+            else
+            {
+                Debug.LogError("Login failed!");
+            }
         });
 
         int isUsernameValidate = 0, isPasswordValidate = 0;

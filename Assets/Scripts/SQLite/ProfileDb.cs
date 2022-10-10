@@ -12,11 +12,14 @@ namespace DataBank
         private const string KEY_ID = "id";
         private const string KEY_USERNAME = "username";
         private const string KEY_PASSWORD = "password";
-        private const string KEY_NICKNAME = "nickname";
+        //private const string KEY_NICKNAME = "nickname";
+        private const string KEY_TOKEN = "token";
+        private const string KEY_EMAIL = "email";
         private const string KEY_COIN = "coin";
         private const string KEY_GEM = "gem";
         private const string KEY_LEVEL = "level";
         private const string KEY_SKIN = "skinId";
+        private const string KEY_XP = "currentXP";
 
         public ProfileDb() : base()
         {
@@ -25,11 +28,13 @@ namespace DataBank
                 KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_USERNAME + " TEXT UNIQUE, " +
                 KEY_PASSWORD + " TEXT NOT NULL, " +
-                KEY_NICKNAME + " TEXT DEFAULT newPlayer, " +
+                KEY_TOKEN + " TEXT , " +
+                KEY_EMAIL + " TEXT , " +
                 KEY_COIN + " INTEGER DEFAULT 0, " +
                 KEY_GEM + " INTEGER DEFAULT 0, " +
                 KEY_LEVEL + " INTEGER DEFAULT 1, " +
-                KEY_SKIN + " TEXT DEFAULT 0" +
+                KEY_SKIN + " TEXT DEFAULT 90," +
+                KEY_XP + " FLOAT DEFAULT 0" +
                 " )";
             dbcmd.ExecuteNonQuery();
         }
@@ -43,12 +48,12 @@ namespace DataBank
                     "INSERT INTO " + TABLE_NAME
                     + " ( "
                     + KEY_USERNAME + ", "
-                    + KEY_PASSWORD
+                    + KEY_PASSWORD 
                     + " ) "
 
                     + "VALUES ( '"
                     + profile.Username + "', '"
-                    + profile.Password + "', "
+                    + profile.Password + "' "
                     + " )";
                 dbcmd.ExecuteNonQuery();
                 return true;
@@ -67,6 +72,16 @@ namespace DataBank
             IDbCommand dbcmd = getDbCommand();
             dbcmd.CommandText =
                 "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_USERNAME + " = '" + username + "'";
+            return dbcmd.ExecuteReader();
+        }
+
+        public IDataReader getDataByToken(string token)
+        {
+            Debug.Log(Tag + "Getting Profile: " + token);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_TOKEN + " = '" + token + "'";
             return dbcmd.ExecuteReader();
         }
 
@@ -95,24 +110,24 @@ namespace DataBank
             return getAllData(TABLE_NAME);
         }
 
-        public bool UpdateNickname(int id, string newNickname)
-        {
-            try
-            {
-                Debug.Log(Tag + "Updating Profile: " + id);
+        //public bool UpdateNickname(int id, string newNickname)
+        //{
+        //    try
+        //    {
+        //        Debug.Log(Tag + "Updating Profile: " + id);
 
-                IDbCommand dbcmd = getDbCommand();
-                dbcmd.CommandText =
-                    "UPDATE " + TABLE_NAME + " SET " + KEY_NICKNAME + " = " + newNickname + " WHERE " + KEY_ID + " = '" + id + "'";
-                dbcmd.ExecuteNonQuery();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+        //        IDbCommand dbcmd = getDbCommand();
+        //        dbcmd.CommandText =
+        //            "UPDATE " + TABLE_NAME + " SET " + KEY_NICKNAME + " = " + newNickname + " WHERE " + KEY_ID + " = '" + id + "'";
+        //        dbcmd.ExecuteNonQuery();
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
 
-        }
+        //}
 
         public bool UpdateCoinAmount(int id, int newValue)
         {
@@ -140,7 +155,7 @@ namespace DataBank
 
                 IDbCommand dbcmd = getDbCommand();
                 dbcmd.CommandText =
-                    "UPDATE " + TABLE_NAME + " SET " + KEY_GEM + " = " + newValue + " WHERE " + KEY_ID + " = '" + id + "'";
+                    "UPDATE " + TABLE_NAME + " SET " + KEY_GEM + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
                 dbcmd.ExecuteNonQuery();
                 return true;
             }
@@ -156,18 +171,82 @@ namespace DataBank
 
             IDbCommand dbcmd = getDbCommand();
             dbcmd.CommandText =
-                "UPDATE " + TABLE_NAME + " SET " + KEY_LEVEL + " = " + newValue + " WHERE " + KEY_ID + " = '" + id + "'";
+                "UPDATE " + TABLE_NAME + " SET " + KEY_LEVEL + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
             dbcmd.ExecuteNonQuery();
         }
 
-        public void UpdateSkinId(int id, string skinId)
+        public void UpdateXP(int id, float newValue)
         {
             Debug.Log(Tag + "Updating Profile: " + id);
 
             IDbCommand dbcmd = getDbCommand();
             dbcmd.CommandText =
-                "UPDATE " + TABLE_NAME + " SET " + KEY_SKIN + " = " + skinId + " WHERE " + KEY_ID + " = '" + id + "'";
+                "UPDATE " + TABLE_NAME + " SET " + KEY_XP + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
             dbcmd.ExecuteNonQuery();
+        }
+
+        public void UpdateSkinId(int id, string newValue)
+        {
+            Debug.Log(Tag + "Updating Profile: " + id);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "UPDATE " + TABLE_NAME + " SET " + KEY_SKIN + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
+            dbcmd.ExecuteNonQuery();
+        }
+
+        public void UpdateEmail(int id, string newValue)
+        {
+            Debug.Log(Tag + "Updating Profile: " + id);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "UPDATE " + TABLE_NAME + " SET " + KEY_EMAIL + " = \'" + newValue + "\' WHERE " + KEY_ID + " = \'" + id + "\'";
+            dbcmd.ExecuteNonQuery();
+        }
+
+        public void UpdateToken(int id, string newValue)
+        {
+            Debug.Log(Tag + "Updating Profile: " + id);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "UPDATE " + TABLE_NAME + " SET " + KEY_TOKEN + " = \'" + newValue + "\' WHERE " + KEY_ID + " = \'" + id + "\'";
+            dbcmd.ExecuteNonQuery();
+        }
+
+        public void UpdateUsername(int id, string newValue)
+        {
+            Debug.Log(Tag + "Updating Profile: " + id);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "UPDATE " + TABLE_NAME + " SET " + KEY_USERNAME + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
+            dbcmd.ExecuteNonQuery();
+        }
+
+        public void UpdatePassword(int id, string newValue)
+        {
+            Debug.Log(Tag + "Updating Profile: " + id);
+
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "UPDATE " + TABLE_NAME + " SET " + KEY_PASSWORD + " = \'" + newValue + "\' WHERE " + KEY_ID + " = '" + id + "'";
+            dbcmd.ExecuteNonQuery();
+        }
+
+        public bool HasUsername(string username)
+        {
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "SELECT FROM " + TABLE_NAME + " WHERE " + KEY_USERNAME + " = '" + username + "'";
+            
+            IDataReader reader = dbcmd.ExecuteReader();
+            while (reader.Read())
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

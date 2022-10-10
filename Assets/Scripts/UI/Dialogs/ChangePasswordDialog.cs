@@ -27,7 +27,7 @@ public class ChangePasswordDialog : DialogBase
             var oldPassword = oldPasswordinputField.text;
             var newPassword = newPasswordinputField.text;
 
-            if (oldPassword != AccountController.Data.Password)
+            if (oldPassword != AccountController.Profile.Password)
             {
                 warningMassege.SetWarning(wrongPassword);
             }

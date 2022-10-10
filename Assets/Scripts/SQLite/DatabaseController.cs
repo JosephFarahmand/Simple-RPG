@@ -2,24 +2,25 @@ using DataBank;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DatabaseController : MonoBehaviour
+public static class DatabaseController
 {
-    ProfileDb profileDb;
-    ItemDb itemDb;
-    EquipmentItemDb equipmentItemDb;
-    ResourceItemDb resourceItemDb;
-    InventoryDb inventoryDb;
-    EquipmentDb equipmentDb;
+    static ProfileDb profileDb;
+    static ItemDb itemDb;
+    static EquipmentItemDb equipmentItemDb;
+    static ResourceItemDb resourceItemDb;
+    static InventoryDb inventoryDb;
+    static EquipmentDb equipmentDb;
 
-    List<ItemEntity> itemEntities;
-    List<EquipmentItemEntity> equipmentItems;
-    List<ResourceItemEntity> resourceItems;
-    List<ItemCollectionEntity> inventoryEntities;
-    List<ItemCollectionEntity> equipmentEntities;
+    static List<ItemEntity> itemEntities;
+    static List<EquipmentItemEntity> equipmentItems;
+    static List<ResourceItemEntity> resourceItems;
+    static List<ItemCollectionEntity> inventoryEntities;
+    static List<ItemCollectionEntity> equipmentEntities;
 
-    int profileToken = -1;
+    static string profileToken;
+    static int profileId = -1;
 
-    void Start()
+    public static void Initialization()
     {
         // Create or open databases
         profileDb = new ProfileDb();
@@ -32,44 +33,40 @@ public class DatabaseController : MonoBehaviour
 
     #region Profile Database
 
-    /// <summary>
-    /// Find profile's id in database
-    /// </summary>
-    /// <param name="profileId">profile's id stored in PlayerPrefs</param>
-    public void GetPlayerProfile(int profileId)
+    public static bool Login(string username, string password)
     {
-        var profile = profileDb.GetProfileEntity(profileId);
-        if (profile == null)
+        var entity = profileDb.GetProfileEntity(username);
+        if (entity != null)
         {
-            // Open Register page
+            var profile = (ProfileEntity)entity;
+            if (profile.Password.Equals(password))
+            {
+                profileId = profile.Id;
+                return true;
+            }
+            else
+            {
+                Debug.Log("Wrong password");
+                return false;
+            }
         }
-        else
-        {
-            profileToken = profileId;
 
-            // Open Loading Page
-
-            // Load profile data
-            CreatePlayerProfile((ProfileEntity)profile);
-
-            // Load items database
-            LoadItems();
-
-            // Find Player's item from inventory DB
-            LoadPlayerInventory();
-
-            // Find Player's equipment from equipment DB
-            LoadPlayerEquipment();
-
-            // Open Home Page
-        }
+        Debug.Log("Username not found!");
+        return false;
     }
 
-    private void CreatePlayerProfile(ProfileEntity entity)
+    public static bool Login(string token)
     {
-        profileToken = entity.Id;
+        var entity = profileDb.GetProfileEntityByToken(token);
+        if (entity != null)
+        {
+            var profile = (ProfileEntity)entity;
+            profileId = profile.Id;
+            return true;
+        }
 
-        // Create player profile and assign geted profile data
+        Debug.Log("Username not found!");
+        return false;
     }
 
     /// <summary>
@@ -78,7 +75,7 @@ public class DatabaseController : MonoBehaviour
     /// <param name="username"></param>
     /// <param name="password"></param>
     /// <returns>Final confirmation of registration</returns>
-    public bool RegisterProfile(string username, string password)
+    public static bool SignUp(string username, string password)
     {
         ProfileEntity entity = new ProfileEntity(username, password);
         var registerAccept = profileDb.addData(entity);
@@ -86,61 +83,107 @@ public class DatabaseController : MonoBehaviour
         {
             var profile = (ProfileEntity)profileDb.GetProfileEntity(username);
 
-            profileToken = profile.Id;
-
-            // save profileId in PlayerPrefs
+            profileId = profile.Id;
         }
         return registerAccept;
     }
 
-    public void ChangeProfileNickname(string newValue)
+    public static ProfileEntity? GetProfile()
     {
-        profileDb.UpdateNickname(profileToken, newValue);
+        if (profileId == -1)
+        {
+            Debug.Log("Profile not find!");
+            return null;
+        }
+        return profileDb.GetProfileEntity(profileId);
     }
 
-    public void ChangeProfileGemValue(int newValue)
+    public static void LoadProfile()
     {
-        profileDb.UpdateGemAmount(profileToken, newValue);
+        // Find Player's item from inventory DB
+        LoadPlayerInventory();
+
+        // Find Player's equipment from equipment DB
+        LoadPlayerEquipment();
     }
 
-    public void ChangeProfileCoinValue(int newValue)
+    #region Update Methods
+
+    //public static void ChangeProfileNickname(string newValue)
+    //{
+    //    profileDb.UpdateNickname(profileId, newValue);
+    //}
+
+    public static void ChangeProfileUsername(string newValue)
     {
-        profileDb.UpdateCoinAmount(profileToken, newValue);
+        profileDb.UpdateUsername(profileId, newValue);
     }
 
-    public void ChangeProfileLevel(int newValue)
+    public static void ChangeProfilePassword(string newValue)
     {
-        profileDb.UpdateLevel(profileToken, newValue);
+        profileDb.UpdatePassword(profileId, newValue);
     }
 
-    public void ChangeProfileSkinId(string newValue)
+    public static void ChangeProfileEmail(string newValue)
     {
-        profileDb.UpdateSkinId(profileToken, newValue);
+        profileDb.UpdateEmail(profileId, newValue);
+    }
+
+    public static void ChangeToken(string newValue)
+    {
+        profileDb.UpdateToken(profileId, newValue);
+    }
+
+    public static void ChangeProfileGemValue(int newValue)
+    {
+        profileDb.UpdateGemAmount(profileId, newValue);
+    }
+
+    public static void ChangeProfileCoinValue(int newValue)
+    {
+        profileDb.UpdateCoinAmount(profileId, newValue);
+    }
+
+    public static void ChangeProfileLevel(int newValue)
+    {
+        profileDb.UpdateLevel(profileId, newValue);
+    }
+
+    public static void ChangeProfileXP(float newValue)
+    {
+        profileDb.UpdateXP(profileId, newValue);
+    }
+
+    public static void ChangeProfileSkinId(string newValue)
+    {
+        profileDb.UpdateSkinId(profileId, newValue);
+    }
+
+    #endregion
+
+    public static bool HasUsername(string username)
+    {
+        return profileDb.HasUsername(username);
     }
 
     #endregion
 
     #region Item Database
 
-    [NaughtyAttributes.Button]
-    private void LoadItems()
+    //[NaughtyAttributes.Button]
+    public static void LoadItems()
     {
-        var itemDb = new ItemDb();
-        var equipmentItemDb = new EquipmentItemDb();
-        var resourceItemDb = new ResourceItemDb();
-
         itemEntities = itemDb.GetAllData();
         equipmentItems = equipmentItemDb.GetAllData();
         resourceItems = resourceItemDb.GetAllData();
+
         SyncItemsWithGame();
     }
 
-    private void SyncItemsWithGame()
+    private static void SyncItemsWithGame()
     {
         foreach (var entity in itemEntities)
         {
-            // find game asset with entity.AssetId from game data
-
             var id = entity.Id.ToString();
             var name = entity.Name;
             var rarity = entity.Rarity;
@@ -181,8 +224,6 @@ public class DatabaseController : MonoBehaviour
                 Debug.LogWarning($"Incorrect type {entity.Type}");
                 continue;
             }
-
-            // sync founded item with entity data
         }
 
         Debug.Log(GameManager.GameData.GetItems().Count);
@@ -192,9 +233,9 @@ public class DatabaseController : MonoBehaviour
 
     #region Inventory Database
 
-    private void LoadPlayerInventory()
+    private static void LoadPlayerInventory()
     {
-        inventoryEntities = inventoryDb.GetItemCollectionEntities(profileToken);
+        inventoryEntities = inventoryDb.GetItemCollectionEntities(profileId);
 
         foreach (var entity in inventoryEntities)
         {
@@ -204,15 +245,15 @@ public class DatabaseController : MonoBehaviour
         }
     }
 
-    public bool AddItemToInventory(int itemId)
+    public static bool AddItemToInventory(int itemId)
     {
-        var createdAccept = inventoryDb.addData(new ItemCollectionEntity(profileToken, itemId));
+        var createdAccept = inventoryDb.addData(new ItemCollectionEntity(profileId, itemId));
         return createdAccept;
     }
 
-    public void RemoveItemFromInventory(int itemId)
+    public static void RemoveItemFromInventory(int itemId)
     {
-        var oldEntities = inventoryEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileToken, itemId)));
+        var oldEntities = inventoryEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
         foreach (var entity in oldEntities)
         {
             inventoryDb.deleteDataByEntity(entity);
@@ -223,9 +264,9 @@ public class DatabaseController : MonoBehaviour
 
     #region Equipment Database
 
-    private void LoadPlayerEquipment()
+    private static void LoadPlayerEquipment()
     {
-        equipmentEntities = equipmentDb.GetItemCollectionEntities(profileToken);
+        equipmentEntities = equipmentDb.GetItemCollectionEntities(profileId);
 
         foreach (var entity in inventoryEntities)
         {
@@ -235,15 +276,15 @@ public class DatabaseController : MonoBehaviour
         }
     }
 
-    public bool AddItemToEquipment(int itemId)
+    public static bool AddItemToEquipment(int itemId)
     {
-        var createdAccept = equipmentDb.addData(new ItemCollectionEntity(profileToken, itemId));
+        var createdAccept = equipmentDb.addData(new ItemCollectionEntity(profileId, itemId));
         return createdAccept;
     }
 
-    public void RemoveItemFromEquipment(int itemId)
+    public static void RemoveItemFromEquipment(int itemId)
     {
-        var oldEntities = equipmentEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileToken, itemId)));
+        var oldEntities = equipmentEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
         foreach (var entity in oldEntities)
         {
             equipmentDb.deleteDataByEntity(entity);
@@ -251,14 +292,4 @@ public class DatabaseController : MonoBehaviour
     }
 
     #endregion
-
-    private void OnApplicationQuit()
-    {
-        profileDb.close();
-        itemDb.close();
-        equipmentItemDb.close();
-        resourceItemDb.close();
-        inventoryDb.close();
-        equipmentDb.close();
-    }
 }

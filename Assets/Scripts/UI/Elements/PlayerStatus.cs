@@ -17,7 +17,7 @@ public class PlayerStatus : UIElementBase
     public override void SetValuesOnSceneLoad()
     {
         //get player coin and gem value and set theme
-        coin.SetValue(AccountController.Data.CoinAmount, () =>
+        coin.SetValue(AccountController.Profile.CoinAmount, () =>
         {
 
         });

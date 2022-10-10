@@ -16,7 +16,6 @@ namespace DataBank
             {
                 ItemEntity entity = GetItemEntity(reader);
 
-                Debug.Log("id: " + entity.Id);
                 myList.Add(entity);
             }
 
@@ -95,7 +94,6 @@ namespace DataBank
 
                 EquipmentItemEntity entity = new EquipmentItemEntity(id, itemId, (EquipmentSlot)slot, damageModifier, armorModifier, attackSpeedModifier);
 
-                Debug.Log("id: " + entity.Id);
                 myList.Add(entity);
             }
 
@@ -122,7 +120,6 @@ namespace DataBank
 
                 ResourceItemEntity entity = new ResourceItemEntity(id, itemId, (ResourceType)resourceType, value);
 
-                Debug.Log("id: " + entity.Id);
                 myList.Add(entity);
             }
 
@@ -138,40 +135,12 @@ namespace DataBank
 
         #region Profile Entity
 
-        public static ProfileEntity? Convert(this IDataReader reader)
-        {
-            while (reader.Read())
-            {
-                var id = reader.GetInt32(0);
-                var username = reader[1].ToString();
-                var password = reader[2].ToString();
-                var nickname = reader[3].ToString();
-                var coin = reader.GetInt32(4);
-                var gem = reader.GetInt32(5);
-                var level = reader.GetInt32(6);
-                var skinId = reader[7].ToString();
-
-                ProfileEntity entity = new ProfileEntity(id, username, password, nickname, coin, gem, level, skinId);
-
-                return entity;
-            }
-            return null;
-        }
-
         public static ProfileEntity? GetProfileEntity(this ProfileDb database, int id)
         {
             IDataReader reader = database.getDataById(id);
             while (reader.Read())
             {
-                var username = reader[1].ToString();
-                var password = reader[2].ToString();
-                var nickname = reader[3].ToString();
-                var coin = reader.GetInt32(4);
-                var gem = reader.GetInt32(5);
-                var level = reader.GetInt32(6);
-                var skinId = reader[7].ToString();
-
-                ProfileEntity entity = new ProfileEntity(id, username, password, nickname, coin, gem, level, skinId);
+                ProfileEntity entity = GetProfileEntity(reader);
 
                 return entity;
             }
@@ -188,15 +157,7 @@ namespace DataBank
             IDataReader reader = database.getDataByUsername(username);
             while (reader.Read())
             {
-                var id = reader.GetInt32(0);
-                var password = reader[2].ToString();
-                var nickname = reader[3].ToString();
-                var coin = reader.GetInt32(4);
-                var gem = reader.GetInt32(5);
-                var level = reader.GetInt32(6);
-                var skinId = reader[7].ToString();
-
-                ProfileEntity entity = new ProfileEntity(id, username, password, nickname, coin, gem, level, skinId);
+                ProfileEntity entity = GetProfileEntity(reader);
 
                 return entity;
             }
@@ -206,6 +167,41 @@ namespace DataBank
 
             Debug.Log("Item with this ID was not found!!");
             return null;
+        }
+
+        public static ProfileEntity? GetProfileEntityByToken(this ProfileDb database, string token)
+        {
+            IDataReader reader = database.getDataByToken(token);
+            while (reader.Read())
+            {
+                ProfileEntity entity = GetProfileEntity(reader);
+
+                return entity;
+            }
+
+            // Always call Close when done reading.
+            reader.Close();
+
+            Debug.Log("Item with this ID was not found!!");
+            return null;
+        }
+
+        public static ProfileEntity GetProfileEntity(IDataReader reader)
+        {
+            var id = reader.GetInt32(0);
+            var username = reader[1].ToString();
+            var password = reader[2].ToString();
+            var token = reader[3].ToString();
+            var email = reader[4].ToString();
+            var coin = reader.GetInt32(5);
+            var gem = reader.GetInt32(6);
+            var level = reader.GetInt32(7);
+            var skinId = reader[8].ToString();
+            var currentXP = reader.GetFloat(9);
+
+            ProfileEntity entity = new ProfileEntity(id, username, password, token, email, coin, gem, level, skinId, currentXP);
+
+            return entity;
         }
 
         #endregion

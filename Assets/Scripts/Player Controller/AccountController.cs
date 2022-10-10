@@ -1,38 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using DataBank;
 using UnityEngine;
 
 public static class AccountController
 {
-    const string AllowedChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
+    /// <summary>
+    /// check device has account or not
+    /// </summary>
+    /// <returns></returns>
     public static bool CheckAccount()
     {
-        if (GameManager.SaveOrLoad.PlayerToken == string.Empty || GameManager.SaveOrLoad.PlayerToken == null)
+        var token = GameManager.SaveOrLoad.PlayerToken;
+        if (token == null || token == string.Empty)
         {
             return false;
         }
         else
         {
+            Login(token);
             return true;
         }
     }
 
-    private static void SaveToken(string token)
+    private static void SaveToken()
     {
-        GameManager.SaveOrLoad.PlayerToken = token;
-    }
-
-    private static string CreateToken()
-    {
-        char[] chars = new char[32];
-
-        for (int i = 0; i < 32; ++i)
-        {
-            chars[i] = AllowedChars[Random.Range(0, AllowedChars.Length)];
-        }
-
-        return new string(chars);
+        GameManager.SaveOrLoad.PlayerToken = SystemInfo.deviceUniqueIdentifier;
     }
 
     public static bool Logout()
@@ -41,18 +32,33 @@ public static class AccountController
         return true;
     }
 
-    public static bool Login(string username,string password,bool rememberMe)
+    public static bool Login(string username, string password, bool rememberMe)
     {
-        // find in database
+        var confirmation = DatabaseController.Login(username, password);
 
-        // if find
-        //      LoadPlayerProfile()
-        //      if rememberMe
-        //          save token --> SaveToken(/*GET FROM DATA*/);
+        if (confirmation)
+        {
+            LoadPlayerProfile();
 
-        LoadPlayerProfile();
-        
-        return true;
+            if (rememberMe)
+            {
+                SaveToken();
+            }
+        }
+
+        return confirmation;
+    }
+
+    private static bool Login(string token)
+    {
+        var confirmation = DatabaseController.Login(token);
+
+        if (confirmation)
+        {
+            LoadPlayerProfile();
+        }
+
+        return confirmation;
     }
 
     public static bool LoginAsGuest()
@@ -63,125 +69,171 @@ public static class AccountController
 
     public static bool SignUp(string email, string username, string password)
     {
-        // validate account
+        var confirmation = DatabaseController.SignUp(username, password);
 
-        // if accept
-        //      LoadPlayerProfile()
+        if (confirmation)
+        {
+            DatabaseController.ChangeProfileEmail(email);
 
-        LoadPlayerProfile();
-        SaveToken(CreateToken());
+            var token = SystemInfo.deviceUniqueIdentifier;
+            DatabaseController.ChangeToken(token);
+            SaveToken();
 
-        return true;
+            LoadPlayerProfile();
+        }
+
+        return confirmation;
     }
 
-    public static void LoadPlayerProfile(/*PROFILE ENTITY*/)
+    private static void LoadPlayerProfile()
     {
-        // Create new player profile from parameter
-        Data = StaticData.SampleProfile;
-
-        // Load data from DB
+        // Create profile
+        Profile = GetProfile();
 
         // Apply change to game
         LoadingController.onLoadingComplete += () =>
         {
-            onChangeProperty?.Invoke(Data);
+            onChangeProperty?.Invoke(Profile);
         };
+
+        // Start load game
         LoadingController.LoadAction();
     }
 
-    /////////////////////////////////////////////////////////
+    #region PLAYER PROFILE
+
     public static System.Action<PlayerProfile> onChangeProperty;
-    public static PlayerProfile Data { get; private set; }
+    public static PlayerProfile Profile { get; private set; }
+
+    public static PlayerProfile GetProfile()
+    {
+        // Get data
+        var entity = DatabaseController.GetProfile();
+        if (entity == null)
+        {
+            // Continue as guest
+            return StaticData.SampleProfile;
+        }
+        else
+        {
+            // Load data from DB
+            var profile = (ProfileEntity)entity;
+            var id = profile.Id.ToString();
+            var username = profile.Username;
+            var password = profile.Password;
+            var coin = profile.CoinAmount;
+            var gem = profile.GemAmount;
+            var level = profile.Level;
+            var skinId = profile.SkinId;
+            var cueenctXP = profile.CurrentXP;
+
+            // Create new profile
+            return new PlayerProfile(id, username, password, coin, gem, level, skinId, cueenctXP);
+        }
+    }
 
     #region UPDATE PLAYER PROFILE
 
-    public static void IncreseLevel()
+    private static void IncreseLevel()
     {
-        Data.UpdateData(newLevelValue: Data.Level + 1);
+        Profile.UpdateData(newLevelValue: Profile.Level + 1);
+
+        DatabaseController.ChangeProfileLevel(Profile.Level + 1);
 
         // Apply change to game
-        onChangeProperty?.Invoke(Data);
+        onChangeProperty?.Invoke(Profile);
     }
 
     public static void IncreseXP(float value)
     {
-        if (Data.XP.CurrentValue + value >= Data.XP.MaximumValue)
+        float finalValue;
+        if (Profile.XP.CurrentValue + value >= Profile.XP.MaximumValue)
         {
             IncreseLevel();
-            Data.UpdateData(0);
+            finalValue = 0;
         }
         else
         {
-            Data.UpdateData(Data.XP.CurrentValue + value);
+            finalValue = Profile.XP.CurrentValue + value;
         }
 
+        Profile.UpdateData(finalValue);
+        DatabaseController.ChangeProfileXP(finalValue);
+
         // Apply change to game
-        onChangeProperty?.Invoke(Data);
+        onChangeProperty?.Invoke(Profile);
     }
 
-    //public static void AddGemValue(int value)
-    //{
-    //    //data.UpdateData(newGemAmount: data.GemAmount + value);
+    public static void AddGemValue(int value)
+    {
+        Profile.UpdateData(newGemAmount: Profile.GemAmount + value);
+        DatabaseController.ChangeProfileGemValue(Profile.GemAmount + value);
 
-    //    // Apply change to game
-    //    onChangeProperty?.Invoke(Data);
-    //}
+        // Apply change to game
+        onChangeProperty?.Invoke(Profile);
+    }
 
     public static void AddCoinValue(int value)
     {
-        Data.UpdateData(newCoinAmount: Data.CoinAmount + value);
+        Profile.UpdateData(newCoinAmount: Profile.CoinAmount + value);
+        DatabaseController.ChangeProfileCoinValue(Profile.CoinAmount + value);
 
         // Apply change to game
-        onChangeProperty?.Invoke(Data);
+        onChangeProperty?.Invoke(Profile);
     }
 
     public static bool ChangeUsername(string newUsername)
     {
         // check in DB
+        if (DatabaseController.HasUsername(newUsername))
+        {
+            Debug.LogError("This name is currently in use");
+            return false;
+        }
         // if accept, then
-        Data.UpdateData(newUsername: newUsername);
+        Profile.UpdateData(newUsername: newUsername);
+        DatabaseController.ChangeProfileUsername(newUsername);
 
         // Apply change to game
-        onChangeProperty?.Invoke(Data);
+        onChangeProperty?.Invoke(Profile);
 
         return true;
     }
 
     public static void ChangePassword(string newPassword)
     {
-        Data.UpdateData(newPassword: newPassword);
+        Profile.UpdateData(newPassword: newPassword);
+        DatabaseController.ChangeProfilePassword(newPassword);
 
         // Apply change to game
-        onChangeProperty?.Invoke(Data);
+        onChangeProperty?.Invoke(Profile);
     }
 
-    //public static void ChangeNickname(string newNickname)
-    //{
-    //    Data.UpdateData(newNickname: newNickname);
+    #endregion
 
-    //    // Apply change to game
-    //    onChangeProperty?.Invoke(Data);
-    //}
+    #region UPDATE PLAYER ITEMS COLLECTION
 
     public static void AddInventoryItem(Item item)
     {
-        Data.AddInventoryItem(item);
+        Profile.AddInventoryItem(item);
     }
 
     public static void RemoveInventoryItem(Item oldItem)
     {
-        Data.RemoveInventoryItem(oldItem);
+        Profile.RemoveInventoryItem(oldItem);
     }
 
     public static void EquipItem(Equipment newItem)
     {
-        Data.EquipItem(newItem);
+        Profile.EquipItem(newItem);
     }
 
     public static void UnequipItem(Equipment oldItem)
     {
-        Data.UnequipItem(oldItem);
+        Profile.UnequipItem(oldItem);
     }
+
+    #endregion
 
     #endregion
 }

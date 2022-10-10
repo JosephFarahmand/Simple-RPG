@@ -30,7 +30,7 @@ public class Resource : Item
         }
         else if (type == ResourceType.Gem)
         {
-            //AccountController.AddGemValue(value);
+            AccountController.AddGemValue(value);
         }
 
         // Remove it from inventory

@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
 
         LoadingController.AddAction(() =>
         {
+            DatabaseController.LoadItems();
+        });
+
+        LoadingController.AddAction(() =>
+        {
             player.Initialization();
         });
 
@@ -73,6 +78,13 @@ public class GameManager : MonoBehaviour
         {
             shopController.Initialization();
         });
+
+        LoadingController.AddAction(() =>
+        {
+            //DatabaseController.LoadProfile();
+        });
+
+        DatabaseController.Initialization();
 
         UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<EntryPage>());
         if (AccountController.CheckAccount())

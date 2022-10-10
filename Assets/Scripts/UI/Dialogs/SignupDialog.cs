@@ -38,6 +38,10 @@ public class SignupDialog : DialogBase
             {
                 UI_Manager.instance.CloseDialog(this);
             }
+            else
+            {
+                Debug.LogError("Login failed");
+            }
         });
         loginButton.onClick.AddListener(() =>
         {

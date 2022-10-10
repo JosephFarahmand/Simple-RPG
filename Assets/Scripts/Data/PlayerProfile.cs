@@ -7,24 +7,23 @@ public class PlayerProfile
     public string Password { get; private set; }
     //public string Nickname { get; private set; }
     public int CoinAmount { get; private set; }
-    //public int GemAmount { get; private set; }
+    public int GemAmount { get; private set; }
     public int Level { get; private set; }
 
     public XP XP { get; private set; }
-
 
     public string SkinId { get; private set; }
 
     public List<Item> InventoryItems { get; private set; }
     public List<Item> EquipedItems { get; private set; }
 
-    public PlayerProfile(string id, string username, int coinAmount, int level, string skinId, XP xp)
+    public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId, float currentXP)
     {
         Id = id;
         //Nickname = nickname;
         Username = username;
         CoinAmount = coinAmount;
-        //GemAmount = gemAmount;
+        GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
         SkinId = skinId;
@@ -32,17 +31,17 @@ public class PlayerProfile
         InventoryItems = new List<Item>();
         EquipedItems = new List<Item>();
 
-        XP = xp;
+        XP = new XP(currentXP, 100);
     }
 
-    public PlayerProfile(string id, string username,string password, int coinAmount, int level, string skinId, XP xp)
+    public PlayerProfile(string id, string username,string password, int coinAmount, int gemAmount, int level, string skinId, float currentXP)
     {
         Id = id;
         Username = username;
         Password = password;
         //Nickname = nickname;
         CoinAmount = coinAmount;
-        //GemAmount = gemAmount;
+        GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
         SkinId = skinId;
@@ -50,7 +49,7 @@ public class PlayerProfile
         InventoryItems = new List<Item>();
         EquipedItems = new List<Item>();
 
-        XP = xp;
+        XP = new XP(currentXP, 100);
     }
 
     //public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)

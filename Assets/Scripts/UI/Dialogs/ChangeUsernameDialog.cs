@@ -39,7 +39,7 @@ public class ChangeUsernameDialog : DialogBase
 
         inputField.onValueChanged.AddListener((value) =>
         {
-            okButton.interactable = value != null && value != string.Empty && value != AccountController.Data.Username;
+            okButton.interactable = value != null && value != string.Empty && value != AccountController.Profile.Username;
         });
     }
 }
