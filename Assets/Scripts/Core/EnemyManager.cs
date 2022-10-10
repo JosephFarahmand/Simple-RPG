@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
         if (spawnedEnemy != null)
         {
             enemies.Add(spawnedEnemy);
-            spawnedEnemy.Stats.OnDie += onEnemyDead;
+            spawnedEnemy.GetComponent<CharacterStats>().OnDie += onEnemyDead;
         }
     }
 

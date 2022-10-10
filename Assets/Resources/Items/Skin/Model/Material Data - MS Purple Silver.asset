@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9753295902b5b46b815609f720a51a, type: 3}
   m_Name: Material Data - MS Purple Silver
   m_EditorClassIdentifier: 
-  id: 
-  material: {fileID: 0}
+  id: 0709655e932d4ea6aee4410f01ca751d
+  material: {fileID: 2100000, guid: 209076e95a6fc9b4b9b4bbb18761bbc2, type: 2}

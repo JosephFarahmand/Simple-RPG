@@ -67,10 +67,10 @@ public class GameAnimations : MonoBehaviour
     [System.Serializable]
     public struct WeaponAnimations
     {
-        [SerializeField] private Equipment equipment;
+        [SerializeField] private string id;
         [SerializeField] private AnimationClip[] clips;
 
-        public string Id => equipment.Id;
+        public string Id => id;
 
         public AnimationClip[] Clips => clips;
     }
