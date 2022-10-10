@@ -12,7 +12,7 @@ public class InventoryController : MonoBehaviour
     {
         if (newItem.IsDefaultItem) return false;
 
-        if (AccountController.Profile.InventoryItems.Count >= StaticData.inventorySpace)
+        if (AccountController.Profile.GetInventorySpace() >= StaticData.inventorySpace)
         {
             Debug.Log("Not enough room!!", gameObject);
             return false;
@@ -35,18 +35,5 @@ public class InventoryController : MonoBehaviour
     public bool HasItem(Item item)
     {
         return AccountController.Profile.InventoryItems.Contains(item);
-    }
-
-    public int GetItemCount(string itemId)
-    {
-        int count = 0;
-        foreach (Item item in AccountController.Profile.InventoryItems)
-        {
-            if (item.Id == itemId)
-            {
-                count++;
-            }
-        }
-        return count;
     }
 }

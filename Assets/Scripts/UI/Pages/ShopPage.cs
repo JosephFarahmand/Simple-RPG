@@ -114,12 +114,23 @@ public class ShopPage : PageBase
 
             SetInfoPanelData(item);
 
-            countText.SetText(PlayerManager.InventoryController.GetItemCount(item.Id).ToString()) ;
+            var count = AccountController.Profile.GetItemCount(item.Id);
+            var counterText = "";
+            var inventorySpace = $"{AccountController.Profile.GetInventorySpace()} / {StaticData.inventorySpace}";
+            if (count > 0)
+            {
+                counterText=$"({count}) {inventorySpace}";
+            }
+            else
+            {
+                counterText = $"{inventorySpace}";
+            }
+            countText.SetText(counterText);
 
             buyButton.interactable = false;
             sellButton.gameObject.SetActive(false);
 
-            if(AccountController.Profile.Level < item.RequiredLevel)
+            if (AccountController.Profile.Level < item.RequiredLevel)
             {
                 warningMessenger.gameObject.SetActive(true);
                 warningMessenger.SetWarning(ErrorCodes.notRequiredLevel);
@@ -145,7 +156,7 @@ public class ShopPage : PageBase
                     }
                 });
 
-                if (inventory.HasItem(item))
+                if (count > 0)
                 {
                     sellButton.gameObject.SetActive(true);
                     sellButton.onClick.RemoveAllListeners();

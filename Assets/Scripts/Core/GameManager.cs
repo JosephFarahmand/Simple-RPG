@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public static GameData GameData => instance.gameData;
     public static SaveOrLoadManager SaveOrLoad => instance.saveOrLoad;
     public static ErrorController ErrorController => instance.errorController;
+    public static PlayerManager Player => instance.player;
 
     public static bool IsRun { get; set; } = false;
 

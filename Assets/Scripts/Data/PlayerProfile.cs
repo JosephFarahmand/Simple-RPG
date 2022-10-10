@@ -140,11 +140,17 @@ public class PlayerProfile
         {
             InventoryItems.Remove(item);
         }
+        else if (item is Equipment oldItem)
+        {
+            if (EquipedItems.Contains(oldItem))
+                PlayerManager.EquipController.Unequip(oldItem.equipSlot);
+        }
     }
 
     public void EquipItem(Equipment newItem)
     {
-        EquipedItems.Add(newItem);
+        if (!EquipedItems.Contains(newItem))
+            EquipedItems.Add(newItem);
     }
 
     public void UnequipItem(Equipment oldItem)
@@ -155,7 +161,34 @@ public class PlayerProfile
         }
     }
 
+    public int GetItemCount(string itemId)
+    {
+        int count = 0;
+        foreach (Item item in InventoryItems)
+        {
+            if (item.Id == itemId)
+            {
+                count++;
+            }
+        }
 
+        foreach (Item item in EquipedItems)
+        {
+            if (item.Id == itemId)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int GetInventorySpace()
+    {
+        var list = new List<Item>();
+        list.AddRange(InventoryItems);
+        list.AddRange(EquipedItems);
+        return list.Count;
+    }
 
     //public class PlayerItem
     //{

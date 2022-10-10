@@ -174,7 +174,7 @@ public class InventoryPage : PageBase
 
     private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{AccountController.Profile.InventoryItems.Count} / {StaticData.inventorySpace}";
+        inventorySpaceText.text = $"{AccountController.Profile.GetInventorySpace()} / {StaticData.inventorySpace}";
     }
 
     [Serializable]
