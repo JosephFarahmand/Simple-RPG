@@ -69,6 +69,12 @@ public static class AccountController
 
     public static bool SignUp(string email, string username, string password)
     {
+        if (!RegexUtilities.IsValidEmail(email))
+        {
+            Debug.LogError("email is not valid!");
+            return false;
+        }
+
         var confirmation = DatabaseController.SignUp(username, password);
 
         if (confirmation)
