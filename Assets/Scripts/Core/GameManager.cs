@@ -18,14 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameData gameData;
     [SerializeField] private SaveOrLoadManager saveOrLoad;
     [SerializeField] private ErrorController errorController;
-    [SerializeField] private ShopController shopController;
     [SerializeField] private PlayerManager player;
 
     public static EnemyManager Spawner => instance.spawner;
     public static GameData GameData => instance.gameData;
     public static SaveOrLoadManager SaveOrLoad => instance.saveOrLoad;
     public static ErrorController ErrorController => instance.errorController;
-    public static ShopController ShopController => instance.shopController;
 
     public static bool IsRun { get; set; } = false;
 
@@ -72,11 +70,6 @@ public class GameManager : MonoBehaviour
         LoadingController.AddAction(() =>
         {
             UI_Manager.instance.Initialization();
-        });
-
-        LoadingController.AddAction(() =>
-        {
-            shopController.Initialization();
         });
 
         LoadingController.AddAction(() =>

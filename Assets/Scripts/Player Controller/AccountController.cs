@@ -1,4 +1,5 @@
 using DataBank;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class AccountController
@@ -96,6 +97,11 @@ public static class AccountController
         // Create profile
         Profile = GetProfile();
 
+        LoadingController.AddAction(() =>
+        {
+            DatabaseController.LoadProfileItems();
+        });
+
         // Apply change to game
         LoadingController.onLoadingComplete += () =>
         {
@@ -173,7 +179,7 @@ public static class AccountController
     public static void AddGemValue(int value)
     {
         Profile.UpdateData(newGemAmount: Profile.GemAmount + value);
-        DatabaseController.ChangeProfileGemValue(Profile.GemAmount + value);
+        DatabaseController.ChangeProfileGemValue(Profile.GemAmount);
 
         // Apply change to game
         onChangeProperty?.Invoke(Profile);
@@ -182,7 +188,7 @@ public static class AccountController
     public static void AddCoinValue(int value)
     {
         Profile.UpdateData(newCoinAmount: Profile.CoinAmount + value);
-        DatabaseController.ChangeProfileCoinValue(Profile.CoinAmount + value);
+        DatabaseController.ChangeProfileCoinValue(Profile.CoinAmount);
 
         // Apply change to game
         onChangeProperty?.Invoke(Profile);
@@ -217,26 +223,91 @@ public static class AccountController
 
     #endregion
 
+    #region ADD PLAYER ITEMS COLLECTION
+
+    public static void LoadInventoryItem(List<Item> items)
+    {
+        foreach (var item in items)
+        {
+            Profile.AddInventoryItem(item);
+        }
+    }
+
+    public static void LoadEquipmentItem(List<Equipment> equipment)
+    {
+        foreach (var equipmentItem in equipment)
+        {
+            Profile.EquipItem(equipmentItem);
+            PlayerManager.EquipController.Equip(equipmentItem);
+        }
+    }
+
+    #endregion
+
     #region UPDATE PLAYER ITEMS COLLECTION
+
+    #region INVENTORY
+
+    public static int BuyItem(Item item)
+    {
+        var code = Profile.BuyItem(item);
+        if (code == ErrorCodes.acceptBuying)
+        {
+            UpdateCurrencyDatabaseValue(item);
+
+            // Apply change to game
+            onChangeProperty?.Invoke(Profile);
+        }
+        return code;
+    }
+
+    public static void SellItem(Item oldItem)
+    {
+        Profile.SellItem(oldItem);
+        UpdateCurrencyDatabaseValue(oldItem);
+
+        // Apply change to game
+        onChangeProperty?.Invoke(Profile);
+    }
+
+    private static void UpdateCurrencyDatabaseValue(Item oldItem)
+    {
+        if (oldItem.CurrencyType == CurrencyType.Gold)
+        {
+            DatabaseController.ChangeProfileCoinValue(Profile.CoinAmount);
+        }
+        else if (oldItem.CurrencyType == CurrencyType.Gem)
+        {
+            DatabaseController.ChangeProfileGemValue(Profile.GemAmount);
+        }
+    }
 
     public static void AddInventoryItem(Item item)
     {
         Profile.AddInventoryItem(item);
+        DatabaseController.AddItemToInventory(item.Id);
     }
 
     public static void RemoveInventoryItem(Item oldItem)
     {
         Profile.RemoveInventoryItem(oldItem);
+        DatabaseController.RemoveItemFromInventory(oldItem.Id);
     }
+
+    #endregion
 
     public static void EquipItem(Equipment newItem)
     {
+        if (newItem.IsDefaultItem) return;
         Profile.EquipItem(newItem);
+        DatabaseController.AddItemToEquipment(newItem.Id);
     }
 
     public static void UnequipItem(Equipment oldItem)
     {
+        if (oldItem.IsDefaultItem) return;
         Profile.UnequipItem(oldItem);
+        DatabaseController.RemoveItemFromEquipment(oldItem.Id);
     }
 
     #endregion

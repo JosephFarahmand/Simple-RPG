@@ -20,9 +20,11 @@ public class GameData : MonoBehaviour, IController
     [Header("Item")]
     [SerializeField] private List<ItemPickup> itemsAsset;
     [SerializeField] private List<MaterialData> materials;
+    [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
+
+    private List<Item> items = new List<Item>();
     private List<Equipment> equipment = new List<Equipment>();
     private List<Resource> resources = new List<Resource>();
-    [SerializeField] private List<InteractableChest> chests = new List<InteractableChest>();
     private List<SkinData> skins = new List<SkinData>();
 
     [Header("UI")]
@@ -51,12 +53,19 @@ public class GameData : MonoBehaviour, IController
         {
             resources.Add(newResource);
         }
+
+        items.Add(newItem);
     }
 
-    public void SetItem<T>(T item) where T : Item
+    public void SetItemModel<T>(T item) where T : Item
     {
         var asset = itemsAsset.Find(x => x.ID == item.AssetId);
         asset.SetItem(item);
+    }
+
+    public Item GetItem(string id)
+    {
+        return items.Find(x => x.Id == id);
     }
 
     public Material GetMaterial(string id)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace DataBank
 {
+    [System.Obsolete]
     public class EquipmentDb : SqliteHelper
     {
         private const string Tag = "Riz: EquipmentDb:\t";

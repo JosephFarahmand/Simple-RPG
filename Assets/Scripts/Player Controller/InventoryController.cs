@@ -6,47 +6,41 @@ public class InventoryController : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public List<Item> items = new List<Item>();
-
-    public System.Action<Item> onAddNewItem;
-    public System.Action<Item> onRemoveItem;
+    //public List<Item> items = new List<Item>();
 
     public bool Add(Item newItem)
     {
         if (newItem.IsDefaultItem) return false;
 
-        if (items.Count >= StaticData.inventorySpace)
+        if (AccountController.Profile.InventoryItems.Count >= StaticData.inventorySpace)
         {
             Debug.Log("Not enough room!!", gameObject);
             return false;
         }
 
-        items.Add(newItem);
-
         onItemChangedCallback?.Invoke();
-        onAddNewItem?.Invoke(newItem);
+        AccountController.AddInventoryItem(newItem);
         return true;
     }
 
     public void Remove(Item item)
     {
-        if (items.Contains(item))
+        if (AccountController.Profile.InventoryItems.Contains(item))
         {
-            items.Remove(item);
             onItemChangedCallback?.Invoke();
-            onRemoveItem?.Invoke(item);
+            AccountController.RemoveInventoryItem(item);
         }
     }
 
     public bool HasItem(Item item)
     {
-        return items.Contains(item);
+        return AccountController.Profile.InventoryItems.Contains(item);
     }
 
     public int GetItemCount(string itemId)
     {
         int count = 0;
-        foreach (Item item in items)
+        foreach (Item item in AccountController.Profile.InventoryItems)
         {
             if (item.Id == itemId)
             {

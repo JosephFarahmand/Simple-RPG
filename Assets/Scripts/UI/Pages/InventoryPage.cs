@@ -35,15 +35,19 @@ public class InventoryPage : PageBase
     {
         UpdateUI();
 
-        damage.Initialize(PlayerManager.Stats.Damage.GetValue());
-        armor.Initialize(PlayerManager.Stats.Armor.GetValue());
-        attackSpeed.Initialize(PlayerManager.Stats.AttackSpeed.GetValue());
+        damage.SetValue(PlayerManager.Stats.Damage.GetValue());
+        armor.SetValue(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.SetValue(PlayerManager.Stats.AttackSpeed.GetValue());
     }
 
     public override void SetValuesOnSceneLoad()
     {
         inventory = PlayerManager.InventoryController;
         inventory.onItemChangedCallback += UpdateUI;
+
+        damage.Initialize(PlayerManager.Stats.Damage.GetValue());
+        armor.Initialize(PlayerManager.Stats.Armor.GetValue());
+        attackSpeed.Initialize(PlayerManager.Stats.AttackSpeed.GetValue());
 
         PlayerManager.EquipController.onEquipmentChanged += onEquip;
 
@@ -155,9 +159,9 @@ public class InventoryPage : PageBase
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (i < AccountController.Profile.InventoryItems.Count)
             {
-                slots[i].AddItem(inventory.items[i]);
+                slots[i].AddItem(AccountController.Profile.InventoryItems[i]);
             }
             else
             {
@@ -170,7 +174,7 @@ public class InventoryPage : PageBase
 
     private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{inventory.items.Count} / {StaticData.inventorySpace}";
+        inventorySpaceText.text = $"{AccountController.Profile.InventoryItems.Count} / {StaticData.inventorySpace}";
     }
 
     [Serializable]

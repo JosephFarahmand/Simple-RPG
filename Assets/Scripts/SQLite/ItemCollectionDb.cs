@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace DataBank
 {
-
-    public class InventoryDb : SqliteHelper
+    public class ItemCollectionDb : SqliteHelper
     {
         private const string Tag = "Riz: InventoryDb:\t";
 
-        private const string TABLE_NAME = "Inventory";
+        private readonly string TABLE_NAME;
         private const string KEY_ID = "id";
         private const string KEY_PROFILE = "profileId";
         private const string KEY_ITEM = "itemId";
 
-        public InventoryDb() : base()
+        public ItemCollectionDb(string TABLE_NAME) : base()
         {
+            this.TABLE_NAME = TABLE_NAME;
             IDbCommand dbcmd = getDbCommand();
             dbcmd.CommandText = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( " +
                 KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -51,16 +51,6 @@ namespace DataBank
             }
         }
 
-        //public override IDataReader getDataById(int id)
-        //{
-        //    Debug.Log(Tag + "Getting Item: " + id);
-
-        //    IDbCommand dbcmd = getDbCommand();
-        //    dbcmd.CommandText =
-        //        "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + id + "'";
-        //    return dbcmd.ExecuteReader();
-        //}
-
         public override void deleteDataById(int id)
         {
             Debug.Log(Tag + "Deleting Item: " + id);
@@ -89,5 +79,12 @@ namespace DataBank
             return dbcmd.ExecuteReader();
         }
 
+        public IDataReader getDataByEntity(ItemCollectionEntity entity)
+        {
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_PROFILE + " = '" + entity.ProfileId + "' AND " + KEY_ITEM + " = '" + entity.ItemId + "' ";
+            return dbcmd.ExecuteReader();
+        }
     }
 }

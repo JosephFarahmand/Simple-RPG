@@ -46,7 +46,7 @@ public class Panel:MonoBehaviour
                 CreateSlots(StaticData.maxChestSpace);
                 break;
             case PanelType.InventoryPanel:
-                items = new List<Item>(inventory.items);
+                items = new List<Item>(AccountController.Profile.InventoryItems);
                 CreateSlots(StaticData.inventorySpace);
                 break;
         }
@@ -141,7 +141,7 @@ public class Panel:MonoBehaviour
                 items = new List<Item>(chestPage.Chest.GetItems());
                 break;
             case PanelType.InventoryPanel:
-                items = new List<Item>(inventory.items);
+                items = new List<Item>(AccountController.Profile.InventoryItems);
                 break;
         }
 

@@ -21,7 +21,6 @@ public class WarningMassege : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    [System.Obsolete]
     public void SetWarning(int warningCode)
     {
         GameManager.ErrorController.ShowError(warningCode, this);

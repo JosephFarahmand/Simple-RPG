@@ -206,9 +206,24 @@ namespace DataBank
 
         #endregion
 
-        #region Inventory Entity
+        #region Item Collection Entity
 
-        public static List<ItemCollectionEntity> GetItemCollectionEntities(this InventoryDb database, int profileId)
+        public static bool HasItem(this ItemCollectionDb database, ItemCollectionEntity itemCollection)
+        {
+            IDataReader reader = database.getDataByEntity(itemCollection);
+
+            var list = new List<ItemCollectionEntity>();
+
+            while (reader.Read())
+            {
+                ItemCollectionEntity entity = GetItemCollectionEntity(reader);
+                list.Add(entity);
+            }
+
+            return list.Count > 0;
+        }
+
+        public static List<ItemCollectionEntity> GetItemCollectionEntities(this ItemCollectionDb database, int profileId)
         {
             IDataReader reader = database.getDataByProfileId(profileId);
 
@@ -216,36 +231,21 @@ namespace DataBank
 
             while (reader.Read())
             {
-                var id = reader.GetInt32(0);
-                var itemId = reader.GetInt32(2);
-
-                ItemCollectionEntity entity = new ItemCollectionEntity(id, profileId, itemId);
+                ItemCollectionEntity entity = GetItemCollectionEntity(reader);
                 list.Add(entity);
             }
 
             return list;
         }
 
-        #endregion
-
-        #region Inventory Entity
-
-        public static List<ItemCollectionEntity> GetItemCollectionEntities(this EquipmentDb database, int profileId)
+        private static ItemCollectionEntity GetItemCollectionEntity(IDataReader reader)
         {
-            IDataReader reader = database.getDataByProfileId(profileId);
+            var id = reader.GetInt32(0);
+            var profileId = reader.GetInt32(1);
+            var itemId = reader[2].ToString();
 
-            var list = new List<ItemCollectionEntity>();
-
-            while (reader.Read())
-            {
-                var id = reader.GetInt32(0);
-                var itemId = reader.GetInt32(2);
-
-                ItemCollectionEntity entity = new ItemCollectionEntity(id, profileId, itemId);
-                list.Add(entity);
-            }
-
-            return list;
+            ItemCollectionEntity entity = new ItemCollectionEntity(id, profileId, itemId);
+            return entity;
         }
 
         #endregion

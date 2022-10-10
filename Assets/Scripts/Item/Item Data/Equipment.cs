@@ -17,7 +17,7 @@ public class Equipment : Item
         this.equipSlot = equipSlot;
         this.modifier = modifier;
 
-        GameManager.GameData.SetItem(this);
+        GameManager.GameData.SetItemModel(this);
     }
 
     public ItemModifier Modifier => modifier;

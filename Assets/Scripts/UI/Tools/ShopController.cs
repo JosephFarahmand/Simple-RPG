@@ -2,59 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopController : MonoBehaviour, IController
+public static class ShopController
 {
-    ErrorDatabase.ErrorEntity acceptBuying;
-    ErrorDatabase.ErrorEntity acceptSelling;
-    ErrorDatabase.ErrorEntity notRequiredLevel;
-    ErrorDatabase.ErrorEntity notEnoughCoin;
-    ErrorDatabase.ErrorEntity notEnoughGem;
-
-    public ErrorDatabase.ErrorEntity NotRequiredLevel { get => notRequiredLevel;  }
-    public ErrorDatabase.ErrorEntity NotEnoughCoin { get => notEnoughCoin;  }
-
-    public void Initialization()
+    public static int Buying(Item item)
     {
-        var buyyingEntity = GameManager.ErrorController.FindEntity(700);
-        var sellingEntity = GameManager.ErrorController.FindEntity(701);
-        var notRequiredLevelEntity = GameManager.ErrorController.FindEntity(702);
-        var notEnoughCoinEntity = GameManager.ErrorController.FindEntity(703);
-        var notEnoughGemEntity = GameManager.ErrorController.FindEntity(704);
-        if (buyyingEntity.Code == 0 || sellingEntity.Code == 0 || notRequiredLevelEntity.Code == 0 || notEnoughCoinEntity.Code == 0 || notEnoughGemEntity.Code == 0)
+        var code = AccountController.BuyItem(item);
+        if (code == ErrorCodes.acceptBuying)
         {
-            Debug.LogError("Shopping entity not found!");
-            return;
+            PlayerManager.InventoryController.Add(item);
         }
-        acceptBuying = (ErrorDatabase.ErrorEntity)buyyingEntity;
-        acceptSelling = (ErrorDatabase.ErrorEntity)sellingEntity;
-        notRequiredLevel = (ErrorDatabase.ErrorEntity)notRequiredLevelEntity;
-        notEnoughCoin = (ErrorDatabase.ErrorEntity)notEnoughCoinEntity;
-        notEnoughGem = (ErrorDatabase.ErrorEntity)notEnoughGemEntity;
+        return code;
     }
 
-    public ErrorDatabase.ErrorEntity Buying(Item item)
+    public static int Selling(Item item)
     {
-        if (AccountController.Profile.Level <= item.RequiredLevel)
-        {
-            if(AccountController.Profile.CoinAmount <= item.Price)
-            {
-                PlayerManager.InventoryController.Add(item);                
-                return acceptBuying;
-            }
-            else
-            {
-                return notEnoughCoin;
-            }
-        }
-        else
-        {
-            return notRequiredLevel;
-        }
-    }
-
-    public ErrorDatabase.ErrorEntity Selling(Item item)
-    {
+        AccountController.SellItem(item);
         PlayerManager.InventoryController.Remove(item);
-        return acceptSelling;
+        return ErrorCodes.acceptSelling;
     }
 }
+
+public static class ErrorCodes
+{
+    public static int notDefine { get; } = -1;
+
+    //////////////////////////////////////////////////////////// SHOP
+    public static int acceptBuying { get; } = 700;
+    public static int acceptSelling { get; }= 701;
+    public static int notRequiredLevel{ get; } = 702;
+    public static int notEnoughCoin{ get; } = 703;
+    public static int notEnoughGem { get; }= 704;
+}
+
+

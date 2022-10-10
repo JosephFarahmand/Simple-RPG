@@ -12,7 +12,7 @@ public class Resource : Item
         this.type = type;
         this.value = value;
 
-        GameManager.GameData.SetItem(this);
+        GameManager.GameData.SetItemModel(this);
     }
 
     public ResourceType Type => type;

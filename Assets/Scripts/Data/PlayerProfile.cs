@@ -91,10 +91,47 @@ public class PlayerProfile
         XP = new XP(newValue, XP.MaximumValue);
     }
 
+    public int BuyItem(Item item)
+    {
+        if (Level < item.RequiredLevel) return ErrorCodes.notRequiredLevel;
+
+        switch (item.CurrencyType)
+        {
+            case CurrencyType.Gold:
+                if (CoinAmount >= item.Price)
+                {
+                    CoinAmount -= item.Price;
+                    return ErrorCodes.acceptBuying;
+                }
+                else
+                {
+                    return ErrorCodes.notEnoughCoin;
+                }
+            case CurrencyType.Gem:
+                if (GemAmount >= item.Price)
+                {
+                    GemAmount -= item.Price;
+                    return ErrorCodes.acceptBuying;
+                }
+                else
+                {
+                    return ErrorCodes.notEnoughGem;
+                }
+            case CurrencyType.Dollar:
+                return ErrorCodes.notDefine;
+            default:
+                return ErrorCodes.notDefine;
+        }
+    }
+
+    public void SellItem(Item item)
+    {
+        CoinAmount += item.Price;
+    }
+
     public void AddInventoryItem(Item item)
     {
         InventoryItems.Add(item);
-        CoinAmount -= item.Price;
     }
 
     public void RemoveInventoryItem(Item item)
@@ -102,8 +139,6 @@ public class PlayerProfile
         if (InventoryItems.Contains(item))
         {
             InventoryItems.Remove(item);
-
-            CoinAmount += item.Price;
         }
     }
 

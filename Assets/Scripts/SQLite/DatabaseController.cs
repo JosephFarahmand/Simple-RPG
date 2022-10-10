@@ -8,8 +8,8 @@ public static class DatabaseController
     static ItemDb itemDb;
     static EquipmentItemDb equipmentItemDb;
     static ResourceItemDb resourceItemDb;
-    static InventoryDb inventoryDb;
-    static EquipmentDb equipmentDb;
+    static ItemCollectionDb inventoryDb;//Inventory
+    static ItemCollectionDb equipmentDb;//Equipment
 
     static List<ItemEntity> itemEntities;
     static List<EquipmentItemEntity> equipmentItems;
@@ -27,8 +27,8 @@ public static class DatabaseController
         itemDb = new ItemDb();
         equipmentItemDb = new EquipmentItemDb();
         resourceItemDb = new ResourceItemDb();
-        inventoryDb = new InventoryDb();
-        equipmentDb = new EquipmentDb();
+        inventoryDb = new ItemCollectionDb("Inventory");
+        equipmentDb = new ItemCollectionDb("Equipment");
     }
 
     #region Profile Database
@@ -98,7 +98,7 @@ public static class DatabaseController
         return profileDb.GetProfileEntity(profileId);
     }
 
-    public static void LoadProfile()
+    public static void LoadProfileItems()
     {
         // Find Player's item from inventory DB
         LoadPlayerInventory();
@@ -237,21 +237,30 @@ public static class DatabaseController
     {
         inventoryEntities = inventoryDb.GetItemCollectionEntities(profileId);
 
+        var inventoryItems = new List<Item>();
         foreach (var entity in inventoryEntities)
         {
             // find item from game data with entity.ItemId
-
-            // add founded item to player profile inventory
+            var item = GameManager.GameData.GetItem(entity.ItemId);
+            if (item == null)
+            {
+                Debug.LogWarning($"Item not found!! (Equipment search: {entity.ItemId})");
+                continue;
+            }
+            inventoryItems.Add(item);
         }
+
+        // add founded item to player profile inventory
+        AccountController.LoadInventoryItem(inventoryItems);
     }
 
-    public static bool AddItemToInventory(int itemId)
+    public static bool AddItemToInventory(string itemId)
     {
         var createdAccept = inventoryDb.addData(new ItemCollectionEntity(profileId, itemId));
         return createdAccept;
     }
 
-    public static void RemoveItemFromInventory(int itemId)
+    public static void RemoveItemFromInventory(string itemId)
     {
         var oldEntities = inventoryEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
         foreach (var entity in oldEntities)
@@ -268,21 +277,36 @@ public static class DatabaseController
     {
         equipmentEntities = equipmentDb.GetItemCollectionEntities(profileId);
 
-        foreach (var entity in inventoryEntities)
+        var equipmentItems = new List<Equipment>();
+        foreach (var entity in equipmentEntities)
         {
             // find item from game data with entity.ItemId
+            var item = GameManager.GameData.GetEquipmentItem(entity.ItemId);
+            if (item == null)
+            {
+                Debug.LogWarning($"Item not found!! (Equipment search: {entity.ItemId})");
+                continue;
+            }
+            equipmentItems.Add(item);
 
-            // add founded item to player profile equipment
         }
+
+        // add founded item to player profile equipment
+        AccountController.LoadEquipmentItem(equipmentItems);
     }
 
-    public static bool AddItemToEquipment(int itemId)
+    public static bool AddItemToEquipment(string itemId)
     {
-        var createdAccept = equipmentDb.addData(new ItemCollectionEntity(profileId, itemId));
+        var collectionEntity = new ItemCollectionEntity(profileId, itemId);
+        if (equipmentDb.HasItem(collectionEntity))
+        {
+            return false;
+        }
+        var createdAccept = equipmentDb.addData(collectionEntity);
         return createdAccept;
     }
 
-    public static void RemoveItemFromEquipment(int itemId)
+    public static void RemoveItemFromEquipment(string itemId)
     {
         var oldEntities = equipmentEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
         foreach (var entity in oldEntities)

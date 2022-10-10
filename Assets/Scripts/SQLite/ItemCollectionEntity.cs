@@ -2,11 +2,11 @@
 {
     public struct ItemCollectionEntity
     {
-        public ItemCollectionEntity(int profileId, int itemId) : this(-1, profileId, itemId)
+        public ItemCollectionEntity(int profileId, string itemId) : this(-1, profileId, itemId)
         {
         }
 
-        public ItemCollectionEntity(int id, int profileId, int itemId) : this()
+        public ItemCollectionEntity(int id, int profileId, string itemId) : this()
         {
             Id = id;
             ProfileId = profileId;
@@ -15,7 +15,7 @@
 
         public int Id { get; private set; }
         public int ProfileId { get; private set; }
-        public int ItemId { get; private set; }
+        public string ItemId { get; private set; }
 
         public bool Equals(ItemCollectionEntity entity)
         {

@@ -116,15 +116,13 @@ public class ShopPage : PageBase
 
             countText.SetText(PlayerManager.InventoryController.GetItemCount(item.Id).ToString()) ;
 
-
-
             buyButton.interactable = false;
             sellButton.gameObject.SetActive(false);
 
             if(AccountController.Profile.Level < item.RequiredLevel)
             {
                 warningMessenger.gameObject.SetActive(true);
-                warningMessenger.SetWarning(GameManager.ShopController.NotRequiredLevel);
+                warningMessenger.SetWarning(ErrorCodes.notRequiredLevel);
             }
             else
             {
@@ -136,8 +134,15 @@ public class ShopPage : PageBase
                 buyButton.onClick.RemoveAllListeners();
                 buyButton.onClick.AddListener(() =>
                 {
-                    GameManager.ShopController.Buying(item);
-                    Slot_OnSlotSelectedHandler(true, item);
+                    var code = ShopController.Buying(item);
+                    if (code == ErrorCodes.acceptBuying)
+                    {
+                        Slot_OnSlotSelectedHandler(true, item);
+                    }
+                    else
+                    {
+                        GameManager.ErrorController.ShowError(code);
+                    }
                 });
 
                 if (inventory.HasItem(item))
@@ -146,8 +151,15 @@ public class ShopPage : PageBase
                     sellButton.onClick.RemoveAllListeners();
                     sellButton.onClick.AddListener(() =>
                     {
-                        GameManager.ShopController.Selling(item);
-                        Slot_OnSlotSelectedHandler(true, item);
+                        var code = ShopController.Selling(item);
+                        if (code == ErrorCodes.acceptSelling)
+                        {
+                            Slot_OnSlotSelectedHandler(true, item);
+                        }
+                        else
+                        {
+                            GameManager.ErrorController.ShowError(code);
+                        }
                     });
                 }
             }

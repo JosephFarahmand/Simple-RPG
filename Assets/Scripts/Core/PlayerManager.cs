@@ -27,9 +27,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Initialization()
     {
-        inventoryController.onAddNewItem += AccountController.AddInventoryItem;
-        inventoryController.onRemoveItem += AccountController.RemoveInventoryItem;
-
         equipController.onEquipmentChanged += (newItem, oldItem) =>
         {
             if (newItem != null)
