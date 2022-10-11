@@ -12,28 +12,23 @@ public class InventoryController : MonoBehaviour
     {
         if (newItem.IsDefaultItem) return false;
 
-        if (AccountController.Profile.GetInventorySpace() >= StaticData.inventorySpace)
+        if (AccountController.InventoryFullSpace >= StaticData.inventorySpace)
         {
             Debug.Log("Not enough room!!", gameObject);
             return false;
         }
 
-        onItemChangedCallback?.Invoke();
         AccountController.AddInventoryItem(newItem);
+        onItemChangedCallback?.Invoke();
         return true;
     }
 
     public void Remove(Item item)
     {
-        if (AccountController.Profile.InventoryItems.Contains(item))
+        if (AccountController.InventoryItems.Contains(item))
         {
-            onItemChangedCallback?.Invoke();
             AccountController.RemoveInventoryItem(item);
+            onItemChangedCallback?.Invoke();
         }
-    }
-
-    public bool HasItem(Item item)
-    {
-        return AccountController.Profile.InventoryItems.Contains(item);
     }
 }

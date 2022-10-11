@@ -114,20 +114,10 @@ public class ShopPage : PageBase
 
             SetInfoPanelData(item);
 
-            var count = AccountController.Profile.GetItemCount(item.Id);
-            var counterText = "";
-            var inventorySpace = $"{AccountController.Profile.GetInventorySpace()} / {StaticData.inventorySpace}";
-            if (count > 0)
-            {
-                counterText=$"({count}) {inventorySpace}";
-            }
-            else
-            {
-                counterText = $"{inventorySpace}";
-            }
-            countText.SetText(counterText);
+            countText.SetText($"{AccountController.InventoryFullSpace} / {StaticData.inventorySpace}");
 
-            buyButton.interactable = false;
+            warningMessenger.gameObject.SetActive(false);
+            buyButton.gameObject.SetActive(false);
             sellButton.gameObject.SetActive(false);
 
             if (AccountController.Profile.Level < item.RequiredLevel)
@@ -137,44 +127,51 @@ public class ShopPage : PageBase
             }
             else
             {
-                warningMessenger.gameObject.SetActive(false);
-                sellText.SetText(item.Price.ToString());
-                buyText.SetText(item.Price.ToString());
-
-                buyButton.interactable = true;
-                buyButton.onClick.RemoveAllListeners();
-                buyButton.onClick.AddListener(() =>
-                {
-                    var code = ShopController.Buying(item);
-                    if (code == ErrorCodes.acceptBuying)
-                    {
-                        Slot_OnSlotSelectedHandler(true, item);
-                    }
-                    else
-                    {
-                        GameManager.ErrorController.ShowError(code);
-                    }
-                });
-
-                if (count > 0)
-                {
-                    sellButton.gameObject.SetActive(true);
-                    sellButton.onClick.RemoveAllListeners();
-                    sellButton.onClick.AddListener(() =>
-                    {
-                        var code = ShopController.Selling(item);
-                        if (code == ErrorCodes.acceptSelling)
-                        {
-                            Slot_OnSlotSelectedHandler(true, item);
-                        }
-                        else
-                        {
-                            GameManager.ErrorController.ShowError(code);
-                        }
-                    });
-                }
+                SellButtonAction(item);
+                BuyButtonAction(item);
             }
         }
+    }
+
+    private void SellButtonAction(Item item)
+    {
+        if (AccountController.InventoryItems.Contains(item))
+        {
+            sellText.SetText(item.Price.ToString());
+            sellButton.gameObject.SetActive(true);
+            sellButton.onClick.RemoveAllListeners();
+            sellButton.onClick.AddListener(() =>
+            {
+                var code = ShopController.Selling(item);
+                if (code == ErrorCodes.acceptSelling)
+                {
+                    Slot_OnSlotSelectedHandler(true, item);
+                }
+                else
+                {
+                    GameManager.ErrorController.ShowError(code);
+                }
+            });
+        }
+    }
+
+    private void BuyButtonAction(Item item)
+    {
+        buyText.SetText(item.Price.ToString());
+        buyButton.gameObject.SetActive(true);
+        buyButton.onClick.RemoveAllListeners();
+        buyButton.onClick.AddListener(() =>
+        {
+            var code = ShopController.Buying(item);
+            if (code == ErrorCodes.acceptBuying)
+            {
+                Slot_OnSlotSelectedHandler(true, item);
+            }
+            else
+            {
+                GameManager.ErrorController.ShowError(code);
+            }
+        });
     }
 
     private void SetInfoPanelData(Item item)

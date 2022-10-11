@@ -138,10 +138,15 @@ public class InventoryPage : PageBase
 
     private void onEquip(Equipment newItem, Equipment oldItem)
     {
-        if (newItem != null)
+        if (newItem != null && newItem.Rarity != ItemRarity.Free)
         {
             var equipSlot = equipSlots.Find(x => x.Slot == newItem.equipSlot);
             equipSlot.SetIcon(newItem.Icon);
+        }
+        else if(oldItem != null && oldItem.Rarity != ItemRarity.Free)
+        {
+            var equipSlot = equipSlots.Find(x => x.Slot == oldItem.equipSlot);
+            equipSlot.SetIcon(null);
         }
 
         damage.SetValue(PlayerManager.Stats.Damage.GetValue());
@@ -159,9 +164,9 @@ public class InventoryPage : PageBase
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < AccountController.Profile.InventoryItems.Count)
+            if (i < AccountController.InventoryItems.Count)
             {
-                slots[i].AddItem(AccountController.Profile.InventoryItems[i]);
+                slots[i].AddItem(AccountController.InventoryItems[i]);
             }
             else
             {
@@ -174,7 +179,7 @@ public class InventoryPage : PageBase
 
     private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{AccountController.Profile.GetInventorySpace()} / {StaticData.inventorySpace}";
+        inventorySpaceText.text = $"{AccountController.InventoryFullSpace} / {StaticData.inventorySpace}";
     }
 
     [Serializable]

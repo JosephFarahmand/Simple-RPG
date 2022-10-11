@@ -1,74 +1,47 @@
-using System.Collections.Generic;
-
 public class PlayerProfile
 {
     public string Id { get; private set; }
     public string Username { get; private set; }
     public string Password { get; private set; }
-    //public string Nickname { get; private set; }
     public int CoinAmount { get; private set; }
     public int GemAmount { get; private set; }
     public int Level { get; private set; }
-
     public XP XP { get; private set; }
-
     public string SkinId { get; private set; }
-
-    public List<Item> InventoryItems { get; private set; }
-    public List<Item> EquipedItems { get; private set; }
 
     public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId, float currentXP)
     {
         Id = id;
-        //Nickname = nickname;
+
         Username = username;
+
         CoinAmount = coinAmount;
         GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
         SkinId = skinId;
 
-        InventoryItems = new List<Item>();
-        EquipedItems = new List<Item>();
-
         XP = new XP(currentXP, 100);
     }
 
-    public PlayerProfile(string id, string username,string password, int coinAmount, int gemAmount, int level, string skinId, float currentXP)
+    public PlayerProfile(string id, string username, string password, int coinAmount, int gemAmount, int level, string skinId, float currentXP)
     {
         Id = id;
+
         Username = username;
         Password = password;
-        //Nickname = nickname;
+
         CoinAmount = coinAmount;
         GemAmount = gemAmount;
 
         Level = level == 0 ? 1 : level;
         SkinId = skinId;
 
-        InventoryItems = new List<Item>();
-        EquipedItems = new List<Item>();
-
         XP = new XP(currentXP, 100);
     }
-
-    //public PlayerProfile(string id, string username, int coinAmount, int gemAmount, int level, string skinId)
-    //{
-    //    Id = id;
-    //    Username = username;
-    //    CoinAmount = coinAmount;
-    //    //GemAmount = gemAmount;
-
-    //    Level = level == 0 ? 1 : level;
-    //    SkinId = skinId;
-
-    //    InventoryItems = new List<Item>();
-    //    EquipedItems = new List<Item>();
-    //}
 
     public void UpdateData(string newUsername = "",
                            string newPassword = "",
-                           //string newNickname = "",
                            string newSkinId = "",
                            int newCoinAmount = -1,
                            int newGemAmount = -1,
@@ -76,12 +49,11 @@ public class PlayerProfile
     {
         Username = newUsername == "" ? Username : newUsername;
         Password = newPassword == "" ? Password : newPassword;
-        //Nickname = newNickname == "" ? Nickname : newNickname;
 
         SkinId = newSkinId == "" ? SkinId : newSkinId;
 
         CoinAmount = newCoinAmount == -1 ? CoinAmount : newCoinAmount;
-        //GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
+        GemAmount = newGemAmount == -1 ? GemAmount : newGemAmount;
 
         Level = newLevelValue == -1 ? Level : newLevelValue;
     }
@@ -91,104 +63,97 @@ public class PlayerProfile
         XP = new XP(newValue, XP.MaximumValue);
     }
 
-    public int BuyItem(Item item)
-    {
-        if (Level < item.RequiredLevel) return ErrorCodes.notRequiredLevel;
+    //public int BuyItem(Item item)
+    //{
+    //    if (Level < item.RequiredLevel) return ErrorCodes.notRequiredLevel;
 
-        switch (item.CurrencyType)
-        {
-            case CurrencyType.Gold:
-                if (CoinAmount >= item.Price)
-                {
-                    CoinAmount -= item.Price;
-                    return ErrorCodes.acceptBuying;
-                }
-                else
-                {
-                    return ErrorCodes.notEnoughCoin;
-                }
-            case CurrencyType.Gem:
-                if (GemAmount >= item.Price)
-                {
-                    GemAmount -= item.Price;
-                    return ErrorCodes.acceptBuying;
-                }
-                else
-                {
-                    return ErrorCodes.notEnoughGem;
-                }
-            case CurrencyType.Dollar:
-                return ErrorCodes.notDefine;
-            default:
-                return ErrorCodes.notDefine;
-        }
-    }
+    //    switch (item.CurrencyType)
+    //    {
+    //        case CurrencyType.Gold:
+    //            if (CoinAmount >= item.Price)
+    //            {
+    //                CoinAmount -= item.Price;
+    //                return ErrorCodes.acceptBuying;
+    //            }
+    //            else
+    //            {
+    //                return ErrorCodes.notEnoughCoin;
+    //            }
+    //        case CurrencyType.Gem:
+    //            if (GemAmount >= item.Price)
+    //            {
+    //                GemAmount -= item.Price;
+    //                return ErrorCodes.acceptBuying;
+    //            }
+    //            else
+    //            {
+    //                return ErrorCodes.notEnoughGem;
+    //            }
+    //        case CurrencyType.Dollar:
+    //            return ErrorCodes.notDefine;
+    //        default:
+    //            return ErrorCodes.notDefine;
+    //    }
+    //}
 
-    public void SellItem(Item item)
-    {
-        CoinAmount += item.Price;
-    }
+    //public void SellItem(Item item)
+    //{
+    //    CoinAmount += item.Price;
+    //}
 
-    public void AddInventoryItem(Item item)
-    {
-        InventoryItems.Add(item);
-    }
+    //public void AddInventoryItem(Item item)
+    //{
+    //    InventoryItems.Add(item);
+    //}
 
-    public void RemoveInventoryItem(Item item)
-    {
-        if (InventoryItems.Contains(item))
-        {
-            InventoryItems.Remove(item);
-        }
-        else if (item is Equipment oldItem)
-        {
-            if (EquipedItems.Contains(oldItem))
-                PlayerManager.EquipController.Unequip(oldItem.equipSlot);
-        }
-    }
+    //public void RemoveInventoryItem(Item item)
+    //{
+    //    if (InventoryItems.Contains(item))
+    //    {
+    //        InventoryItems.Remove(item);
+    //    }
+    //    else if (item is Equipment oldItem)
+    //    {
+    //        if (EquipedItems.Contains(oldItem))
+    //            PlayerManager.EquipController.Unequip(oldItem.equipSlot);
+    //    }
+    //}
 
-    public void EquipItem(Equipment newItem)
-    {
-        if (!EquipedItems.Contains(newItem))
-            EquipedItems.Add(newItem);
-    }
+    //public bool HasItem(Item item)
+    //{
+    //    if (InventoryItems.Contains(item))
+    //    {
+    //        return true;
+    //    }
+    //    else if (item is Equipment oldItem)
+    //    {
+    //        if (EquipedItems.Contains(oldItem))
+    //            return true;
+    //    }
+    //    return false;
+    //}
 
-    public void UnequipItem(Equipment oldItem)
-    {
-        if (EquipedItems.Contains(oldItem))
-        {
-            EquipedItems.Remove(oldItem);
-        }
-    }
+    //public void EquipItem(Equipment newItem)
+    //{
+    //    if (!EquipedItems.Contains(newItem))
+    //        EquipedItems.Add(newItem);
+    //}
 
-    public int GetItemCount(string itemId)
-    {
-        int count = 0;
-        foreach (Item item in InventoryItems)
-        {
-            if (item.Id == itemId)
-            {
-                count++;
-            }
-        }
+    //public void UnequipItem(Equipment oldItem)
+    //{
+    //    if (EquipedItems.Contains(oldItem))
+    //    {
+    //        EquipedItems.Remove(oldItem);
+    //    }
+    //}
 
-        foreach (Item item in EquipedItems)
-        {
-            if (item.Id == itemId)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public int GetInventorySpace()
-    {
-        var list = new List<Item>();
-        list.AddRange(InventoryItems);
-        list.AddRange(EquipedItems);
-        return list.Count;
-    }
+    //public int GetInventorySpace()
+    //{
+    //    var list = new List<Item>();
+    //    list.AddRange(InventoryItems);
+    //    list.AddRange(EquipedItems);
+    //    return list.Count;
+    //}
 
     //public class PlayerItem
     //{
@@ -384,48 +349,3 @@ public struct XP
     public float CurrentValue { get; private set; }
     public float MaximumValue { get; private set; }
 }
-
-public struct ItemStoredData
-{
-    public ItemStoredData(string id, string name, bool isDefaultItem, ItemRarity rarity = default, int requiredLevel = 0, int price = 100, int count = 1)
-    {
-        Id = id;
-        Name = name;
-        IsDefaultItem = isDefaultItem;
-        Rarity = rarity;
-        RequiredLevel = requiredLevel;
-        Price = price <= 0 ? 100 : price;
-        //Count = count <= 0 ? 1 : count;
-    }
-
-    public ItemStoredData(Item item) : this(item.Id, item.name, item.IsDefaultItem, item.Rarity, item.Price, item.RequiredLevel)
-    {
-    }
-
-    public string Id { get; private set; }
-    public string Name { get; private set; }
-    public bool IsDefaultItem { get; private set; }
-    public ItemRarity Rarity { get; private set; }
-    public int RequiredLevel { get; private set; }
-    public int Price { get; private set; }
-    //public int Count { get; set; }
-
-    public JSONObject ToJSON()
-    {
-        JSONObject json = new JSONObject();
-
-        json.AddField(nameof(Id), Id);
-        json.AddField(nameof(Name), Name);
-        json.AddField(nameof(IsDefaultItem), IsDefaultItem);
-
-        return json;
-    }
-
-    public void FromJSON(JSONObject json)
-    {
-        Id = json[nameof(Id)].str;
-        Name = json[nameof(Name)].str;
-        IsDefaultItem = json[nameof(IsDefaultItem)].b;
-    }
-}
-

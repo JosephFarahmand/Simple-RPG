@@ -16,9 +16,12 @@ public static class ShopController
 
     public static int Selling(Item item)
     {
-        AccountController.SellItem(item);
-        PlayerManager.InventoryController.Remove(item);
-        return ErrorCodes.acceptSelling;
+        var code = AccountController.SellItem(item);
+        if (code == ErrorCodes.acceptSelling)
+        {
+            PlayerManager.InventoryController.Remove(item);
+        }
+        return code;
     }
 }
 

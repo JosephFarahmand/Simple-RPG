@@ -51,19 +51,31 @@ namespace DataBank
             }
         }
 
-        public override void deleteDataById(int id)
+        public new bool deleteDataById(int id)
         {
-            Debug.Log(Tag + "Deleting Item: " + id);
+            try
+            {
+                Debug.Log(Tag + "Deleting Item: " + id);
 
-            IDbCommand dbcmd = getDbCommand();
-            dbcmd.CommandText =
-                "DELETE FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + id + "'";
-            dbcmd.ExecuteNonQuery();
+                IDbCommand dbcmd = getDbCommand();
+                dbcmd.CommandText =
+                    "DELETE FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + id + "'";
+                dbcmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+                throw;
+            }
         }
 
         public void deleteDataByEntity(ItemCollectionEntity entity)
         {
-            deleteDataById(entity.Id);
+            IDbCommand dbcmd = getDbCommand();
+            dbcmd.CommandText =
+                "DELETE FROM " + TABLE_NAME + " WHERE " + KEY_PROFILE + " = '" + entity.ProfileId + "' AND " + KEY_ITEM + " = '" + entity.ItemId + "' ";
+            dbcmd.ExecuteNonQuery();
         }
 
         public override IDataReader getAllData()

@@ -237,7 +237,7 @@ public static class DatabaseController
     {
         inventoryEntities = inventoryDb.GetItemCollectionEntities(profileId);
 
-        var inventoryItems = new List<Item>();
+        List<Item> inventoryItems = new List<Item>();
         foreach (var entity in inventoryEntities)
         {
             // find item from game data with entity.ItemId
@@ -257,15 +257,20 @@ public static class DatabaseController
     public static bool AddItemToInventory(string itemId)
     {
         var createdAccept = inventoryDb.addData(new ItemCollectionEntity(profileId, itemId));
+        if (createdAccept)
+        {
+            inventoryEntities = inventoryDb.GetItemCollectionEntities(profileId);
+        }
         return createdAccept;
     }
 
     public static void RemoveItemFromInventory(string itemId)
     {
-        var oldEntities = inventoryEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
-        foreach (var entity in oldEntities)
+        var oldEntity = inventoryEntities.Find(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
+        var deleteAccept = inventoryDb.deleteDataById(oldEntity.Id);
+        if (deleteAccept)
         {
-            inventoryDb.deleteDataByEntity(entity);
+            inventoryEntities.Remove(oldEntity);
         }
     }
 
@@ -303,17 +308,23 @@ public static class DatabaseController
             return false;
         }
         var createdAccept = equipmentDb.addData(collectionEntity);
+        if (createdAccept)
+        {
+            equipmentEntities = equipmentDb.GetItemCollectionEntities(profileId);
+        }
         return createdAccept;
     }
 
     public static void RemoveItemFromEquipment(string itemId)
     {
-        var oldEntities = equipmentEntities.FindAll(x => x.Equals(new ItemCollectionEntity(profileId, itemId)));
-        foreach (var entity in oldEntities)
-        {
-            equipmentDb.deleteDataByEntity(entity);
-        }
+        equipmentDb.deleteDataByEntity(new ItemCollectionEntity(profileId, itemId));
     }
 
     #endregion
+
+    public static bool HasItem(string itemId)
+    {
+        var collectionEntity = new ItemCollectionEntity(profileId, itemId);
+        return equipmentDb.HasItem(collectionEntity) || inventoryDb.HasItem(collectionEntity);
+    }
 }

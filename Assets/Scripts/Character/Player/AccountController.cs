@@ -144,7 +144,7 @@ public static class AccountController
         }
     }
 
-    #region UPDATE PLAYER PROFILE
+    #region UPDATE PROFILE PROPERTY
 
     private static void IncreseLevel()
     {
@@ -223,92 +223,119 @@ public static class AccountController
 
     #endregion
 
-    #region ADD PLAYER ITEMS COLLECTION
+    #region PLAYER ITEMS COLLECTION
+
+    #region LOAD
 
     public static void LoadInventoryItem(List<Item> items)
     {
-        foreach (var item in items)
-        {
-            Profile.AddInventoryItem(item);
-        }
+        InventoryItems = items;
     }
 
     public static void LoadEquipmentItem(List<Equipment> equipment)
     {
         foreach (var equipmentItem in equipment)
         {
-            Profile.EquipItem(equipmentItem);
+            //Profile.EquipItem(equipmentItem);
             PlayerManager.EquipController.Equip(equipmentItem);
         }
     }
 
     #endregion
 
-    #region UPDATE PLAYER ITEMS COLLECTION
-
-    #region INVENTORY
+    #region SHOPPING
 
     public static int BuyItem(Item item)
     {
-        var code = Profile.BuyItem(item);
-        if (code == ErrorCodes.acceptBuying)
-        {
-            UpdateCurrencyDatabaseValue(item);
+        if (Profile.Level < item.RequiredLevel) return ErrorCodes.notRequiredLevel;
 
-            // Apply change to game
-            onChangeProperty?.Invoke(Profile);
+        switch (item.CurrencyType)
+        {
+            case CurrencyType.Gold:
+                if (Profile.CoinAmount < item.Price)
+                {
+                    return ErrorCodes.notEnoughCoin;
+                }
+                AddCoinValue(-item.Price);
+                break;
+            case CurrencyType.Gem:
+                if (Profile.GemAmount < item.Price)
+                {
+                    return ErrorCodes.notEnoughGem;
+                }
+                AddGemValue(-item.Price);
+                break;
+            case CurrencyType.Dollar:
+                return ErrorCodes.notDefine;
+            default:
+                return ErrorCodes.notDefine;
         }
-        return code;
+
+        return ErrorCodes.acceptBuying;
     }
 
-    public static void SellItem(Item oldItem)
+    public static int SellItem(Item oldItem)
     {
-        Profile.SellItem(oldItem);
-        UpdateCurrencyDatabaseValue(oldItem);
-
-        // Apply change to game
-        onChangeProperty?.Invoke(Profile);
+        switch (oldItem.CurrencyType)
+        {
+            case CurrencyType.Gold:
+                AddCoinValue(oldItem.Price);
+                break;
+            case CurrencyType.Gem:
+                AddGemValue(oldItem.Price);
+                break;
+            default:
+                return ErrorCodes.notDefine;
+        }
+        return ErrorCodes.acceptSelling;
     }
 
-    private static void UpdateCurrencyDatabaseValue(Item oldItem)
-    {
-        if (oldItem.CurrencyType == CurrencyType.Gold)
-        {
-            DatabaseController.ChangeProfileCoinValue(Profile.CoinAmount);
-        }
-        else if (oldItem.CurrencyType == CurrencyType.Gem)
-        {
-            DatabaseController.ChangeProfileGemValue(Profile.GemAmount);
-        }
-    }
+    #endregion
+
+    #region INVENTORY
+
+    public static List<Item> InventoryItems { get; private set; } = new List<Item>();
+
+    public static int InventoryFullSpace => InventoryItems.Count;
 
     public static void AddInventoryItem(Item item)
     {
-        Profile.AddInventoryItem(item);
+        InventoryItems.Add(item);
         DatabaseController.AddItemToInventory(item.Id);
     }
 
     public static void RemoveInventoryItem(Item oldItem)
     {
-        Profile.RemoveInventoryItem(oldItem);
-        DatabaseController.RemoveItemFromInventory(oldItem.Id);
+        if (InventoryItems.Contains(oldItem))
+        {
+            InventoryItems.Remove(oldItem);
+            DatabaseController.RemoveItemFromInventory(oldItem.Id);
+        }
     }
 
     #endregion
 
+    #region EQUIPMENT
+
+    public static List<Item> EquipedItems { get; private set; } = new List<Item>();
+
     public static void EquipItem(Equipment newItem)
     {
         if (newItem.IsDefaultItem) return;
-        Profile.EquipItem(newItem);
+        //Profile.EquipItem(newItem);
+        EquipedItems.Add(newItem);
         DatabaseController.AddItemToEquipment(newItem.Id);
     }
 
     public static void UnequipItem(Equipment oldItem)
     {
         if (oldItem.IsDefaultItem) return;
-        Profile.UnequipItem(oldItem);
+        EquipedItems.Remove(oldItem);
+        //Profile.UnequipItem(oldItem);
         DatabaseController.RemoveItemFromEquipment(oldItem.Id);
     }
+
+    #endregion
 
     #endregion
 
