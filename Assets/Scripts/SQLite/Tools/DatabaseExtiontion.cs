@@ -91,8 +91,9 @@ namespace DataBank
                 var damageModifier = reader.GetInt32(3);
                 var armorModifier = reader.GetInt32(4);
                 var attackSpeedModifier = reader.GetInt32(5);
+                var moveSpeedModifier = reader.GetInt32(6);
 
-                EquipmentItemEntity entity = new EquipmentItemEntity(id, itemId, (EquipmentSlot)slot, damageModifier, armorModifier, attackSpeedModifier);
+                EquipmentItemEntity entity = new EquipmentItemEntity(id, itemId, (EquipmentSlot)slot, damageModifier, armorModifier, attackSpeedModifier, moveSpeedModifier);
 
                 myList.Add(entity);
             }

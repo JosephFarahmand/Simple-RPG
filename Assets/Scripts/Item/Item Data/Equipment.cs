@@ -43,17 +43,20 @@ public class Equipment : Item
         [Min(0), SerializeField] private int damage;
         [Min(0), SerializeField] private int armor;
         [Min(0), SerializeField] private int attackSpeed;
+        [Min(0), SerializeField] private int moveSpeed;
 
-        public ItemModifier(int damage, int armor, int attackSpeed)
+        public ItemModifier(int damage, int armor, int attackSpeed, int moveSpeed)
         {
             this.damage = damage;
             this.armor = armor;
             this.attackSpeed = attackSpeed;
+            this.moveSpeed = moveSpeed;
         }
 
         public int Damage => damage;
         public int Armor => armor;
         public int AttackSpeed => attackSpeed;
+        public int MoveSpeed => moveSpeed;
     }
 }
 

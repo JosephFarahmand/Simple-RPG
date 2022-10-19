@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class InteractableChest : Interactable
 {
-    [SerializeField, ReadOnly] private List<Item> rewards;
+    [SerializeField, ReadOnly] private List<Item> rewards = new List<Item>();
 
     public List<Item> GetItems()
     {
@@ -25,15 +25,15 @@ public class InteractableChest : Interactable
         rewards.Remove(item);
     }
 
-    private void OnEnable()
-    {
-        rewards = new List<Item>();
-        var count = Random.Range(3, 20);
-        for (int i = 0; i < count; i++)
-        {
-            rewards.Add(GameManager.GameData.GetEquipmentItems().RandomItem());
-        }
-    }
+    //private void OnEnable()
+    //{
+    //    rewards = new List<Item>();
+    //    var count = Random.Range(3, 20);
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        rewards.Add(GameManager.GameData.GetEquipmentItems().RandomItem());
+    //    }
+    //}
 
     public override void Interact()
     {

@@ -6,12 +6,32 @@ public static class ShopController
 {
     public static int Buying(Item item)
     {
-        var code = AccountController.BuyItem(item);
-        if (code == ErrorCodes.acceptBuying)
+        if (AccountController.Profile.Level < item.RequiredLevel) return ErrorCodes.notRequiredLevel;
+
+        switch (item.CurrencyType)
         {
-            PlayerManager.InventoryController.Add(item);
+            case CurrencyType.Gold:
+                if (AccountController.Profile.CoinAmount < item.Price)
+                {
+                    return ErrorCodes.notEnoughCoin;
+                }
+                AccountController.AddCoinValue(-item.Price);
+                break;
+            case CurrencyType.Gem:
+                if (AccountController.Profile.GemAmount < item.Price)
+                {
+                    return ErrorCodes.notEnoughGem;
+                }
+                AccountController.AddGemValue(-item.Price);
+                break;
+            case CurrencyType.Dollar:
+                return ErrorCodes.notDefine;
+            default:
+                return ErrorCodes.notDefine;
         }
-        return code;
+
+        PlayerManager.InventoryController.Add(item);
+        return ErrorCodes.acceptBuying;
     }
 
     public static int Selling(Item item)

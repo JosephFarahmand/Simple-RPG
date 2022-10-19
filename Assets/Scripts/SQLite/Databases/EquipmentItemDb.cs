@@ -14,6 +14,7 @@ namespace DataBank
         private const string KEY_mDAMAGE = "damageModifier";
         private const string KEY_mARMOR = "armorModifier";
         private const string KEY_mATTACK_SPEED = "attackSpeedModifier";
+        private const string KEY_mMOVE_SPEED = "moveSpeedModifier";
 
         public EquipmentItemDb() : base()
         {
@@ -24,7 +25,8 @@ namespace DataBank
                 KEY_SLOT + " INTEGER DEFAULT 0, " +
                 KEY_mDAMAGE + " INTEGER DEFAULT 0, " +
                 KEY_mARMOR + " INTEGER DEFAULT 0, " +
-                KEY_mATTACK_SPEED + " INTEGER DEFAULT 0 " +
+                KEY_mATTACK_SPEED + " INTEGER DEFAULT 0, " +
+                KEY_mMOVE_SPEED + " INTEGER DEFAULT 0 " +
                 " )";
             dbcmd.ExecuteNonQuery();
         }
@@ -39,7 +41,8 @@ namespace DataBank
                 + KEY_SLOT + ", "
                 + KEY_mDAMAGE + ", "
                 + KEY_mARMOR + ", "
-                + KEY_mATTACK_SPEED
+                + KEY_mATTACK_SPEED + ", "
+                + KEY_mMOVE_SPEED
                 + " ) "
 
                 + "VALUES ( '"
@@ -47,7 +50,8 @@ namespace DataBank
                 + (int)item.EquipSlot + "', '"
                 + item.DamageModifier + "', '"
                 + item.ArmorModifier + "', '"
-                + item.AttackSpeedModifier + "' "
+                + item.AttackSpeedModifier + "', '"
+                + item.MoveSpeedModifier + "' "
                 + " )";
             dbcmd.ExecuteNonQuery();
         }

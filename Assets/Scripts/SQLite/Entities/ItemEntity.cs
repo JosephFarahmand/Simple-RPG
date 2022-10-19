@@ -47,7 +47,7 @@
 
     public struct EquipmentItemEntity
     {
-        public EquipmentItemEntity(int itemId, EquipmentSlot equipSlot, int damageModifier, int armorModifier, int attackSpeedModifier)
+        public EquipmentItemEntity(int itemId, EquipmentSlot equipSlot, int damageModifier, int armorModifier, int attackSpeedModifier, int moveSpeedModifier)
         {
             Id = -1;
             ItemId = itemId;
@@ -55,9 +55,10 @@
             DamageModifier = damageModifier;
             ArmorModifier = armorModifier;
             AttackSpeedModifier = attackSpeedModifier;
+            MoveSpeedModifier = moveSpeedModifier;
         }
 
-        public EquipmentItemEntity(int id, int itemId, EquipmentSlot equipSlot, int damageModifier, int armorModifier, int attackSpeedModifier)
+        public EquipmentItemEntity(int id, int itemId, EquipmentSlot equipSlot, int damageModifier, int armorModifier, int attackSpeedModifier, int moveSpeedModifier)
         {
             Id = id;
             ItemId = itemId;
@@ -65,6 +66,7 @@
             DamageModifier = damageModifier;
             ArmorModifier = armorModifier;
             AttackSpeedModifier = attackSpeedModifier;
+            MoveSpeedModifier = moveSpeedModifier;
         }
 
         public int Id { get; private set; }
@@ -73,6 +75,7 @@
         public int DamageModifier { get; private set; }
         public int ArmorModifier { get; private set; }
         public int AttackSpeedModifier { get; private set; }
+        public int MoveSpeedModifier { get; private set; }
     }
 
     public struct ItemEntity

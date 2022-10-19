@@ -11,7 +11,7 @@ public class HomePage : PageBase
 
     public override void SetValues()
     {
-        GameManager.IsRun = false;
+        GameManager.SetStats(GameManager.Stats.InHome);
     }
 
     public override void SetValuesOnSceneLoad()
@@ -29,6 +29,6 @@ public class HomePage : PageBase
 
     private void PlayGame()
     {
-        GameManager.IsRun = true;
+        GameManager.SetStats(GameManager.Stats.PlayGame);
     }
 }

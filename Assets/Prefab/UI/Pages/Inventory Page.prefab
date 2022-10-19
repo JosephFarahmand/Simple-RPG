@@ -6416,6 +6416,7 @@ MonoBehaviour:
   onOpen:
     m_PersistentCalls:
       m_Calls: []
+  loadAtFirst: 0
   inventorySlotPrefab: {fileID: 8530282664829260172, guid: 473480333c8dff1458c04f033596b794, type: 3}
   itemsParent: {fileID: 1699513125592911949}
   itemsToggleGroup: {fileID: 422317047920637817}
@@ -6425,12 +6426,15 @@ MonoBehaviour:
   damage:
     currentValue: {fileID: 0}
     newValue: {fileID: 0}
+    defaultColor: {r: 0, g: 0, b: 0, a: 0}
   armor:
     currentValue: {fileID: 0}
     newValue: {fileID: 0}
+    defaultColor: {r: 0, g: 0, b: 0, a: 0}
   attackSpeed:
     currentValue: {fileID: 0}
     newValue: {fileID: 0}
+    defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1699513125384639350
 GameObject:
   m_ObjectHideFlags: 0

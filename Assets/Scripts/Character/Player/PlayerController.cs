@@ -11,17 +11,20 @@ public class PlayerController : MonoBehaviour
 
     Camera cam;             // Reference to our camera
     PlayerMotor motor;      // Reference to our motor
+    CharacterStats stats;   // Reference to our stats
 
     // Get references
     void Start()
     {
         cam = Camera.main;
         motor = GetComponent<PlayerMotor>();
+        stats = PlayerManager.Stats;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!stats.IsAlive) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
         // If we press left mouse

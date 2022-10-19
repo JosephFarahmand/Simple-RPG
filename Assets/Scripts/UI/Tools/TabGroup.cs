@@ -14,15 +14,6 @@ public class TabGroup : MonoBehaviour
 
     public void Subscribe(TabToggle tabToggle)
     {
-        //if (tabToggles == null)
-        //{
-        //    tabToggles = new List<TabToggle>();
-        //}
-
-        //tabToggles.Add(tabToggle);
-        //var index = tabToggles.IndexOf(tabToggle);
-        //tabToggle.Init((val) => onTabsAction?.Invoke(index), toggleGroup);
-
         for (int i = 0; i < tabToggles.Count; i++)
         {
             var toggle = tabToggles[i];
@@ -37,10 +28,11 @@ public class TabGroup : MonoBehaviour
 
     internal void Initialization(Queue<int> indexs)
     {
-        foreach (var tabToggle in tabToggles)
+        for (int i = 0; i < tabToggles.Count; i++)
         {
+            TabToggle tabToggle = tabToggles[i];
             var index = indexs.Dequeue();
-            tabToggle.Init((val) => onTabsAction?.Invoke(index), toggleGroup);
+            tabToggle.Init(toggleGroup, (val) => onTabsAction?.Invoke(index), i == 0);
         }
     }
 }

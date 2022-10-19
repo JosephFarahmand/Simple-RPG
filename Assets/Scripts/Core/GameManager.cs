@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameData gameData;
     [SerializeField] private SaveOrLoadManager saveOrLoad;
     [SerializeField] private ErrorController errorController;
+    [SerializeField] private InteractableManagement interactableManagement;
     [SerializeField] private PlayerManager player;
 
     public static EnemyManager Spawner => instance.spawner;
@@ -25,8 +26,9 @@ public class GameManager : MonoBehaviour
     public static SaveOrLoadManager SaveOrLoad => instance.saveOrLoad;
     public static ErrorController ErrorController => instance.errorController;
     public static PlayerManager Player => instance.player;
+    public static InteractableManagement InteractableManagement => instance.interactableManagement;
 
-    public static bool IsRun { get; set; } = false;
+    public static bool IsRun { get; private set; } = false;
 
     private void Awake()
     {
@@ -65,6 +67,11 @@ public class GameManager : MonoBehaviour
 
         LoadingController.AddAction(() =>
         {
+            interactableManagement.Initialization();
+        });
+
+        LoadingController.AddAction(() =>
+        {
             cameraController.Initialization();
         });
 
@@ -85,5 +92,51 @@ public class GameManager : MonoBehaviour
         {
             UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<LoadingPage>());
         }
+    }
+
+    private Stats currentStats = Stats.None;
+    private Stats lastStats = Stats.None;
+
+    private void Update()
+    {
+        HandleLastStats();
+    }
+
+    private void HandleLastStats()
+    {
+        if (currentStats != lastStats)
+        {
+            switch (currentStats)
+            {
+                case Stats.None:
+                    break;
+                case Stats.InHome:
+                    IsRun = false;
+                    break;
+                case Stats.PlayGame:
+                    IsRun = true;
+                    if (lastStats == Stats.InHome)
+                    {
+                        Spawner.ResetGame();
+                    }
+                    break;
+                case Stats.PauseGame:
+                    IsRun = false;
+                    break;
+            }
+
+            lastStats = currentStats;
+        }
+    }
+
+    //public static Stats GetCurrentStats() => instance.currentStats;
+    public static void SetStats(Stats newStats) => instance.currentStats = newStats;
+
+    public enum Stats
+    {
+        None,
+        InHome,
+        PlayGame,
+        PauseGame
     }
 }

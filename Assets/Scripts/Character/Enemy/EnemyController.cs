@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
 
     NavMeshAgent agent;
-    Transform target;
+    CharacterStats target;
     CharacterCombat combat;
 
     private void Awake()
@@ -20,13 +20,24 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        target = PlayerManager.GetPlayer().transform;
+        target = PlayerManager.Stats;
     }
 
     private void Update()
     {
+        if (GameManager.IsRun)
+        {
+            agent.isStopped = false;
+        }
+        else
+        {
+            agent.isStopped = true;
+            return;
+        }
+        if (!target.IsAlive) return;
+
         // Distance to the target
-        var distance = Vector3.Distance(transform.position, target.position);
+        var distance = Vector3.Distance(transform.position, target.transform.position);
 
         // If inside the look radius
         if (distance < lookRadius)
@@ -34,16 +45,15 @@ public class EnemyController : MonoBehaviour
             if (!combat.inCombat)
             {
                 // Move toward the target
-                agent.SetDestination(target.position);
+                agent.SetDestination(target.transform.position);
             }
 
             // If within attacking distance
             if (distance < agent.stoppingDistance)
             {
-                var stats = target.GetComponent<CharacterStats>();
-                if (stats != null)
+                if (target != null && target.IsAlive)
                 {
-                    combat.Attack(stats);
+                    combat.Attack(target);
                 }
 
                 FaceTarget(); // Mack sure to face toward the target
@@ -53,7 +63,7 @@ public class EnemyController : MonoBehaviour
 
     private void FaceTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }

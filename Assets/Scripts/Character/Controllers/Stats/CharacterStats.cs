@@ -10,14 +10,17 @@ public class CharacterStats : MonoBehaviour
     [SerializeField] protected StatsField damage;
     [SerializeField] protected StatsField armor;
     [SerializeField] protected StatsField attackSpeed;
+    [SerializeField] protected StatsField moveSpeed;
 
     /// <summary>
     /// Character's current health
     /// </summary>
     public float CurrentHealth { get; private set; }
+    public bool IsAlive { get; protected set; } = true;
     public StatsField Damage => damage;
     public StatsField Armor => armor;
     public StatsField AttackSpeed => attackSpeed;
+    public StatsField MoveSpeed => moveSpeed;
 
     /// <summary>
     /// (max health, current health)
@@ -25,6 +28,7 @@ public class CharacterStats : MonoBehaviour
     public event Action<float,float> OnChangeHealth;
 
     public event Action OnDie;
+
 
     public virtual void Initialization()
     {
@@ -52,5 +56,7 @@ public class CharacterStats : MonoBehaviour
         Debug.Log($"{transform.name} dead.");
 
         OnDie?.Invoke();
+
+        IsAlive = false;
     }
 }

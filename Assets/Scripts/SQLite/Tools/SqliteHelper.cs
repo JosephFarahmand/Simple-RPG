@@ -30,7 +30,8 @@ namespace DataBank
             db_connection.Close();
         }
 
-        // virtual functions
+        #region Virtual Functions
+
         public virtual IDataReader getDataById(int id)
         {
             Debug.Log(Tag + "This function is not implemnted");
@@ -73,7 +74,10 @@ namespace DataBank
             throw null;
         }
 
-        //helper functions
+        #endregion
+
+        #region Helper Functions
+
         public IDbCommand getDbCommand()
         {
             return db_connection.CreateCommand();
@@ -104,14 +108,11 @@ namespace DataBank
             return reader;
         }
 
-        public void open()
-        {
-            db_connection.Open();
-        }
-
         public void close()
         {
             db_connection.Close();
         }
+
+        #endregion
     }
 }

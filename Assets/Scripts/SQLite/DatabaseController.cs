@@ -197,7 +197,7 @@ public static class DatabaseController
             {
                 var equipmentEntity = equipmentItems.Find(x => x.ItemId == entity.Id);
                 var equipSlot = equipmentEntity.EquipSlot;
-                var modifier = new Equipment.ItemModifier(equipmentEntity.DamageModifier, equipmentEntity.ArmorModifier, equipmentEntity.AttackSpeedModifier);
+                var modifier = new Equipment.ItemModifier(equipmentEntity.DamageModifier, equipmentEntity.ArmorModifier, equipmentEntity.AttackSpeedModifier, equipmentEntity.MoveSpeedModifier);
 
                 Equipment equipment = new Equipment(id, name, rarity, icon, requiredLevel, price, currency, assetId, equipSlot, modifier);
 

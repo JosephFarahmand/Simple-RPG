@@ -26,6 +26,7 @@ public static class StaticData
         int damage = 0;
         int armor = 0;
         int attackSpeed = 0;
+        int moveSpeed = 0;
 
         switch (slot)
         {
@@ -50,15 +51,18 @@ public static class StaticData
             case EquipmentSlot.Chest:
                 attackSpeed += 2;
                 armor += 1;
+                moveSpeed -= 1;
                 break;
             case EquipmentSlot.Belt:
                 damage += 1;
                 break;
             case EquipmentSlot.Legs:
                 armor += 1;
+                moveSpeed += 3;
                 break;
             case EquipmentSlot.Feet:
                 armor += 1;
+                moveSpeed += 2;
                 break;
         }
 
@@ -68,29 +72,34 @@ public static class StaticData
                 damage *= 1;
                 armor *= 1;
                 attackSpeed *= 1;
+                moveSpeed *= 1;
                 break;
             case ItemRarity.Common:
                 damage *= 5;
                 armor *= 5;
                 attackSpeed *= 5;
+                moveSpeed *= 5;
                 break;
             case ItemRarity.Rare:
                 damage *= 10;
                 armor *= 10;
                 attackSpeed *= 10;
+                moveSpeed *= 10;
                 break;
             case ItemRarity.Epic:
                 damage *= 15;
                 armor *= 15;
                 attackSpeed *= 15;
+                moveSpeed *= 15;
                 break;
             case ItemRarity.Legendary:
                 damage *= 20;
                 armor *= 20;
                 attackSpeed *= 20;
+                moveSpeed *= 20;
                 break;
         }
 
-        return new Equipment.ItemModifier(damage, armor, attackSpeed / 50);
+        return new Equipment.ItemModifier(damage, armor, attackSpeed / 50, moveSpeed);
     }
 }

@@ -23,7 +23,7 @@ public class TabToggle : MonoBehaviour
         RemoveFocus();
     }
 
-    public void Init(UnityAction<bool> call, ToggleGroup group)
+    public void Init(ToggleGroup group, UnityAction<bool> call,bool setInitFocus)
     {
         myToggle = GetComponent<Toggle>();
         myToggle.onValueChanged.RemoveAllListeners();
@@ -41,6 +41,11 @@ public class TabToggle : MonoBehaviour
             }
         });
         myToggle.group = group;
+
+        if (setInitFocus)
+        {
+            OnFocus();
+        }
     }
 
     private void OnFocus()

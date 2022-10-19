@@ -64,4 +64,18 @@ public class EnemyManager : MonoBehaviour
     {
         spawnPoints.Add(point);
     }
+
+    public void ResetGame()
+    {
+        foreach(var enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+        enemies.Clear();
+
+        foreach(var point in spawnPoints)
+        {
+            point.ResetPoint();
+        }
+    }
 }

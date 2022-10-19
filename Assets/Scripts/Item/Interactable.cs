@@ -10,6 +10,11 @@ public class Interactable : MonoBehaviour
 
     protected bool hasInteractable = false;
 
+    private void OnEnable()
+    {
+        GameManager.InteractableManagement.AddInteractable(this);
+    }
+
     public virtual void Interact()
     {
         Debug.Log($"Interacting with {gameObject.name}", gameObject);

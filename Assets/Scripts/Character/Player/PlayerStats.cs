@@ -22,4 +22,11 @@
             attackSpeed.RemoveModifier(oldItem.Modifier.AttackSpeed);
         }
     }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        UI_Manager.instance.OpenPage(UI_Manager.instance.GetPageOfType<DeadPage>());
+    }
 }

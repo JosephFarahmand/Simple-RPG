@@ -26,4 +26,10 @@ public class SpawnPoint : MonoBehaviour
     {
         currentEnemyCount--;
     }
+
+    public void ResetPoint()
+    {
+        if (currentEnemyCount == 0) return;
+        currentEnemyCount = 0;
+    }
 }
